@@ -1,0 +1,14 @@
+fixtures:
+  repositories:
+    logrotate:
+      repo: "https://github.com/rodjek/puppet-logrotate.git"
+      ref: "1.1.1"
+    puppi:
+      repo: "https://github.com/example42/puppi.git"
+      ref: "v2.1.9"
+    stdlib:
+      repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+      ref: "4.1.0"
+  symlinks:
+    duplicity: "#{source_dir}"
+
