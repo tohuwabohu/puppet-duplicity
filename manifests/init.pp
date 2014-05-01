@@ -23,8 +23,8 @@ class duplicity (
   $package_name   = params_lookup('package_name')
 ) inherits duplicity::params {
 
-  if $package_ensure !~ /^[a-zA-Z0-9\._-]+$/ {
-    fail("Class[Duplicity]: package_ensure must be alphanumeric, got '${package_ensure}'")
+  if empty($package_ensure) {
+    fail("Class[Duplicity]: package_ensure must not be empty")
   }
 
   if $package_name !~ /^[a-zA-Z0-9\._-]+$/ {

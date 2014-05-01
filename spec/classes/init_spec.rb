@@ -19,6 +19,12 @@ describe 'duplicity' do
     it { should contain_package('duplicity').with_ensure('1.2.3') }
   end
 
+  describe 'with package_ensure => 0.6.18-3~bpo60+1' do
+    let(:params) { {:package_ensure => '0.6.18-3~bpo60+1'} }
+
+    it { should contain_package('duplicity').with_ensure('0.6.18-3~bpo60+1') }
+  end
+
   describe 'with empty package_ensure' do
     let(:params) { {:package_ensure => ''} }
 
