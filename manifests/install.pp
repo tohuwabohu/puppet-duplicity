@@ -11,7 +11,6 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class duplicity::install inherits duplicity {
-
   package { 'duplicity':
     ensure => $duplicity::duplicity_package_ensure,
     name   => $duplicity::duplicity_package_name,

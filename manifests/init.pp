@@ -54,7 +54,6 @@ class duplicity (
   $duply_archive_install_dir = params_lookup('duply_archive_install_dir'),
   $duply_executable          = params_lookup('duply_executable'),
 ) inherits duplicity::params {
-
   if empty($duplicity_package_ensure) {
     fail('Class[Duplicity]: duplicity_package_ensure must not be empty')
   }
