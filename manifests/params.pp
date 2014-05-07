@@ -22,10 +22,10 @@ class duplicity::params {
   $duply_archive_package_dir = $::operatingsystem ? {
     default => '/var/cache/puppet/archives',
   }
-  $duply_archive_install_dir = $::operatingsystem ? {
+  $duply_archive_install_dir = $::osfamily ? {
     default => '/opt',
   }
-  $duply_executable = $::operatingsystem ? {
+  $duply_executable = $::osfamily ? {
     default => '/usr/local/bin/duply'
   }
 }
