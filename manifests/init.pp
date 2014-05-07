@@ -47,14 +47,5 @@ class duplicity (
     fail("Class[Duplicity]: duply_package_name must be alphanumeric, got '${duply_package_name}'")
   }
 
-  package { 'duplicity':
-    ensure => $duplicity_package_ensure,
-    name   => $duplicity_package_name,
-  }
-
-  package { 'duply':
-    ensure  => $duply_package_ensure,
-    name    => $duply_package_name,
-    require => Package['duplicity'],
-  }
+  class { 'duplicity::install': }
 }
