@@ -11,6 +11,6 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class duplicity::params {
-  $package_ensure = installed
-  $package_name = 'duplicity'
+  $duplicity_package_ensure = installed
+  $duplicity_package_name = 'duplicity'
 }
