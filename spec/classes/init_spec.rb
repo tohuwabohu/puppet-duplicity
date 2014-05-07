@@ -7,15 +7,18 @@ describe 'duplicity' do
     let(:params) { {} }
 
     it { should contain_package('duplicity').with(
-        'ensure'   => 'installed',
-        'name'     => 'duplicity'
+        'ensure' => 'installed',
+        'name'   => 'duplicity'
       )
     }
-    it { should contain_package('duply').with(
-        'ensure'   => 'installed',
-        'name'     => 'duply'
+    it { should contain_archive('duply-1.7.3').with(
+        'ensure'     => 'present',
+        'root_dir'   => 'duply_1.7.3',
+        'target'     => '/opt',
+        'src_target' => '/var/cache/puppet/archives'
       )
     }
+    it { should contain_file('/usr/local/bin/duply') }
   end
 
   describe 'with duplicity_package_ensure => 1.2.3' do
@@ -53,15 +56,9 @@ describe 'duplicity' do
   end
 
   describe 'with duply_package_ensure => 1.2.3' do
-    let(:params) { {:duply_package_ensure => '1.2.3'} }
+    let(:params) { {:duply_package_ensure => '1.2.3', :duply_package_provider => ''} }
 
     it { should contain_package('duply').with_ensure('1.2.3') }
-  end
-
-  describe 'with duply_package_ensure => 0.6.18-3~bpo60+1' do
-    let(:params) { {:duply_package_ensure => '0.6.18-3~bpo60+1'} }
-
-    it { should contain_package('duply').with_ensure('0.6.18-3~bpo60+1') }
   end
 
   describe 'with empty duply_package_ensure' do
@@ -73,7 +70,7 @@ describe 'duplicity' do
   end
 
   describe 'with duply_package_name => foobar' do
-    let(:params) { {:duply_package_name => 'foobar'} }
+    let(:params) { {:duply_package_name => 'foobar', :duply_package_provider => ''} }
 
     it { should contain_package('duply').with_name('foobar') }
   end
@@ -84,6 +81,18 @@ describe 'duplicity' do
     it do
       expect { should contain_package('duply') }.to raise_error(Puppet::Error, /package_name/)
     end
+  end
+
+  describe 'with duply_package_provider => apt' do
+    let(:params) { {:duply_package_provider => 'apt'} }
+
+    it { should contain_package('duply').with_provider('apt') }
+  end
+
+  describe 'with empty duply_package_provider' do
+    let(:params) { {:duply_package_provider => ''} }
+
+    it { should contain_package('duply').with_provider('') }
   end
 end
 
