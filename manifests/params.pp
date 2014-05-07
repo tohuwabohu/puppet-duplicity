@@ -13,4 +13,7 @@
 class duplicity::params {
   $duplicity_package_ensure = installed
   $duplicity_package_name = 'duplicity'
+
+  $duply_package_ensure = installed
+  $duply_package_name = 'duply'
 }
