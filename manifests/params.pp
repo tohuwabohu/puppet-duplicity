@@ -28,4 +28,7 @@ class duplicity::params {
   $duply_executable = $::osfamily ? {
     default => '/usr/local/bin/duply'
   }
+  $duply_config_dir = $::osfamily ? {
+    default => '/etc/duply'
+  }
 }

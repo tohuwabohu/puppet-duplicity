@@ -74,5 +74,6 @@ class duplicity (
   validate_absolute_path($duply_archive_install_dir)
   validate_absolute_path($duply_executable)
 
-  class { 'duplicity::install': }
+  class { 'duplicity::install': } ->
+  class { 'duplicity::setup': }
 }
