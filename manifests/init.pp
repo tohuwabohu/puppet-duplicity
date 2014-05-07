@@ -56,7 +56,7 @@ class duplicity (
 ) inherits duplicity::params {
 
   if empty($duplicity_package_ensure) {
-    fail("Class[Duplicity]: duplicity_package_ensure must not be empty")
+    fail('Class[Duplicity]: duplicity_package_ensure must not be empty')
   }
 
   if $duplicity_package_name !~ /^[a-zA-Z0-9\._-]+$/ {
@@ -64,7 +64,7 @@ class duplicity (
   }
 
   if empty($duply_package_ensure) {
-    fail("Class[Duplicity]: duply_package_ensure must not be empty")
+    fail('Class[Duplicity]: duply_package_ensure must not be empty')
   }
 
   if $duply_package_name !~ /^[a-zA-Z0-9\._-]+$/ {
