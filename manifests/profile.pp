@@ -16,6 +16,9 @@
 # [*gpg_password*]
 #   Set the password needed for signing, decryption and symmetric encryption.
 #
+# [*gpg_options*]
+#   List of options passed from duplicity to the gpg process.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -29,6 +32,7 @@ define duplicity::profile(
   $gpg_encryption_keys = [],
   $gpg_signing_key     = '',
   $gpg_password        = '',
+  $gpg_options         = [],
 ) {
   require duplicity::params
 

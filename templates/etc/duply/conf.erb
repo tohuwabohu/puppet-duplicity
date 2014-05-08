@@ -32,7 +32,7 @@ GPG_KEY_SIGN='<%= (@gpg_signing_key and !@gpg_signing_key.empty?) ? @gpg_signing
 #   or "--compress-algo=bzip2 --bzip2-compress-level=9"
 #   or "--personal-cipher-preferences AES256,AES192,AES..."
 #   or "--homedir ~/.duply" - keep keyring and gpg settings duply specific
-#GPG_OPTS=''
+GPG_OPTS='<%= @gpg_options.join(' ') %>'
 
 # disable preliminary tests with the following setting
 #GPG_TEST='disabled'

@@ -85,4 +85,22 @@ describe 'duplicity::profile' do
 
     it { should contain_file(default_config_file).with_content(/^GPG_PW='secret'$/) }
   end
+
+  describe 'with empty gpg_options' do
+    let(:params) { {:gpg_options => []} }
+
+    it { should contain_file(default_config_file).with_content(/^GPG_OPTS=''$/) }
+  end
+
+  describe 'with gpg_options => [--switch]' do
+    let(:params) { {:gpg_options => ['--switch']} }
+
+    it { should contain_file(default_config_file).with_content(/^GPG_OPTS='--switch'$/) }
+  end
+
+  describe 'with gpg_options => [--switch, --key=value]' do
+    let(:params) { {:gpg_options => ['--switch', '--key=value']} }
+
+    it { should contain_file(default_config_file).with_content(/^GPG_OPTS='--switch --key=value'$/) }
+  end
 end
