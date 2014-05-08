@@ -13,6 +13,9 @@
 # [*signing_key*]
 #   Set the keyid of the key used to sign the backup.
 #
+# [*password*]
+#   Set the password needed for signing, decryption and symmetric encryption.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -24,7 +27,8 @@
 define duplicity::profile(
   $ensure          = present,
   $encryption_keys = [],
-  $signing_key     = undef,
+  $signing_key     = '',
+  $password        = '',
 ) {
   require duplicity::params
 
