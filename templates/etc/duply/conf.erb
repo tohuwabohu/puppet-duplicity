@@ -21,7 +21,7 @@ GPG_PW='_GPG_PASSWORD_'
 #  decryption happens on restore and incrementals (compare archdir contents).
 #  for security reasons it makes sense to separate the signing key from the
 #  encryption keys. https://answers.launchpad.net/duplicity/+question/107216
-#GPG_KEYS_ENC='<pubkey1>,<pubkey2>,...'
+GPG_KEYS_ENC='<%= @encryption_keys.join(',') %>'
 #GPG_KEY_SIGN='<prvkey>'
 # set if signing key passphrase differs from encryption (key) passphrase
 # NOTE: available since duplicity 0.6.14, translates to SIGN_PASSPHRASE

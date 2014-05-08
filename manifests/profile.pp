@@ -2,6 +2,14 @@
 #
 # Configure a backup profile.
 #
+# === Parameters
+#
+# [*ensure*]
+#   Set state the profile should be in. Either present or absent.
+#
+# [*encryption_keys*]
+#   List of public keys used to encrypt the backup.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -10,8 +18,19 @@
 #
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
-define duplicity::profile($ensure = present) {
+define duplicity::profile(
+  $ensure          = present,
+  $encryption_keys = []
+) {
   require duplicity::params
+
+  if $ensure !~ /^present|absent$/ {
+    fail("Duplicity::Profile[${title}]: ensure must be either present or absent, got '${ensure}'")
+  }
+
+  if !is_array($encryption_keys) {
+    fail("Duplicity::Profile[${title}]: encryption_keys must be an array, got '${encryption_keys}'")
+  }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${name}"
   $profile_config_dir_ensure = $ensure ? {
