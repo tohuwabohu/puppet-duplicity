@@ -53,4 +53,24 @@ describe 'duplicity::profile' do
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC='key1,key2'$/) }
   end
+
+  describe 'with invalid signing_key' do
+    let(:params) { {:signing_key => 'invalid-key-id'} }
+
+    it do
+      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /signing_key/)
+    end
+  end
+
+  describe 'with empty signing_key' do
+    let(:params) { {:signing_key => ''} }
+
+    it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='disabled'$/) }
+  end
+
+  describe 'with signing_key => key1' do
+    let(:params) { {:signing_key => 'key1'} }
+
+    it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='key1'$/) }
+  end
 end

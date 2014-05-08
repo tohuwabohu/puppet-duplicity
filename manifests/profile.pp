@@ -8,7 +8,10 @@
 #   Set state the profile should be in. Either present or absent.
 #
 # [*encryption_keys*]
-#   List of public keys used to encrypt the backup.
+#   List of public keyids used to encrypt the backup.
+#
+# [*signing_key*]
+#   Set the keyid of the key used to sign the backup.
 #
 # === Authors
 #
@@ -20,7 +23,8 @@
 #
 define duplicity::profile(
   $ensure          = present,
-  $encryption_keys = []
+  $encryption_keys = [],
+  $signing_key     = undef,
 ) {
   require duplicity::params
 
@@ -30,6 +34,10 @@ define duplicity::profile(
 
   if !is_array($encryption_keys) {
     fail("Duplicity::Profile[${title}]: encryption_keys must be an array, got '${encryption_keys}'")
+  }
+
+  if !empty($signing_key) and $signing_key !~ /^[a-zA-Z0-9]+$/ {
+    fail("Duplicity::Profile[${title}]: signing_key must be alphanumeric, got '${signing_key}'")
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${name}"
