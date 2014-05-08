@@ -19,6 +19,9 @@
 # [*gpg_options*]
 #   List of options passed from duplicity to the gpg process.
 #
+# [*source*]
+#   Set the base directory to backup.
+#
 # [*target*]
 #   Set the target where to store / find the backups. Expected to be an url like scheme://host[:port]/[/]path.
 #
@@ -42,6 +45,7 @@ define duplicity::profile(
   $gpg_signing_key     = '',
   $gpg_password        = '',
   $gpg_options         = [],
+  $source              = '',
   $target              = '',
   $target_username     = '',
   $target_password     = '',
@@ -58,6 +62,10 @@ define duplicity::profile(
 
   if !empty($gpg_signing_key) and $gpg_signing_key !~ /^[a-zA-Z0-9]+$/ {
     fail("Duplicity::Profile[${title}]: signing_key must be alphanumeric, got '${gpg_signing_key}'")
+  }
+
+  if $ensure =~ /^present$/ and empty($source) {
+    fail("Duplicity::Profile[${title}]: source must not be empty")
   }
 
   if $ensure =~ /^present$/ and empty($target) {
