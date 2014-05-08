@@ -7,13 +7,13 @@
 # [*ensure*]
 #   Set state the profile should be in. Either present or absent.
 #
-# [*encryption_keys*]
+# [*gpg_encryption_keys*]
 #   List of public keyids used to encrypt the backup.
 #
-# [*signing_key*]
+# [*gpg_signing_key*]
 #   Set the keyid of the key used to sign the backup.
 #
-# [*password*]
+# [*gpg_password*]
 #   Set the password needed for signing, decryption and symmetric encryption.
 #
 # === Authors
@@ -25,10 +25,10 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::profile(
-  $ensure          = present,
-  $encryption_keys = [],
-  $signing_key     = '',
-  $password        = '',
+  $ensure              = present,
+  $gpg_encryption_keys = [],
+  $gpg_signing_key     = '',
+  $gpg_password        = '',
 ) {
   require duplicity::params
 
@@ -36,12 +36,12 @@ define duplicity::profile(
     fail("Duplicity::Profile[${title}]: ensure must be either present or absent, got '${ensure}'")
   }
 
-  if !is_array($encryption_keys) {
-    fail("Duplicity::Profile[${title}]: encryption_keys must be an array, got '${encryption_keys}'")
+  if !is_array($gpg_encryption_keys) {
+    fail("Duplicity::Profile[${title}]: gpg_encryption_keys must be an array, got '${gpg_encryption_keys}'")
   }
 
-  if !empty($signing_key) and $signing_key !~ /^[a-zA-Z0-9]+$/ {
-    fail("Duplicity::Profile[${title}]: signing_key must be alphanumeric, got '${signing_key}'")
+  if !empty($gpg_signing_key) and $gpg_signing_key !~ /^[a-zA-Z0-9]+$/ {
+    fail("Duplicity::Profile[${title}]: signing_key must be alphanumeric, got '${gpg_signing_key}'")
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${name}"

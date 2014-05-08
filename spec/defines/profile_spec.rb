@@ -28,60 +28,60 @@ describe 'duplicity::profile' do
     end
   end
 
-  describe 'with invalid encryption_keys' do
-    let(:params) { {:encryption_keys => 'foobar'} }
+  describe 'with invalid gpg_encryption_keys' do
+    let(:params) { {:gpg_encryption_keys => 'foobar'} }
 
     it do
-      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /encryption_keys/)
+      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /gpg_encryption_keys/)
     end
   end
 
-  describe 'with empty encryption_keys' do
-    let(:params) { {:encryption_keys => []} }
+  describe 'with empty gpg_encryption_keys' do
+    let(:params) { {:gpg_encryption_keys => []} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC=''$/) }
   end
 
-  describe 'with encryption_keys => [key1]' do
-    let(:params) { {:encryption_keys => ['key1']} }
+  describe 'with gpg_encryption_keys => [key1]' do
+    let(:params) { {:gpg_encryption_keys => ['key1']} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC='key1'$/) }
   end
 
-  describe 'with encryption_keys => [key1,key2]' do
-    let(:params) { {:encryption_keys => ['key1', 'key2']} }
+  describe 'with gpg_encryption_keys => [key1,key2]' do
+    let(:params) { {:gpg_encryption_keys => ['key1', 'key2']} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC='key1,key2'$/) }
   end
 
-  describe 'with invalid signing_key' do
-    let(:params) { {:signing_key => 'invalid-key-id'} }
+  describe 'with invalid gpg_signing_key' do
+    let(:params) { {:gpg_signing_key => 'invalid-key-id'} }
 
     it do
       expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /signing_key/)
     end
   end
 
-  describe 'with empty signing_key' do
-    let(:params) { {:signing_key => ''} }
+  describe 'with empty gpg_signing_key' do
+    let(:params) { {:gpg_signing_key => ''} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='disabled'$/) }
   end
 
-  describe 'with signing_key => key1' do
-    let(:params) { {:signing_key => 'key1'} }
+  describe 'with gpg_signing_key => key1' do
+    let(:params) { {:gpg_signing_key => 'key1'} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='key1'$/) }
   end
 
-  describe 'with empty password' do
-    let(:params) { {:password => ''} }
+  describe 'with empty gpg_password' do
+    let(:params) { {:gpg_password => ''} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_PW=''$/) }
   end
 
-  describe 'with password => secret' do
-    let(:params) { {:password => 'secret'} }
+  describe 'with gpg_password => secret' do
+    let(:params) { {:gpg_password => 'secret'} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_PW='secret'$/) }
   end
