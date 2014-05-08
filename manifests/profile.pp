@@ -27,7 +27,7 @@
 #
 # [*target_password*]
 #   Set the password to authenticate the username at the target
-
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
