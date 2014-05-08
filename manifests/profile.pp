@@ -19,6 +19,15 @@
 # [*gpg_options*]
 #   List of options passed from duplicity to the gpg process.
 #
+# [*target*]
+#   Set the target where to store / find the backups. Expected to be an url like scheme://host[:port]/[/]path.
+#
+# [*target_username*]
+#   Set the username used to authenticate with the target
+#
+# [*target_password*]
+#   Set the password to authenticate the username at the target
+
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -33,6 +42,9 @@ define duplicity::profile(
   $gpg_signing_key     = '',
   $gpg_password        = '',
   $gpg_options         = [],
+  $target              = '',
+  $target_username     = '',
+  $target_password     = '',
 ) {
   require duplicity::params
 
@@ -46,6 +58,10 @@ define duplicity::profile(
 
   if !empty($gpg_signing_key) and $gpg_signing_key !~ /^[a-zA-Z0-9]+$/ {
     fail("Duplicity::Profile[${title}]: signing_key must be alphanumeric, got '${gpg_signing_key}'")
+  }
+
+  if $ensure =~ /^present$/ and empty($target) {
+    fail("Duplicity::Profile[${title}]: target must not be empty")
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${name}"

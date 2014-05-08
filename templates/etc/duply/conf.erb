@@ -77,11 +77,11 @@ GPG_OPTS='<%= @gpg_options.join(' ') %>'
 #            http://en.wikipedia.org/wiki/Url_encoding 
 #            if you define the credentials as TARGET_USER, TARGET_PASS below 
 #            duply will try to url_encode them for you if the need arises
-TARGET='scheme://user[:password]@host[:port]/[/]path'
+TARGET='<%= @target %>'
 # optionally the username/password can be defined as extra variables
 # setting them here _and_ in TARGET results in an error
-#TARGET_USER='_backend_username_'
-#TARGET_PASS='_backend_password_'
+TARGET_USER='<%= @target_username %>'
+TARGET_PASS='<%= @target_password %>'
 
 # base directory to backup
 SOURCE='/path/of/source'
