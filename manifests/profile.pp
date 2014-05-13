@@ -31,6 +31,12 @@
 # [*target_password*]
 #   Set the password to authenticate the username at the target
 #
+# [*full_if_older_than*]
+#   Forces a full backup if last full backup reaches a specified age
+#
+# [*volsize*]
+#   Set the size of backup chunks in MBs
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -49,6 +55,8 @@ define duplicity::profile(
   $target              = '',
   $target_username     = '',
   $target_password     = '',
+  $full_if_older_than  = '',
+  $volsize             = 50,
 ) {
   require duplicity::params
 

@@ -18,6 +18,8 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^GPG_OPTS=''$/) }
     it { should contain_file(default_config_file).with_content(/^TARGET_USER=''$/) }
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
+    it { should contain_file(default_config_file).with_content(/^#MAX_FULLBKP_AGE=.*$/) }
+    it { should contain_file(default_config_file).with_content(/^#VOLSIZE=.*$/) }
   end
 
   describe 'with ensure absent' do
@@ -126,5 +128,19 @@ describe 'duplicity::profile' do
     let(:params) { {:target_password => 'secret', :source => a_source, :target => a_target} }
 
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS='secret'$/) }
+  end
+
+  describe 'with full_if_older_than => 1M' do
+    let(:params) { {:full_if_older_than => '1M', :source => a_source, :target => a_target} }
+
+    it { should contain_file(default_config_file).with_content(/^MAX_FULLBKP_AGE=1M$/) }
+    it { should contain_file(default_config_file).with_content(/^DUPL_PARAMS="\$DUPL_PARAMS --full-if-older-than \$MAX_FULLBKP_AGE "$/) }
+  end
+
+  describe 'with volsize => 25' do
+    let(:params) { {:volsize => 25, :source => a_source, :target => a_target} }
+
+    it { should contain_file(default_config_file).with_content(/^VOLSIZE=25$/) }
+    it { should contain_file(default_config_file).with_content(/^DUPL_PARAMS="\$DUPL_PARAMS --volsize \$VOLSIZE "$/) }
   end
 end

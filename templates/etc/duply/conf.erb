@@ -115,6 +115,10 @@ SOURCE='<%= @source %>'
 # Uncomment the following two lines to enable this setting.
 #MAX_FULLBKP_AGE=1M
 #DUPL_PARAMS="$DUPL_PARAMS --full-if-older-than $MAX_FULLBKP_AGE " 
+<% if @full_if_older_than -%>
+MAX_FULLBKP_AGE=<%= @full_if_older_than %>
+DUPL_PARAMS="$DUPL_PARAMS --full-if-older-than $MAX_FULLBKP_AGE "
+<% end -%>
 
 # sets duplicity --volsize option (available since v0.4.3.RC7)
 # set the size of backup chunks to VOLSIZE MB instead of the default 25MB.
@@ -122,6 +126,10 @@ SOURCE='<%= @source %>'
 # Uncomment the following two lines to enable this setting. 
 #VOLSIZE=50
 #DUPL_PARAMS="$DUPL_PARAMS --volsize $VOLSIZE "
+<% if @volsize -%>
+VOLSIZE=<%= @volsize %>
+DUPL_PARAMS="$DUPL_PARAMS --volsize $VOLSIZE "
+<% end -%>
 
 # verbosity of output (error 0, warning 1-2, notice 3-4, info 5-8, debug 9)
 # default is 4, if not set
