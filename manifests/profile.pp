@@ -57,6 +57,8 @@ define duplicity::profile(
   $target_password     = '',
   $full_if_older_than  = '',
   $volsize             = 50,
+  $include_filelist    = [],
+  $exclude_filelist    = [],
 ) {
   require duplicity::params
 
@@ -78,6 +80,14 @@ define duplicity::profile(
 
   if $ensure =~ /^present$/ and empty($target) {
     fail("Duplicity::Profile[${title}]: target must not be empty")
+  }
+
+  if !is_array($include_filelist) {
+    fail("Duplicity::Profile[${title}]: include_filelist must be an array")
+  }
+
+  if !is_array($exclude_filelist) {
+    fail("Duplicity::Profile[${title}]: exclude_filelist must be an array")
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${name}"

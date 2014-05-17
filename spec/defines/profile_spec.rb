@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'duplicity::profile' do
   let(:title) { 'default' }
   let(:default_config_file) { '/etc/duply/default/conf' }
+  let(:default_filelist) { '/etc/duply/default/exclude' }
   let(:a_source) { '/path/of/source' }
   let(:a_target) { 'http://example.com' }
 
@@ -142,5 +143,33 @@ describe 'duplicity::profile' do
 
     it { should contain_file(default_config_file).with_content(/^VOLSIZE=25$/) }
     it { should contain_file(default_config_file).with_content(/^DUPL_PARAMS="\$DUPL_PARAMS --volsize \$VOLSIZE "$/) }
+  end
+
+  describe 'with include_files => "/a/b"' do
+    let(:params) { {:include_filelist => ['/a/b'], :source => a_source, :target => a_target} }
+
+    it { should contain_file(default_filelist).with_content(/^\+ a\/b$/) }
+  end
+
+  describe 'with invalid include_filelist' do
+    let(:params) { {:include_filelist => 'invalid', :source => a_source, :target => a_target} }
+
+    specify {
+      expect { should contain_file(default_filelist) }.to raise_error(Puppet::Error, /include_filelist/)
+    }
+  end
+
+  describe 'with exclude_files => "/a/b"' do
+    let(:params) { {:exclude_filelist => ['/a/b'], :source => a_source, :target => a_target} }
+
+    it { should contain_file(default_filelist).with_content(/^\- a\/b$/) }
+  end
+
+  describe 'with invalid exclude_filelist' do
+    let(:params) { {:exclude_filelist => 'invalid', :source => a_source, :target => a_target} }
+
+    specify {
+      expect { should contain_file(default_filelist) }.to raise_error(Puppet::Error, /exclude_filelist/)
+    }
   end
 end
