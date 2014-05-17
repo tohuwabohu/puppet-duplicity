@@ -20,6 +20,7 @@ describe 'duplicity' do
     }
     it { should contain_file('/usr/local/bin/duply') }
     it { should contain_file('/etc/duply') }
+    it { should contain_logrotate__rule('duplicity') }
   end
 
   describe 'with duplicity_package_ensure => 1.2.3' do

@@ -13,6 +13,9 @@
 class duplicity::params {
   $duplicity_package_ensure = installed
   $duplicity_package_name = 'duplicity'
+  $duplicity_log_file = $::osfamily ? {
+    default => '/var/log/duplicity.log'
+  }
 
   $duply_package_ensure = '1.7.3'
   $duply_package_name = 'duply-1.7.3'

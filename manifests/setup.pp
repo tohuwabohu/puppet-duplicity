@@ -23,4 +23,17 @@ class duplicity::setup inherits duplicity {
     force   => true,
     recurse => true,
   }
+
+  logrotate::rule { 'duplicity':
+    ensure       => present,
+    path         => $duplicity::duplicity_log_file,
+    rotate       => 5,
+    size         => '100k',
+    compress     => true,
+    missingok    => true,
+    create       => true,
+    create_owner => 'root',
+    create_group => 'adm',
+    create_mode  => '0640',
+  }
 }
