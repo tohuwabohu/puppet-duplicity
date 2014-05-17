@@ -40,7 +40,7 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^GPG_OPTS=''$/) }
     it { should contain_file(default_config_file).with_content(/^TARGET_USER=''$/) }
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
-    it { should contain_file(default_config_file).with_content(/^#MAX_FULLBKP_AGE=.*$/) }
+    it { should contain_file(default_config_file).without_content(/^MAX_FULLBKP_AGE=.*$/) }
     it { should contain_file(default_config_file).with_content(/^VOLSIZE=50$/) }
     it { should contain_file(default_filelist).with_content(/^\- \*\*$/) }
   end

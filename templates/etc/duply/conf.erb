@@ -115,7 +115,7 @@ SOURCE='<%= @source %>'
 # Uncomment the following two lines to enable this setting.
 #MAX_FULLBKP_AGE=1M
 #DUPL_PARAMS="$DUPL_PARAMS --full-if-older-than $MAX_FULLBKP_AGE " 
-<% if @full_if_older_than -%>
+<% if @full_if_older_than and !@full_if_older_than.empty? -%>
 MAX_FULLBKP_AGE=<%= @full_if_older_than %>
 DUPL_PARAMS="$DUPL_PARAMS --full-if-older-than $MAX_FULLBKP_AGE "
 <% end -%>
