@@ -75,6 +75,10 @@ define duplicity::profile(
     fail("Duplicity::Profile[${title}]: signing_key must be alphanumeric, got '${gpg_signing_key}'")
   }
 
+  if !is_array($gpg_options) {
+    fail("Duplicity::Profile[${title}]: gpg_options must be an array")
+  }
+
   if $ensure =~ /^present$/ and empty($source) {
     fail("Duplicity::Profile[${title}]: source must not be empty")
   }

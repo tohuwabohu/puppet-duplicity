@@ -101,6 +101,14 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^GPG_PW='secret'$/) }
   end
 
+  describe 'with invalid gpg_options' do
+    let(:params) { {:gpg_options => '--switch', :source => a_source, :target => a_target} }
+
+    specify {
+      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /gpg_options/)
+    }
+  end
+
   describe 'with gpg_options => [--switch]' do
     let(:params) { {:gpg_options => ['--switch'], :source => a_source, :target => a_target} }
 
