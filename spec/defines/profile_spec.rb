@@ -21,6 +21,7 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
     it { should contain_file(default_config_file).with_content(/^#MAX_FULLBKP_AGE=.*$/) }
     it { should contain_file(default_config_file).with_content(/^#VOLSIZE=.*$/) }
+    it { should contain_file(default_filelist).with_content(/^\- \*\*$/) }
   end
 
   describe 'with ensure absent' do
@@ -171,5 +172,11 @@ describe 'duplicity::profile' do
     specify {
       expect { should contain_file(default_filelist) }.to raise_error(Puppet::Error, /exclude_filelist/)
     }
+  end
+
+  describe 'with exclude_by_default => false' do
+    let(:params) { {:exclude_by_default => false, :source => a_source, :target => a_target} }
+
+    it { should contain_file(default_filelist).without_content(/^\- \*\*$/) }
   end
 end

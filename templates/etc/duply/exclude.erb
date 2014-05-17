@@ -14,3 +14,4 @@
 <% @exclude_filelist.each { |file| -%>
 - <%= file.sub(/\/(.+)/, '\1') %>
 <% } -%>
+<%= '- **' if @exclude_by_default %>

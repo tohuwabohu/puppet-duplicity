@@ -59,6 +59,7 @@ define duplicity::profile(
   $volsize             = 50,
   $include_filelist    = [],
   $exclude_filelist    = [],
+  $exclude_by_default  = true,
 ) {
   require duplicity::params
 
