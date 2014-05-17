@@ -13,8 +13,8 @@
 # [*gpg_signing_key*]
 #   Set the keyid of the key used to sign the backup.
 #
-# [*gpg_password*]
-#   Set the password needed for signing, decryption and symmetric encryption.
+# [*gpg_passphrase*]
+#   Set the passphrase needed for signing, decryption and symmetric encryption.
 #
 # [*gpg_options*]
 #   List of options passed from duplicity to the gpg process.
@@ -49,7 +49,7 @@ define duplicity::profile(
   $ensure              = present,
   $gpg_encryption_keys = [],
   $gpg_signing_key     = '',
-  $gpg_password        = '',
+  $gpg_passphrase      = '',
   $gpg_options         = [],
   $source              = '',
   $target              = '',

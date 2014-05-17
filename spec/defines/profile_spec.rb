@@ -72,8 +72,8 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='key1'$/) }
   end
 
-  describe 'with gpg_password => secret' do
-    let(:params) { {:gpg_password => 'secret', :source => a_source, :target => a_target} }
+  describe 'with gpg_passphrase => secret' do
+    let(:params) { {:gpg_passphrase => 'secret', :source => a_source, :target => a_target} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_PW='secret'$/) }
   end
