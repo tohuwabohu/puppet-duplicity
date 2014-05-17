@@ -186,7 +186,7 @@ describe 'duplicity::profile' do
   describe 'with include_files => "/a/b"' do
     let(:params) { {:include_filelist => ['/a/b'], :source => a_source, :target => a_target} }
 
-    it { should contain_file(default_filelist).with_content(/^\+ a\/b$/) }
+    it { should contain_file(default_filelist).with_content(/^\+ \/a\/b$/) }
   end
 
   describe 'with invalid include_filelist' do
@@ -200,7 +200,7 @@ describe 'duplicity::profile' do
   describe 'with exclude_files => "/a/b"' do
     let(:params) { {:exclude_filelist => ['/a/b'], :source => a_source, :target => a_target} }
 
-    it { should contain_file(default_filelist).with_content(/^\- a\/b$/) }
+    it { should contain_file(default_filelist).with_content(/^\- \/a\/b$/) }
   end
 
   describe 'with invalid exclude_filelist' do
