@@ -111,7 +111,7 @@ define duplicity::profile(
     ensure => $profile_config_dir_ensure,
     owner  => 'root',
     group  => 'root',
-    mode   => '0444',
+    mode   => '0700',
   }
 
   file { $profile_config_file:
@@ -119,7 +119,7 @@ define duplicity::profile(
     content => template('duplicity/etc/duply/conf.erb'),
     owner   => 'root',
     group   => 'root',
-    mode    => '0440',
+    mode    => '0400',
   }
 
   file { $profile_file_list_file:
@@ -127,6 +127,6 @@ define duplicity::profile(
     content => template('duplicity/etc/duply/exclude.erb'),
     owner   => 'root',
     group   => 'root',
-    mode    => '0444',
+    mode    => '0400',
   }
 }

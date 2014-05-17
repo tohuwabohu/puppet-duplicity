@@ -10,9 +10,30 @@ describe 'duplicity::profile' do
   describe 'by default' do
     let(:params) { {:source => a_source, :target => a_target} }
 
-    it { should contain_file('/etc/duply/default').with_ensure('directory') }
-    it { should contain_file('/etc/duply/default/conf').with_ensure('file') }
-    it { should contain_file('/etc/duply/default/exclude').with_ensure('file') }
+    it {
+      should contain_file('/etc/duply/default').with(
+        'ensure' => 'directory',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0700',
+      )
+    }
+    it {
+      should contain_file('/etc/duply/default/conf').with(
+        'ensure' => 'file',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0400',
+      )
+    }
+    it {
+      should contain_file('/etc/duply/default/exclude').with(
+        'ensure' => 'file',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0400',
+      )
+    }
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC=''$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='disabled'$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_PW=''$/) }

@@ -19,7 +19,14 @@ describe 'duplicity' do
       )
     }
     it { should contain_file('/usr/local/bin/duply') }
-    it { should contain_file('/etc/duply') }
+    it {
+      should contain_file('/etc/duply').with(
+        'ensure' => 'directory',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0644',
+      )
+    }
     it { should contain_logrotate__rule('duplicity') }
   end
 
