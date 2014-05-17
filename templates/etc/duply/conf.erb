@@ -6,7 +6,7 @@
 #    with key1 if secret key available and use GPG_PW for sign & decrypt
 #  GPG_PW='passphrase' - symmetric encryption using passphrase only
 GPG_KEY='_KEY_ID_'
-GPG_PW='<%= @gpg_passphrase %>'
+GPG_PW='<%= @gpg_passphrase.gsub("'", %q('\\\'')) %>'
 # gpg encryption settings in detail (extended settings)
 #  the above settings translate to the following more specific settings
 #  GPG_KEYS_ENC='<keyid1>,[<keyid2>,...]' - list of pubkeys to encrypt to
