@@ -41,7 +41,7 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^TARGET_USER=''$/) }
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
     it { should contain_file(default_config_file).with_content(/^#MAX_FULLBKP_AGE=.*$/) }
-    it { should contain_file(default_config_file).with_content(/^#VOLSIZE=.*$/) }
+    it { should contain_file(default_config_file).with_content(/^VOLSIZE=50$/) }
     it { should contain_file(default_filelist).with_content(/^\- \*\*$/) }
   end
 
@@ -166,6 +166,14 @@ describe 'duplicity::profile' do
 
     it { should contain_file(default_config_file).with_content(/^MAX_FULLBKP_AGE=1M$/) }
     it { should contain_file(default_config_file).with_content(/^DUPL_PARAMS="\$DUPL_PARAMS --full-if-older-than \$MAX_FULLBKP_AGE "$/) }
+  end
+
+  describe 'with invalid volsize' do
+    let(:params) { {:volsize => 'invalid', :source => a_source, :target => a_target} }
+
+    specify {
+      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /volsize/)
+    }
   end
 
   describe 'with volsize => 25' do

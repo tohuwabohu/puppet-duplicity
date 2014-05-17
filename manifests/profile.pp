@@ -87,6 +87,10 @@ define duplicity::profile(
     fail("Duplicity::Profile[${title}]: target must not be empty")
   }
 
+  if !is_integer($volsize) {
+    fail("Duplicity::Profile[${title}]: volsize must be an integer, got '${volsize}'")
+  }
+
   if !is_array($include_filelist) {
     fail("Duplicity::Profile[${title}]: include_filelist must be an array")
   }
