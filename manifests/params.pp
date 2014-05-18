@@ -34,4 +34,9 @@ class duplicity::params {
   $duply_config_dir = $::osfamily ? {
     default => '/etc/duply'
   }
+  $duply_key_dir = $::osfamily ? {
+    default => '/etc/duply-keys'
+  }
+  $duply_public_key_dir = "${duply_key_dir}/public"
+  $duply_private_key_dir = "${duply_key_dir}/private"
 }
