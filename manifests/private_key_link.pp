@@ -28,8 +28,8 @@ define duplicity::private_key_link($ensure = present) {
   }
 
   file { "${duplicity::params::duply_config_dir}/${profile}/gpgkey.${keyid}.sec.asc":
-    ensure => file,
-    target => "${duplicity::params::duply_private_key_dir}/${keyid}.asc",
+    ensure  => file,
+    target  => "${duplicity::params::duply_private_key_dir}/${keyid}.asc",
     require => Duplicity::Private_Key[$keyid],
   }
 }
