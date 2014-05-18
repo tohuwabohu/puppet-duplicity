@@ -26,16 +26,25 @@
 #   Set the target where to store / find the backups. Expected to be an url like scheme://host[:port]/[/]path.
 #
 # [*target_username*]
-#   Set the username used to authenticate with the target
+#   Set the username used to authenticate with the target.
 #
 # [*target_password*]
-#   Set the password to authenticate the username at the target
+#   Set the password to authenticate the username at the target.
 #
 # [*full_if_older_than*]
-#   Forces a full backup if last full backup reaches a specified age
+#   Forces a full backup if last full backup reaches a specified age.
 #
 # [*volsize*]
-#   Set the size of backup chunks in MBs
+#   Set the size of backup chunks in MBs.
+#
+# [*include_filelist*]
+#   List of files to be included in the backup.
+#
+# [*exclude_filelist*]
+#   List of files to be excluded from the backup. Paths can be relative like '**/cache'.
+#
+# [*exclude_by_default*]
+#   Exclude any file relative to the source directory that is not included; sets the '- **' parameter.
 #
 # === Authors
 #
