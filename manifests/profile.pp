@@ -57,7 +57,7 @@
 define duplicity::profile(
   $ensure              = present,
   $gpg_encryption_keys = [],
-  $gpg_signing_key     = '',
+  $gpg_signing_key     = undef,
   $gpg_passphrase      = '',
   $gpg_options         = [],
   $source              = '',
@@ -123,6 +123,8 @@ define duplicity::profile(
     absent  => absent,
     default => file,
   }
+  $complete_encryption_keys = prefix($gpg_encryption_keys, "${title}/")
+  $complete_signing_keys = prefix(delete_undef_values([$gpg_signing_key]), "${title}/")
 
   file { $profile_config_dir:
     ensure => $profile_config_dir_ensure,
@@ -145,5 +147,13 @@ define duplicity::profile(
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
+  }
+
+  duplicity::public_key_link { $complete_encryption_keys:
+    ensure  => present,
+  }
+
+  duplicity::private_key_link { $complete_signing_keys:
+    ensure  => present,
   }
 }

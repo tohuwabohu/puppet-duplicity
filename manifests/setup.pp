@@ -24,6 +24,31 @@ class duplicity::setup inherits duplicity {
     recurse => true,
   }
 
+  file { $duplicity::params::duply_key_dir:
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    backup  => false,
+    purge   => true,
+    force   => true,
+    recurse => true,
+  }
+
+  file { $duplicity::params::duply_public_key_dir:
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+  }
+
+  file { $duplicity::params::duply_private_key_dir:
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0600',
+  }
+
   logrotate::rule { 'duplicity':
     ensure       => present,
     path         => $duplicity::duplicity_log_file,

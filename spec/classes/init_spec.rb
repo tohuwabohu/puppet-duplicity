@@ -27,6 +27,30 @@ describe 'duplicity' do
         'mode'   => '0644',
       )
     }
+    it {
+      should contain_file('/etc/duply-keys').with(
+        'ensure' => 'directory',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0644',
+      )
+    }
+    it {
+      should contain_file('/etc/duply-keys/public').with(
+        'ensure' => 'directory',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0644',
+      )
+    }
+    it {
+      should contain_file('/etc/duply-keys/private').with(
+        'ensure' => 'directory',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0600',
+      )
+    }
     it { should contain_logrotate__rule('duplicity') }
   end
 

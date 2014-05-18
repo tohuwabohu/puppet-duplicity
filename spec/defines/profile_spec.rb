@@ -73,12 +73,15 @@ describe 'duplicity::profile' do
     let(:params) { {:gpg_encryption_keys => ['key1'], :source => a_source, :target => a_target} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC='key1'$/) }
+    it { should contain_duplicity__public_key_link('default/key1') }
   end
 
   describe 'with gpg_encryption_keys => [key1,key2]' do
     let(:params) { {:gpg_encryption_keys => ['key1', 'key2'], :source => a_source, :target => a_target} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC='key1,key2'$/) }
+    it { should contain_duplicity__public_key_link('default/key1') }
+    it { should contain_duplicity__public_key_link('default/key2') }
   end
 
   describe 'with invalid gpg_signing_key' do
@@ -93,6 +96,7 @@ describe 'duplicity::profile' do
     let(:params) { {:gpg_signing_key => 'key1', :source => a_source, :target => a_target} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='key1'$/) }
+    it { should contain_duplicity__private_key_link('default/key1') }
   end
 
   describe 'with gpg_passphrase => secret' do
