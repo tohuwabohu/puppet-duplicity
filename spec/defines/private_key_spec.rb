@@ -13,7 +13,7 @@ describe 'duplicity::private_key' do
         'content' => 'key-content',
         'owner'   => 'root',
         'group'   => 'root',
-        'mode'    => '0400',
+        'mode'    => '0400'
       )
     }
   end

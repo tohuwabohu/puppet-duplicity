@@ -13,7 +13,7 @@ describe 'duplicity::public_key' do
         'content' => 'key-content',
         'owner'   => 'root',
         'group'   => 'root',
-        'mode'    => '0444',
+        'mode'    => '0444'
       )
     }
   end

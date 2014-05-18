@@ -15,7 +15,7 @@ describe 'duplicity::profile' do
         'ensure' => 'directory',
         'owner'  => 'root',
         'group'  => 'root',
-        'mode'   => '0700',
+        'mode'   => '0700'
       )
     }
     it {
@@ -23,7 +23,7 @@ describe 'duplicity::profile' do
         'ensure' => 'file',
         'owner'  => 'root',
         'group'  => 'root',
-        'mode'   => '0400',
+        'mode'   => '0400'
       )
     }
     it {
@@ -31,7 +31,7 @@ describe 'duplicity::profile' do
         'ensure' => 'file',
         'owner'  => 'root',
         'group'  => 'root',
-        'mode'   => '0400',
+        'mode'   => '0400'
       )
     }
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC=''$/) }
