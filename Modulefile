@@ -9,5 +9,5 @@ description ''
 
 dependency 'rodjek/logrotate', '1.x'
 dependency 'example42/puppi', '2.x'
-dependency 'puppetlabs-stdlib', '>=4.2.0 <5.0.0'
+dependency 'puppetlabs-stdlib', '>= 4.2.0 < 5.0.0'
 dependency 'gini/archive', '0.2.x'
