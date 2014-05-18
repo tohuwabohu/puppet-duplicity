@@ -24,7 +24,7 @@ describe 'duplicity' do
         'ensure' => 'directory',
         'owner'  => 'root',
         'group'  => 'root',
-        'mode'   => '0644',
+        'mode'   => '0644'
       )
     }
     it {
@@ -32,7 +32,7 @@ describe 'duplicity' do
         'ensure' => 'directory',
         'owner'  => 'root',
         'group'  => 'root',
-        'mode'   => '0644',
+        'mode'   => '0644'
       )
     }
     it {
@@ -40,7 +40,7 @@ describe 'duplicity' do
         'ensure' => 'directory',
         'owner'  => 'root',
         'group'  => 'root',
-        'mode'   => '0644',
+        'mode'   => '0644'
       )
     }
     it {
@@ -48,7 +48,7 @@ describe 'duplicity' do
         'ensure' => 'directory',
         'owner'  => 'root',
         'group'  => 'root',
-        'mode'   => '0600',
+        'mode'   => '0600'
       )
     }
     it { should contain_logrotate__rule('duplicity') }
