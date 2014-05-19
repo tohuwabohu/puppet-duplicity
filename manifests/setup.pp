@@ -36,22 +36,29 @@ class duplicity::setup inherits duplicity {
   }
 
   file { $duplicity::params::duply_public_key_dir:
-    ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
 
   file { $duplicity::params::duply_private_key_dir:
-    ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0600',
+    ensure => directory,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0600',
   }
 
-  logrotate::rule { 'duplicity':
+  file { $duplicity::duply_log_dir:
+    ensure => directory,
+    owner  => 'root',
+    group  => 'adm',
+    mode   => '0640',
+  }
+
+  logrotate::rule { 'duply':
     ensure       => present,
-    path         => $duplicity::duplicity_log_file,
+    path         => "${duplicity::duply_log_dir}/*.log",
     rotate       => 5,
     size         => '100k',
     compress     => true,
@@ -60,5 +67,6 @@ class duplicity::setup inherits duplicity {
     create_owner => 'root',
     create_group => 'adm',
     create_mode  => '0640',
+    require      => File[$duplicity::duply_log_dir],
   }
 }

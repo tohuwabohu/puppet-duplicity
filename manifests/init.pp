@@ -10,9 +10,6 @@
 # [*duplicity_package_name*]
 #   Set the name of the package to be installed.
 #
-# [*duplicity_log_file*]
-#   Set the path to the log file.
-#
 # [*duply_package_ensure*]
 #   Set state the package should be in (if duply_package_provider is empty or not archive).
 #
@@ -37,6 +34,9 @@
 # [*duply_executable*]
 #   Set the path of the duply executable pointing to the one contained in the package (if duply_package_provider is archive).
 #
+# [*duplicity_log_dir*]
+#   Set the path to the log directory. Every profile will get its own log file.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -48,7 +48,6 @@
 class duplicity (
   $duplicity_package_ensure  = params_lookup('duplicity_package_ensure'),
   $duplicity_package_name    = params_lookup('duplicity_package_name'),
-  $duplicity_log_file        = params_lookup('duplicity_log_file'),
   $duply_package_ensure      = params_lookup('duply_package_ensure'),
   $duply_package_name        = params_lookup('duply_package_name'),
   $duply_package_provider    = params_lookup('duply_package_provider'),
@@ -57,6 +56,7 @@ class duplicity (
   $duply_archive_package_dir = params_lookup('duply_archive_package_dir'),
   $duply_archive_install_dir = params_lookup('duply_archive_install_dir'),
   $duply_executable          = params_lookup('duply_executable'),
+  $duply_log_dir             = params_lookup('duply_log_dir'),
 ) inherits duplicity::params {
   if empty($duplicity_package_ensure) {
     fail('Class[Duplicity]: duplicity_package_ensure must not be empty')
@@ -74,10 +74,10 @@ class duplicity (
     fail("Class[Duplicity]: duply_package_name must be alphanumeric, got '${duply_package_name}'")
   }
 
-  validate_absolute_path($duplicity_log_file)
   validate_absolute_path($duply_archive_package_dir)
   validate_absolute_path($duply_archive_install_dir)
   validate_absolute_path($duply_executable)
+  validate_absolute_path($duply_log_dir)
 
   class { 'duplicity::install': } ->
   class { 'duplicity::setup': }

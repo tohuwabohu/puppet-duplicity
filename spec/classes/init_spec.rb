@@ -51,7 +51,8 @@ describe 'duplicity' do
         'mode'   => '0600'
       )
     }
-    it { should contain_logrotate__rule('duplicity') }
+    it { should contain_file('/var/log/duply') }
+    it { should contain_logrotate__rule('duply') }
   end
 
   describe 'with duplicity_package_ensure => 1.2.3' do
