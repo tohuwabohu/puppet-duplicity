@@ -18,7 +18,7 @@ describe 'duplicity' do
         'src_target' => '/var/cache/puppet/archives'
       )
     }
-    it { should contain_file('/usr/local/bin/duply') }
+    it { should contain_file('/usr/local/sbin/duply') }
     it {
       should contain_file('/etc/duply').with(
         'ensure' => 'directory',
