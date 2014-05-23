@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'duplicity::profile' do
   let(:title) { 'default' }
+  let(:facts) { {:concat_basedir => '/path/to/dir'} }
   let(:default_config_file) { '/etc/duply/default/conf' }
   let(:default_filelist) { '/etc/duply/default/exclude' }
   let(:a_source) { '/path/of/source' }
@@ -34,6 +35,22 @@ describe 'duplicity::profile' do
         'mode'   => '0400'
       )
     }
+    it {
+      should contain_concat('/etc/duply/default/pre').with(
+        'ensure' => 'present',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0700'
+      )
+    }
+    it {
+      should contain_concat('/etc/duply/default/post').with(
+        'ensure' => 'present',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0700'
+      )
+    }
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC=''$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='disabled'$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_PW=''$/) }
@@ -51,6 +68,8 @@ describe 'duplicity::profile' do
     it { should contain_file('/etc/duply/default').with_ensure('absent') }
     it { should contain_file('/etc/duply/default/conf').with_ensure('absent') }
     it { should contain_file('/etc/duply/default/exclude').with_ensure('absent') }
+    it { should contain_file('/etc/duply/default/pre').with_ensure('absent') }
+    it { should contain_file('/etc/duply/default/post').with_ensure('absent') }
   end
 
   describe 'with invalid ensure' do

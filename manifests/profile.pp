@@ -114,14 +114,16 @@ define duplicity::profile(
     default => directory,
   }
   $profile_config_file = "${profile_config_dir}/conf"
-  $profile_config_file_ensure = $ensure ? {
+  $profile_file_list_file = "${profile_config_dir}/exclude"
+  $profile_pre_script = "${profile_config_dir}/pre"
+  $profile_post_script = "${profile_config_dir}/post"
+  $profile_file_ensure = $ensure ? {
     absent  => absent,
     default => file,
   }
-  $profile_file_list_file = "${profile_config_dir}/exclude"
-  $profile_file_list_file_ensure = $ensure ? {
+  $profile_concat_ensure = $ensure ? {
     absent  => absent,
-    default => file,
+    default => present,
   }
   $complete_encryption_keys = prefix($gpg_encryption_keys, "${title}/")
   $complete_signing_keys = prefix(delete_undef_values([$gpg_signing_key]), "${title}/")
@@ -134,7 +136,7 @@ define duplicity::profile(
   }
 
   file { $profile_config_file:
-    ensure  => $profile_config_file_ensure,
+    ensure  => $profile_file_ensure,
     content => template('duplicity/etc/duply/conf.erb'),
     owner   => 'root',
     group   => 'root',
@@ -142,11 +144,39 @@ define duplicity::profile(
   }
 
   file { $profile_file_list_file:
-    ensure  => $profile_file_list_file_ensure,
+    ensure  => $profile_file_ensure,
     content => template('duplicity/etc/duply/exclude.erb'),
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
+  }
+
+  concat { $profile_pre_script:
+    ensure => $profile_concat_ensure,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
+    warn   => true,
+  }
+
+  concat::fragment { "${profile_pre_script}/header":
+    target  => $profile_pre_script,
+    content => "#!/bin/bash\n\n",
+    order   => 01,
+  }
+
+  concat { $profile_post_script:
+    ensure => $profile_concat_ensure,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0700',
+    warn   => true,
+  }
+
+  concat::fragment { "${profile_post_script}/header":
+    target  => $profile_post_script,
+    content => "#!/bin/bash\n\n",
+    order   => 01,
   }
 
   duplicity::public_key_link { $complete_encryption_keys:

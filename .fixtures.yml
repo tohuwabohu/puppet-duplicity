@@ -3,6 +3,9 @@ fixtures:
     archive:
       repo: "https://github.com/gini/puppet-archive.git"
       ref: "gini-archive-0.2.0"
+    concat:
+      repo: "https://github.com/puppetlabs/puppetlabs-concat.git"
+      ref: "1.1.0"
     logrotate:
       repo: "https://github.com/rodjek/puppet-logrotate.git"
       ref: "1.1.1"
