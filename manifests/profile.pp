@@ -114,7 +114,7 @@ define duplicity::profile(
     default => directory,
   }
   $profile_config_file = "${profile_config_dir}/conf"
-  $profile_file_list_file = "${profile_config_dir}/${duplicity::params::duply_profile_filelist_name}"
+  $profile_filelist_file = "${profile_config_dir}/${duplicity::params::duply_profile_filelist_name}"
   $profile_pre_script = "${profile_config_dir}/${duplicity::params::duply_profile_pre_script_name}"
   $profile_post_script = "${profile_config_dir}/${duplicity::params::duply_profile_post_script_name}"
   $profile_file_ensure = $ensure ? {
@@ -147,34 +147,34 @@ define duplicity::profile(
     mode    => '0400',
   }
 
-  concat { $profile_file_list_file:
+  concat { $profile_filelist_file:
     ensure  => $profile_concat_ensure,
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
   }
 
-  concat::fragment { "${profile_file_list_file}/header":
-    target  => $profile_file_list_file,
+  concat::fragment { "${profile_filelist_file}/header":
+    target  => $profile_filelist_file,
     content => template('duplicity/etc/duply/exclude.erb'),
     order   => 1,
   }
 
-  concat::fragment { "${profile_file_list_file}/include":
-    target  => $profile_file_list_file,
+  concat::fragment { "${profile_filelist_file}/include":
+    target  => $profile_filelist_file,
     content => join(prefix($include_filelist, '+ '), "\n"),
     order   => 10,
   }
 
-  concat::fragment { "${profile_file_list_file}/exclude":
-    target  => $profile_file_list_file,
+  concat::fragment { "${profile_filelist_file}/exclude":
+    target  => $profile_filelist_file,
     content => join(prefix($exclude_filelist, '- '), "\n"),
     order   => 20,
   }
 
-  concat::fragment { "${profile_file_list_file}/exclude-by-default":
+  concat::fragment { "${profile_filelist_file}/exclude-by-default":
     ensure  => $exclude_by_default_ensure,
-    target  => $profile_file_list_file,
+    target  => $profile_filelist_file,
     content => '- **',
     order   => 30,
   }
