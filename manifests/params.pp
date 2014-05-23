@@ -31,6 +31,10 @@ class duplicity::params {
   $duply_config_dir = $::osfamily ? {
     default => '/etc/duply'
   }
+  $duply_profile_config_name = 'conf'
+  $duply_profile_filelist_name = 'exclude'
+  $duply_profile_pre_script_name = 'pre'
+  $duply_profile_post_script_name = 'post'
   $duply_key_dir = $::osfamily ? {
     default => '/etc/duply-keys'
   }

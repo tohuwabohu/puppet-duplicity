@@ -114,9 +114,9 @@ define duplicity::profile(
     default => directory,
   }
   $profile_config_file = "${profile_config_dir}/conf"
-  $profile_file_list_file = "${profile_config_dir}/exclude"
-  $profile_pre_script = "${profile_config_dir}/pre"
-  $profile_post_script = "${profile_config_dir}/post"
+  $profile_file_list_file = "${profile_config_dir}/${duplicity::params::duply_profile_filelist_name}"
+  $profile_pre_script = "${profile_config_dir}/${duplicity::params::duply_profile_pre_script_name}"
+  $profile_post_script = "${profile_config_dir}/${duplicity::params::duply_profile_post_script_name}"
   $profile_file_ensure = $ensure ? {
     absent  => absent,
     default => file,
