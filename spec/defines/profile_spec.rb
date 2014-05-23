@@ -28,8 +28,8 @@ describe 'duplicity::profile' do
       )
     }
     it {
-      should contain_file('/etc/duply/default/exclude').with(
-        'ensure' => 'file',
+      should contain_concat('/etc/duply/default/exclude').with(
+        'ensure' => 'present',
         'owner'  => 'root',
         'group'  => 'root',
         'mode'   => '0400'
@@ -59,7 +59,7 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_FULLBKP_AGE=.*$/) }
     it { should contain_file(default_config_file).with_content(/^VOLSIZE=50$/) }
-    it { should contain_file(default_filelist).with_content(/^\- \*\*$/) }
+    it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_content(/^\- \*\*$/) }
   end
 
   describe 'with ensure absent' do
@@ -209,34 +209,34 @@ describe 'duplicity::profile' do
   describe 'with include_files => "/a/b"' do
     let(:params) { {:include_filelist => ['/a/b'], :source => a_source, :target => a_target} }
 
-    it { should contain_file(default_filelist).with_content(/^\+ \/a\/b$/) }
+    it { should contain_concat__fragment("#{default_filelist}/include").with_content(/^\+ \/a\/b$/) }
   end
 
   describe 'with invalid include_filelist' do
     let(:params) { {:include_filelist => 'invalid', :source => a_source, :target => a_target} }
 
     specify {
-      expect { should contain_file(default_filelist) }.to raise_error(Puppet::Error, /include_filelist/)
+      expect { should contain_concat__fragment("#{default_filelist}/include") }.to raise_error(Puppet::Error, /include_filelist/)
     }
   end
 
   describe 'with exclude_files => "/a/b"' do
     let(:params) { {:exclude_filelist => ['/a/b'], :source => a_source, :target => a_target} }
 
-    it { should contain_file(default_filelist).with_content(/^\- \/a\/b$/) }
+    it { should contain_concat__fragment("#{default_filelist}/exclude").with_content(/^\- \/a\/b$/) }
   end
 
   describe 'with invalid exclude_filelist' do
     let(:params) { {:exclude_filelist => 'invalid', :source => a_source, :target => a_target} }
 
     specify {
-      expect { should contain_file(default_filelist) }.to raise_error(Puppet::Error, /exclude_filelist/)
+      expect { should contain_concat__fragment("#{default_filelist}/exclude") }.to raise_error(Puppet::Error, /exclude_filelist/)
     }
   end
 
   describe 'with exclude_by_default => false' do
     let(:params) { {:exclude_by_default => false, :source => a_source, :target => a_target} }
 
-    it { should contain_file(default_filelist).without_content(/^\- \*\*$/) }
+    it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_ensure('absent') }
   end
 end

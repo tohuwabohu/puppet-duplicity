@@ -125,6 +125,10 @@ define duplicity::profile(
     absent  => absent,
     default => present,
   }
+  $exclude_by_default_ensure = $exclude_by_default ? {
+    true    => present,
+    default => absent,
+  }
   $complete_encryption_keys = prefix($gpg_encryption_keys, "${title}/")
   $complete_signing_keys = prefix(delete_undef_values([$gpg_signing_key]), "${title}/")
 
@@ -143,12 +147,36 @@ define duplicity::profile(
     mode    => '0400',
   }
 
-  file { $profile_file_list_file:
-    ensure  => $profile_file_ensure,
-    content => template('duplicity/etc/duply/exclude.erb'),
+  concat { $profile_file_list_file:
+    ensure  => $profile_concat_ensure,
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
+  }
+
+  concat::fragment { "${profile_file_list_file}/header":
+    target  => $profile_file_list_file,
+    content => template('duplicity/etc/duply/exclude.erb'),
+    order   => 1,
+  }
+
+  concat::fragment { "${profile_file_list_file}/include":
+    target  => $profile_file_list_file,
+    content => join(prefix($include_filelist, '+ '), "\n"),
+    order   => 10,
+  }
+
+  concat::fragment { "${profile_file_list_file}/exclude":
+    target  => $profile_file_list_file,
+    content => join(prefix($exclude_filelist, '- '), "\n"),
+    order   => 20,
+  }
+
+  concat::fragment { "${profile_file_list_file}/exclude-by-default":
+    ensure  => $exclude_by_default_ensure,
+    target  => $profile_file_list_file,
+    content => '- **',
+    order   => 30,
   }
 
   concat { $profile_pre_script:
@@ -162,7 +190,7 @@ define duplicity::profile(
   concat::fragment { "${profile_pre_script}/header":
     target  => $profile_pre_script,
     content => "#!/bin/bash\n\n",
-    order   => 01,
+    order   => 1,
   }
 
   concat { $profile_post_script:

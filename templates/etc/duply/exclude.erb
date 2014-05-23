@@ -8,10 +8,3 @@
 # - **
 # for more details see duplicity manpage, section File Selection
 # http://duplicity.nongnu.org/duplicity.1.html#sect9
-<% @include_filelist.each { |file| -%>
-+ <%= file %>
-<% } -%>
-<% @exclude_filelist.each { |file| -%>
-- <%= file %>
-<% } -%>
-<%= '- **' if @exclude_by_default %>
