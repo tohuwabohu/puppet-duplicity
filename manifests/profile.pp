@@ -159,26 +159,26 @@ define duplicity::profile(
   concat::fragment { "${profile_filelist_file}/header":
     target  => $profile_filelist_file,
     content => template('duplicity/etc/duply/exclude.erb'),
-    order   => 1,
+    order   => '01',
   }
 
   concat::fragment { "${profile_filelist_file}/include":
     target  => $profile_filelist_file,
     content => $profile_include_filelist,
-    order   => 10,
+    order   => '10',
   }
 
   concat::fragment { "${profile_filelist_file}/exclude":
     target  => $profile_filelist_file,
     content => $profile_exclude_filelist,
-    order   => 20,
+    order   => '20',
   }
 
   concat::fragment { "${profile_filelist_file}/exclude-by-default":
     ensure  => $exclude_by_default_ensure,
     target  => $profile_filelist_file,
     content => '\n- **\n',
-    order   => 30,
+    order   => '30',
   }
 
   concat { $profile_pre_script:
@@ -192,7 +192,7 @@ define duplicity::profile(
   concat::fragment { "${profile_pre_script}/header":
     target  => $profile_pre_script,
     content => "#!/bin/bash\n\n",
-    order   => 1,
+    order   => '01',
   }
 
   concat { $profile_post_script:
@@ -206,7 +206,7 @@ define duplicity::profile(
   concat::fragment { "${profile_post_script}/header":
     target  => $profile_post_script,
     content => "#!/bin/bash\n\n",
-    order   => 01,
+    order   => '01',
   }
 
   duplicity::public_key_link { $complete_encryption_keys:

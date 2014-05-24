@@ -76,14 +76,14 @@ define duplicity::file(
     ensure  => $include_filelist_ensure,
     target  => $profile_filelist,
     content => "+ ${path}",
-    order   => 15,
+    order   => '15',
   }
 
   concat::fragment { "${profile_dir}/exclude/${path_md5}":
     ensure  => $exclude_filelist_ensure,
     target  => $profile_filelist,
     content => join(prefix($exclude, '- '), "\n"),
-    order   => 25,
+    order   => '25',
   }
 
   if $ensure == present {
