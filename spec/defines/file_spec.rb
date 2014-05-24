@@ -16,7 +16,6 @@ describe 'duplicity::file' do
         'content' => '+ /path/to/file'
       )
     }
-    specify { should contain_concat__fragment(exclude_fragment).with_ensure('absent') }
     specify { should contain_exec(restore_exec).with_command(/backup fetch path\/to\/file \/path\/to\/file$/) }
     specify { should contain_exec(restore_exec).with_creates('/path/to/file') }
   end
@@ -25,7 +24,6 @@ describe 'duplicity::file' do
     let(:params) { {:ensure => 'absent'} }
 
     specify { should contain_concat__fragment(include_fragment).with_ensure('absent') }
-    specify { should contain_concat__fragment(exclude_fragment).with_ensure('absent') }
     specify { should_not contain_exec(restore_exec) }
   end
 
@@ -78,12 +76,6 @@ describe 'duplicity::file' do
 
     specify { should contain_concat__fragment(exclude_fragment).with_content(/^\- \/a$/) }
     specify { should contain_concat__fragment(exclude_fragment).with_content(/^\- \/b$/) }
-  end
-
-  describe 'with empty exclude' do
-    let(:params) { {:exclude => []} }
-
-    specify { should contain_concat__fragment(exclude_fragment).with_ensure('absent') }
   end
 
   describe 'with invalid exclude' do

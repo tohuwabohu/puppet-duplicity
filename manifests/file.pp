@@ -57,33 +57,29 @@ define duplicity::file(
 
   $profile_dir = "${duplicity::params::duply_config_dir}/${profile}"
   $profile_filelist = "${profile_dir}/${duplicity::params::duply_profile_filelist_name}"
-  $include_filelist_ensure = $ensure ? {
+  $profile_filelist_ensure = $ensure ? {
     absent  => absent,
     default => present,
   }
-  $exclude_filelist_ensure = $ensure ? {
-    absent  => absent,
-    default => empty($exclude) ? {
-      true    => absent,
-      default => present,
-    }
-  }
+  $exclude_filelist = join(regsubst($exclude, '^(.+)$', "- \\1\n"), '')
   $real_creates = pick($creates, $path)
   $path_md5 = md5($path)
   $path_without_slash = regsubst($path, '^/(.*)$', '\1')
 
   concat::fragment { "${profile_dir}/include/${path_md5}":
-    ensure  => $include_filelist_ensure,
+    ensure  => $profile_filelist_ensure,
     target  => $profile_filelist,
     content => "+ ${path}",
     order   => '15',
   }
 
-  concat::fragment { "${profile_dir}/exclude/${path_md5}":
-    ensure  => $exclude_filelist_ensure,
-    target  => $profile_filelist,
-    content => join(prefix($exclude, '- '), "\n"),
-    order   => '25',
+  if !empty($exclude) {
+    concat::fragment { "${profile_dir}/exclude/${path_md5}":
+      ensure  => $profile_filelist_ensure,
+      target  => $profile_filelist,
+      content => $exclude_filelist,
+      order   => '25',
+    }
   }
 
   if $ensure == present {
