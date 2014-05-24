@@ -9,6 +9,6 @@ description ''
 
 dependency 'example42/puppi', '2.x'
 dependency 'gini/archive', '0.2.x'
-dependency 'puppetlabs/concat', '>= 1.0.2 < 2.0.0'
+dependency 'puppetlabs/concat', '>= 1.1.0 < 2.0.0'
 dependency 'puppetlabs/stdlib', '>= 4.2.0 < 5.0.0'
 dependency 'rodjek/logrotate', '1.x'
