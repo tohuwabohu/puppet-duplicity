@@ -69,7 +69,7 @@ define duplicity::file(
   concat::fragment { "${profile_dir}/include/${path_md5}":
     ensure  => $profile_filelist_ensure,
     target  => $profile_filelist,
-    content => "+ ${path}",
+    content => "+ ${path}\n",
     order   => '15',
   }
 

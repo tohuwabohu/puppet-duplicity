@@ -13,7 +13,7 @@ describe 'duplicity::file' do
     specify {
       should contain_concat__fragment(include_fragment).with(
         'ensure'  => 'present',
-        'content' => '+ /path/to/file'
+        'content' => "+ /path/to/file\n"
       )
     }
     specify { should contain_exec(restore_exec).with_command(/backup fetch path\/to\/file \/path\/to\/file$/) }
