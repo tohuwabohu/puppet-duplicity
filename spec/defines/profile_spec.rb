@@ -59,7 +59,7 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_FULLBKP_AGE=.*$/) }
     it { should contain_file(default_config_file).with_content(/^VOLSIZE=50$/) }
-    it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_content(/^\- \*\*$/) }
+    it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_content(/^\\n\- \*\*\\n$/) }
   end
 
   describe 'with ensure absent' do

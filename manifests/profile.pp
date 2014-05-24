@@ -175,7 +175,7 @@ define duplicity::profile(
   concat::fragment { "${profile_filelist_file}/exclude-by-default":
     ensure  => $exclude_by_default_ensure,
     target  => $profile_filelist_file,
-    content => '- **',
+    content => '\n- **\n',
     order   => 30,
   }
 
