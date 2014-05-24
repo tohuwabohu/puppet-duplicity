@@ -59,7 +59,7 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_FULLBKP_AGE=.*$/) }
     it { should contain_file(default_config_file).with_content(/^VOLSIZE=50$/) }
-    it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_content(/^\\n\- \*\*\\n$/) }
+    it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_content(/^\n\- \*\*\n$/) }
   end
 
   describe 'with ensure absent' do
@@ -209,7 +209,7 @@ describe 'duplicity::profile' do
   describe 'with include_files => "/a/b"' do
     let(:params) { {:include_filelist => ['/a/b'], :source => a_source, :target => a_target} }
 
-    it { should contain_concat__fragment("#{default_filelist}/include").with_content(/^\+ \/a\/b\\n$/) }
+    it { should contain_concat__fragment("#{default_filelist}/include").with_content(/^\+ \/a\/b\n$/) }
   end
 
   describe 'with invalid include_filelist' do
@@ -223,7 +223,7 @@ describe 'duplicity::profile' do
   describe 'with exclude_files => "/a/b"' do
     let(:params) { {:exclude_filelist => ['/a/b'], :source => a_source, :target => a_target} }
 
-    it { should contain_concat__fragment("#{default_filelist}/exclude").with_content(/^\- \/a\/b\\n$/) }
+    it { should contain_concat__fragment("#{default_filelist}/exclude").with_content(/^\- \/a\/b\n$/) }
   end
 
   describe 'with invalid exclude_filelist' do

@@ -115,8 +115,8 @@ define duplicity::profile(
   }
   $profile_config_file = "${profile_config_dir}/conf"
   $profile_filelist_file = "${profile_config_dir}/${duplicity::params::duply_profile_filelist_name}"
-  $profile_include_filelist = join(regsubst($include_filelist, '^(.+)$', '+ \1\n'), '')
-  $profile_exclude_filelist = join(regsubst($exclude_filelist, '^(.+)$', '- \1\n'), '')
+  $profile_include_filelist = join(regsubst($include_filelist, '^(.+)$', "+ \1\n"), '')
+  $profile_exclude_filelist = join(regsubst($exclude_filelist, '^(.+)$', "- \1\n"), '')
   $profile_pre_script = "${profile_config_dir}/${duplicity::params::duply_profile_pre_script_name}"
   $profile_post_script = "${profile_config_dir}/${duplicity::params::duply_profile_post_script_name}"
   $profile_file_ensure = $ensure ? {
@@ -177,7 +177,7 @@ define duplicity::profile(
   concat::fragment { "${profile_filelist_file}/exclude-by-default":
     ensure  => $exclude_by_default_ensure,
     target  => $profile_filelist_file,
-    content => '\n- **\n',
+    content => "\n- **\n",
     order   => '30',
   }
 
