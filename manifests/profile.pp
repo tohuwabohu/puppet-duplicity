@@ -186,7 +186,6 @@ define duplicity::profile(
     owner  => 'root',
     group  => 'root',
     mode   => '0700',
-    warn   => true,
   }
 
   concat::fragment { "${profile_pre_script}/header":
@@ -200,7 +199,6 @@ define duplicity::profile(
     owner  => 'root',
     group  => 'root',
     mode   => '0700',
-    warn   => true,
   }
 
   concat::fragment { "${profile_post_script}/header":
