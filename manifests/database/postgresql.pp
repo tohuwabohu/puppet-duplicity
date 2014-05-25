@@ -1,4 +1,4 @@
-# == Class: duplicity::database::postgres
+# == Class: duplicity::database::postgresql
 #
 # Manage scripts to work with PostgreSQL databases.
 #
@@ -27,25 +27,25 @@
 #
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
-class duplicity::database::postgres(
-  $dump_script_path     = $duplicity::params::postgres_dump_script_path,
-  $dump_script_template = $duplicity::params::postgres_dump_script_template,
-  $backup_dir           = $duplicity::params::postgres_backup_dir,
-  $client_package_name  = $duplicity::params::postgres_client_package_name,
+class duplicity::database::postgresql(
+  $dump_script_path     = $duplicity::params::postgresql_dump_script_path,
+  $dump_script_template = $duplicity::params::postgresql_dump_script_template,
+  $backup_dir           = $duplicity::params::postgresql_backup_dir,
+  $client_package_name  = $duplicity::params::postgresql_client_package_name,
   $gzip_package_name    = $duplicity::params::gzip_package_name,
 ) {
   require duplicity::params
 
   validate_absolute_path($dump_script_path)
   if empty($dump_script_template) {
-    fail('Class[Duplicity::Database::Postgres]: dump_script_template must not be empty')
+    fail('Class[Duplicity::Database::Postgresql]: dump_script_template must not be empty')
   }
   validate_absolute_path($backup_dir)
   if empty($client_package_name) {
-    fail('Class[Duplicity::Database::Postgres]: client_package_name must not be empty')
+    fail('Class[Duplicity::Database::Postgresql]: client_package_name must not be empty')
   }
   if empty($gzip_package_name) {
-    fail('Class[Duplicity::Database::Postgres]: gzip_package_name must not be empty')
+    fail('Class[Duplicity::Database::Postgresql]: gzip_package_name must not be empty')
   }
 
   file { $dump_script_path:

@@ -35,8 +35,8 @@ define duplicity::database(
   if $ensure !~ /^present|absent$/ {
     fail("Duplicity::Database[${title}]: ensure must be either present or absent, got '${ensure}'")
   }
-  if $type !~ /^mysql|postgres$/ {
-    fail("Duplicity::Database[${title}]: type must be either mysql or postgres, got '${type}'")
+  if $type !~ /^mysql|postgresql$/ {
+    fail("Duplicity::Database[${title}]: type must be either mysql or postgresql, got '${type}'")
   }
   if empty($profile) {
     fail("Duplicity::Database[${title}]: profile must not be empty")
@@ -47,12 +47,12 @@ define duplicity::database(
   $profile_filelist = "${profile_dir}/${duplicity::params::duply_profile_filelist_name}"
   $dump_script_path = downcase($type) ? {
     'mysql'    => $duplicity::database::mysql::dump_script_path,
-    'postgres' => $duplicity::database::postgres::dump_script_path,
+    'postgresql' => $duplicity::database::postgresql::dump_script_path,
     default    => undef,
   }
   $dump_file = downcase($type) ? {
     'mysql'    => "${duplicity::database::mysql::backup_dir}/${database}.sql.gz",
-    'postgres' => "${duplicity::database::postgres::backup_dir}/${database}.sql.gz",
+    'postgresql' => "${duplicity::database::postgresql::backup_dir}/${database}.sql.gz",
     default    => undef,
   }
 

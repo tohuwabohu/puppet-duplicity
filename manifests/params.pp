@@ -62,14 +62,14 @@ class duplicity::params {
   }
   $mysql_dump_script_template = 'duplicity/usr/local/sbin/dump-mysql-database.sh.erb'
 
-  $postgres_backup_dir = $::osfamily ? {
-    default => '/var/backups/postgres'
+  $postgresql_backup_dir = $::osfamily ? {
+    default => '/var/backups/postgresql'
   }
-  $postgres_client_package_name = $::osfamly ? {
+  $postgresql_client_package_name = $::osfamily ? {
     default => 'postgresql-client'
   }
-  $postgres_dump_script_path = $::osfamily ? {
-    default => '/usr/local/sbin/dump-postgres-database.sh'
+  $postgresql_dump_script_path = $::osfamily ? {
+    default => '/usr/local/sbin/dump-postgresql-database.sh'
   }
-  $postgres_dump_script_template = 'duplicity/usr/local/sbin/dump-postgres-database.sh.erb'
+  $postgresql_dump_script_template = 'duplicity/usr/local/sbin/dump-postgresql-database.sh.erb'
 }
