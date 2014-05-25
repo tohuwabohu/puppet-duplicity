@@ -56,7 +56,7 @@ define duplicity::database(
     default    => undef,
   }
 
-  concat::fragment { "${profile_pre_script}${type}/${database}":
+  concat::fragment { "${profile_pre_script}/${type}/${database}":
     target  => $profile_pre_script,
     content => "${dump_script_path} ${database}\n",
     order   => '10',
