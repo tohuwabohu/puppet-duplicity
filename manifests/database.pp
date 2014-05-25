@@ -62,7 +62,7 @@ define duplicity::database(
     order   => '10',
   }
   duplicity::file { $dump_file:
-    ensure  => $ensure,
+    ensure  => backup,
     profile => $profile
   }
 }
