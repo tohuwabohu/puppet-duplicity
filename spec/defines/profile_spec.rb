@@ -184,6 +184,26 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS='secret'$/) }
   end
 
+  describe 'should accept max_full_backups as integer' do
+    let(:params) { {:max_full_backups => 5, :source => a_source, :target => a_target} }
+
+    it { should contain_file(default_config_file).with_content(/^MAX_FULL_BACKUPS=5$/) }
+  end
+
+  describe 'should accept max_full_backups as string' do
+    let(:params) { {:max_full_backups => '5', :source => a_source, :target => a_target} }
+
+    it { should contain_file(default_config_file).with_content(/^MAX_FULL_BACKUPS=5$/) }
+  end
+
+  describe 'should not accept any string as max_full_backups' do
+    let(:params) { {:max_full_backups => 'invalid', :source => a_source, :target => a_target} }
+
+    specify {
+      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /max_full_backups/)
+    }
+  end
+
   describe 'with full_if_older_than => 1M' do
     let(:params) { {:full_if_older_than => '1M', :source => a_source, :target => a_target} }
 

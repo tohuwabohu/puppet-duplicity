@@ -65,6 +65,7 @@ define duplicity::profile(
   $target_username     = '',
   $target_password     = '',
   $full_if_older_than  = '',
+  $max_full_backups    = '',
   $volsize             = 50,
   $include_filelist    = [],
   $exclude_filelist    = [],
@@ -94,6 +95,10 @@ define duplicity::profile(
 
   if $ensure =~ /^present$/ and empty($target) {
     fail("Duplicity::Profile[${title}]: target must not be empty")
+  }
+
+  if !empty($max_full_backups) and !is_integer($max_full_backups) {
+    fail("Duplicity::Profile[${title}]: max_full_backups must be an integer, got '${max_full_backups}'")
   }
 
   if !is_integer($volsize) {
