@@ -5,7 +5,8 @@
 # === Parameters
 #
 # [*ensure*]
-#   Set state the package should be in. Can be either present or absent.
+#   Set state the package should be in. Can be either present (= backup and restore if not existing), backup (= backup
+#   only), or absent.
 #
 # [*database*]
 #   Set the name of the database.
@@ -32,8 +33,8 @@ define duplicity::database(
 ) {
   require duplicity
 
-  if $ensure !~ /^present|absent$/ {
-    fail("Duplicity::Database[${title}]: ensure must be either present or absent, got '${ensure}'")
+  if $ensure !~ /^present|backup|absent$/ {
+    fail("Duplicity::Database[${title}]: ensure must be either present, backup or absent, got '${ensure}'")
   }
   if $type !~ /^mysql|postgresql$/ {
     fail("Duplicity::Database[${title}]: type must be either mysql or postgresql, got '${type}'")
@@ -62,7 +63,7 @@ define duplicity::database(
     order   => '10',
   }
   duplicity::file { $dump_file:
-    ensure  => backup,
+    ensure  => $ensure,
     profile => $profile
   }
 }
