@@ -43,33 +43,4 @@ class duplicity::params {
   $duply_log_dir = $::osfamily ? {
     default => '/var/log/duply'
   }
-
-  $gzip_package_name = $::osfamily ? {
-    default => 'gzip'
-  }
-
-  $mysql_option_file = $::osfamily ? {
-    default => '/root/.my.cnf'
-  }
-  $mysql_backup_dir = $::osfamily ? {
-    default => '/var/backups/mysql'
-  }
-  $mysql_client_package_name = $::osfamily ? {
-    default => 'mysql-client'
-  }
-  $mysql_dump_script_path = $::osfamily ? {
-    default => '/usr/local/sbin/dump-mysql-database.sh'
-  }
-  $mysql_dump_script_template = 'duplicity/usr/local/sbin/dump-mysql-database.sh.erb'
-
-  $postgresql_backup_dir = $::osfamily ? {
-    default => '/var/backups/postgresql'
-  }
-  $postgresql_client_package_name = $::osfamily ? {
-    default => 'postgresql-client'
-  }
-  $postgresql_dump_script_path = $::osfamily ? {
-    default => '/usr/local/sbin/dump-postgresql-database.sh'
-  }
-  $postgresql_dump_script_template = 'duplicity/usr/local/sbin/dump-postgresql-database.sh.erb'
 }
