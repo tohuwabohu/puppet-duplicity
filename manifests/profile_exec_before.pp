@@ -34,7 +34,7 @@ define duplicity::profile_exec_before(
   $source  = undef,
   $order   = '10',
 ) {
-  require duplicity
+  require duplicity::params
 
   if $ensure !~ /^present|absent$/ {
     fail("Duplicity::Profile_Exec_Before[${title}]: ensure must be either present or absent, got '${ensure}'")
