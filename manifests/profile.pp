@@ -113,7 +113,7 @@ define duplicity::profile(
     fail("Duplicity::Profile[${title}]: exclude_filelist must be an array")
   }
 
-  $profile_config_dir = "${duplicity::params::duply_config_dir}/${name}"
+  $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"
   $profile_config_dir_ensure = $ensure ? {
     absent  => absent,
     default => directory,
@@ -193,8 +193,8 @@ define duplicity::profile(
     mode   => '0700',
   }
 
-  concat::fragment { "${profile_pre_script}/header":
-    target  => $profile_pre_script,
+  profile_exec_before { "${title}/header":
+    profile => $title,
     content => "#!/bin/bash\n\n",
     order   => '01',
   }
@@ -206,8 +206,8 @@ define duplicity::profile(
     mode   => '0700',
   }
 
-  concat::fragment { "${profile_post_script}/header":
-    target  => $profile_post_script,
+  profile_exec_after { "${title}/header":
+    profile => $title,
     content => "#!/bin/bash\n\n",
     order   => '01',
   }
