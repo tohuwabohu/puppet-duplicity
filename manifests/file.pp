@@ -88,7 +88,10 @@ define duplicity::file(
     exec { "restore ${path}":
       command => "${duplicity::duply_executable} ${profile} fetch ${path_without_slash} ${path}",
       creates => $real_creates,
-      require => File[$duplicity::duply_executable]
+      require => [
+        File[$duplicity::duply_executable],
+        Duplicity::Profile[$profile],
+      ]
     }
   }
 }
