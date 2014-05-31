@@ -187,28 +187,30 @@ define duplicity::profile(
   }
 
   concat { $profile_pre_script:
-    ensure => $profile_concat_ensure,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0700',
+    ensure         => $profile_concat_ensure,
+    owner          => 'root',
+    group          => 'root',
+    mode           => '0700',
+    ensure_newline => true,
   }
 
   profile_exec_before { "${title}/header":
     profile => $title,
-    content => "#!/bin/bash\n\n",
+    content => "#!/bin/bash\n",
     order   => '01',
   }
 
   concat { $profile_post_script:
-    ensure => $profile_concat_ensure,
-    owner  => 'root',
-    group  => 'root',
-    mode   => '0700',
+    ensure         => $profile_concat_ensure,
+    owner          => 'root',
+    group          => 'root',
+    mode           => '0700',
+    ensure_newline => true,
   }
 
   profile_exec_after { "${title}/header":
     profile => $title,
-    content => "#!/bin/bash\n\n",
+    content => "#!/bin/bash\n",
     order   => '01',
   }
 
