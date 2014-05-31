@@ -55,6 +55,8 @@ define duplicity::file(
 
   validate_absolute_path($path)
 
+  # TODO: add dependency on profile
+
   $profile_dir = "${duplicity::params::duply_config_dir}/${profile}"
   $profile_filelist = "${profile_dir}/${duplicity::params::duply_profile_filelist_name}"
   $profile_filelist_ensure = $ensure ? {
