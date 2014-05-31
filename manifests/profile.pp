@@ -155,10 +155,11 @@ define duplicity::profile(
   }
 
   concat { $profile_filelist_file:
-    ensure  => $profile_concat_ensure,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0400',
+    ensure         => $profile_concat_ensure,
+    owner          => 'root',
+    group          => 'root',
+    mode           => '0400',
+    ensure_newline => true,
   }
 
   concat::fragment { "${profile_filelist_file}/header":

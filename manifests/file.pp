@@ -63,7 +63,7 @@ define duplicity::file(
     absent  => absent,
     default => present,
   }
-  $exclude_filelist = join(regsubst($exclude, '^(.+)$', "- \\1\n"), '')
+  $exclude_filelist = join(prefix($exclude, '- '), "\n")
   $real_creates = pick($creates, $path)
   $path_md5 = md5($path)
   $path_without_slash = regsubst($path, '^/(.*)$', '\1')
@@ -71,7 +71,7 @@ define duplicity::file(
   concat::fragment { "${profile_dir}/include/${path_md5}":
     ensure  => $profile_filelist_ensure,
     target  => $profile_filelist,
-    content => "+ ${path}\n",
+    content => "+ ${path}",
     order   => '15',
   }
 
