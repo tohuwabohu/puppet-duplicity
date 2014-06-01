@@ -168,19 +168,19 @@ define duplicity::profile(
     order   => '01',
   }
 
-  if !empty($profile_include_filelist) {
-    concat::fragment { "${profile_filelist_file}/include":
-      target  => $profile_filelist_file,
-      content => $profile_include_filelist,
-      order   => '10',
-    }
-  }
-
   if !empty($profile_exclude_filelist) {
     concat::fragment { "${profile_filelist_file}/exclude":
       target  => $profile_filelist_file,
       content => $profile_exclude_filelist,
-      order   => '20',
+      order   => '10',
+    }
+  }
+
+  if !empty($profile_include_filelist) {
+    concat::fragment { "${profile_filelist_file}/include":
+      target  => $profile_filelist_file,
+      content => $profile_include_filelist,
+      order   => '50',
     }
   }
 
@@ -188,7 +188,7 @@ define duplicity::profile(
     ensure  => $exclude_by_default_ensure,
     target  => $profile_filelist_file,
     content => "\n- **\n",
-    order   => '30',
+    order   => '90',
   }
 
   concat { $profile_pre_script:

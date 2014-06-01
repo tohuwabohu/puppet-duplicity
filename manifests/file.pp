@@ -66,13 +66,6 @@ define duplicity::file(
   $path_md5 = md5($path)
   $path_without_slash = regsubst($path, '^/(.*)$', '\1')
 
-  concat::fragment { "${profile_dir}/include/${path_md5}":
-    ensure  => $profile_filelist_ensure,
-    target  => $profile_filelist,
-    content => "+ ${path}",
-    order   => '15',
-  }
-
   if !empty($exclude) {
     concat::fragment { "${profile_dir}/exclude/${path_md5}":
       ensure  => $profile_filelist_ensure,
@@ -80,6 +73,13 @@ define duplicity::file(
       content => $exclude_filelist,
       order   => '25',
     }
+  }
+
+  concat::fragment { "${profile_dir}/include/${path_md5}":
+    ensure  => $profile_filelist_ensure,
+    target  => $profile_filelist,
+    content => "+ ${path}",
+    order   => '75',
   }
 
   if $ensure == present {
