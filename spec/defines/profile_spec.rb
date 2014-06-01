@@ -60,6 +60,8 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).without_content(/^MAX_FULLBKP_AGE=.*$/) }
     it { should contain_file(default_config_file).with_content(/^VOLSIZE=50$/) }
     it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_content(/^\n\- \*\*$/) }
+    it { should_not contain_concat__fragment("#{default_filelist}/include") }
+    it { should_not contain_concat__fragment("#{default_filelist}/exclude") }
   end
 
   describe 'with ensure absent' do
