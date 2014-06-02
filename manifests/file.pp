@@ -17,9 +17,6 @@
 # [*profile*]
 #   Set the name of the profile to which the file should belong to.
 #
-# [*creates*]
-#   Set full path of the file that is created by restoring this file or directory. Defaults to the path itself.
-#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -33,7 +30,6 @@ define duplicity::file(
   $path    = $title,
   $exclude = [],
   $profile = 'backup',
-  $creates = undef,
 ) {
   require duplicity::params
 
@@ -62,7 +58,6 @@ define duplicity::file(
     default => present,
   }
   $exclude_filelist = join(prefix($exclude, '- '), "\n")
-  $real_creates = pick($creates, $path)
   $path_md5 = md5($path)
   $path_without_slash = regsubst($path, '^/(.*)$', '\1')
 
@@ -85,7 +80,7 @@ define duplicity::file(
   if $ensure == present {
     exec { "restore ${path}":
       command => "${duplicity::duply_executable} ${profile} fetch ${path_without_slash} ${path}",
-      creates => $real_creates,
+      creates => $path,
       require => [
         File[$duplicity::duply_executable],
         Duplicity::Profile[$profile],

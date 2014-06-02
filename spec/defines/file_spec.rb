@@ -85,20 +85,4 @@ describe 'duplicity::file' do
       expect { should contain_concat__fragment(exclude_fragment) }.to raise_error(Puppet::Error, /exclude/)
     }
   end
-
-  describe 'with invalid creates' do
-    let(:params) { {:creates => 'relative/path'} }
-
-    specify {
-      expect { should contain_concat__fragment(include_fragment) }.to raise_error(Puppet::Error, /relative/)
-    }
-  end
-
-  describe 'with creates => /a/b' do
-    let(:params) { {:creates => '/a/b'} }
-
-    specify {
-      should contain_exec(restore_exec).with_creates('/a/b')
-    }
-  end
 end
