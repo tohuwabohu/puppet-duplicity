@@ -45,10 +45,6 @@ define duplicity::file(
     fail("Duplicity::File[${title}]: exclude must be an array")
   }
 
-  if !empty($creates) {
-    validate_absolute_path($creates)
-  }
-
   validate_absolute_path($path)
 
   $profile_dir = "${duplicity::params::duply_config_dir}/${profile}"
