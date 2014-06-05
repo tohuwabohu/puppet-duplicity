@@ -46,6 +46,15 @@
 # [*exclude_by_default*]
 #   Exclude any file relative to the source directory that is not included; sets the '- **' parameter.
 #
+# [*cron_enabled*]
+#   Set the state of the cron job. Either true or false.
+#
+# [*cron_hour*]
+#   The hour expression of the cron job.
+#
+# [*cron_minute*]
+#   The minute expression of the cron job.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -70,6 +79,9 @@ define duplicity::profile(
   $include_filelist    = [],
   $exclude_filelist    = [],
   $exclude_by_default  = true,
+  $cron_enabled        = false,
+  $cron_hour           = undef,
+  $cron_minute         = undef,
 ) {
   require duplicity::params
 
@@ -130,6 +142,10 @@ define duplicity::profile(
   }
   $profile_concat_ensure = $ensure ? {
     absent  => absent,
+    default => present,
+  }
+  $cron_ensure = str2bool($cron_enabled) ? {
+    false   => absent,
     default => present,
   }
   $exclude_by_default_ensure = $exclude_by_default ? {
@@ -225,5 +241,14 @@ define duplicity::profile(
 
   duplicity::private_key_link { $complete_signing_keys:
     ensure  => present,
+  }
+
+  cron { "backup-${title}":
+    ensure  => $cron_ensure,
+    command => "${duplicity::duply_executable} ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log",
+    user    => 'root',
+    hour    => $cron_hour,
+    minute  => $cron_minute,
+    require => Duplicity::Profile[$title],
   }
 }

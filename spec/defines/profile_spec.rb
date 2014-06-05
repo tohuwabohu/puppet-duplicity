@@ -62,6 +62,7 @@ describe 'duplicity::profile' do
     it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_content(/^\n\- \*\*$/) }
     it { should_not contain_concat__fragment("#{default_filelist}/include") }
     it { should_not contain_concat__fragment("#{default_filelist}/exclude") }
+    specify { should contain_cron("backup-default").with_ensure('absent') }
   end
 
   describe 'with ensure absent' do
@@ -260,5 +261,17 @@ describe 'duplicity::profile' do
     let(:params) { {:exclude_by_default => false, :source => a_source, :target => a_target} }
 
     it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_ensure('absent') }
+  end
+
+  describe 'with cron_enabled and cron_hour and cron_minute set' do
+    let(:params) { {:cron_enabled => true, :cron_hour => '1', :cron_minute => '2', :source => a_source, :target => a_target} }
+
+    specify do
+      should contain_cron("backup-default").with(
+        'ensure' => 'present',
+        'hour'   => '1',
+        'minute' => '2'
+      )
+    end
   end
 end
