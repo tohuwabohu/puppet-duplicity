@@ -249,6 +249,5 @@ define duplicity::profile(
     user    => 'root',
     hour    => $cron_hour,
     minute  => $cron_minute,
-    require => Duplicity::Profile[$title],
   }
 }
