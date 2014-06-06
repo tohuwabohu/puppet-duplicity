@@ -5,10 +5,9 @@ describe 'duplicity::profile' do
   let(:facts) { {:concat_basedir => '/path/to/dir'} }
   let(:default_config_file) { '/etc/duply/default/conf' }
   let(:default_filelist) { '/etc/duply/default/exclude' }
-  let(:a_target) { 'http://example.com' }
 
   describe 'by default' do
-    let(:params) { {:target => a_target} }
+    let(:params) { {} }
 
     it {
       should contain_file('/etc/duply/default').with(
@@ -62,6 +61,8 @@ describe 'duplicity::profile' do
     it { should_not contain_concat__fragment("#{default_filelist}/include") }
     it { should_not contain_concat__fragment("#{default_filelist}/exclude") }
     specify { should contain_cron("backup-default").with_ensure('absent') }
+    specify { should contain_file(default_config_file).with_content(/^SOURCE='\/'$/) }
+    specify { should contain_file(default_config_file).with_content(/^TARGET='\/default'$/) }
   end
 
   describe 'with ensure absent' do
@@ -75,7 +76,7 @@ describe 'duplicity::profile' do
   end
 
   describe 'with invalid ensure' do
-    let(:params) { {:ensure => 'foobar', :target => a_target} }
+    let(:params) { {:ensure => 'foobar'} }
 
     it do
       expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /ensure/)
@@ -83,27 +84,27 @@ describe 'duplicity::profile' do
   end
 
   describe 'with empty gpg_encryption_keys' do
-    let(:params) { {:gpg_encryption_keys => '', :target => a_target} }
+    let(:params) { {:gpg_encryption_keys => ''} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC=''$/) }
   end
 
   describe 'with gpg_encryption_keys => key1' do
-    let(:params) { {:gpg_encryption_keys => 'key1', :target => a_target} }
+    let(:params) { {:gpg_encryption_keys => 'key1'} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC='key1'$/) }
     it { should contain_duplicity__public_key_link('default/key1') }
   end
 
   describe 'with gpg_encryption_keys => [key1]' do
-    let(:params) { {:gpg_encryption_keys => ['key1'], :target => a_target} }
+    let(:params) { {:gpg_encryption_keys => ['key1']} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC='key1'$/) }
     it { should contain_duplicity__public_key_link('default/key1') }
   end
 
   describe 'with gpg_encryption_keys => [key1,key2]' do
-    let(:params) { {:gpg_encryption_keys => ['key1', 'key2'], :target => a_target} }
+    let(:params) { {:gpg_encryption_keys => ['key1', 'key2']} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC='key1,key2'$/) }
     it { should contain_duplicity__public_key_link('default/key1') }
@@ -111,7 +112,7 @@ describe 'duplicity::profile' do
   end
 
   describe 'with invalid gpg_signing_key' do
-    let(:params) { {:gpg_signing_key => 'invalid-key-id', :target => a_target} }
+    let(:params) { {:gpg_signing_key => 'invalid-key-id'} }
 
     it do
       expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /signing_key/)
@@ -119,44 +120,44 @@ describe 'duplicity::profile' do
   end
 
   describe 'with gpg_signing_key => key1' do
-    let(:params) { {:gpg_signing_key => 'key1', :target => a_target} }
+    let(:params) { {:gpg_signing_key => 'key1'} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='key1'$/) }
     it { should contain_duplicity__private_key_link('default/key1') }
   end
 
   describe 'with gpg_passphrase => secret' do
-    let(:params) { {:gpg_passphrase => 'secret', :target => a_target} }
+    let(:params) { {:gpg_passphrase => 'secret'} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_PW='secret'$/) }
   end
 
   describe 'with empty gpg_options' do
-    let(:params) { {:gpg_options => '', :target => a_target} }
+    let(:params) { {:gpg_options => ''} }
 
     specify { should contain_file(default_config_file).with_content(/^GPG_OPTS=''$/) }
   end
 
   describe 'with gpg_options => --switch' do
-    let(:params) { {:gpg_options => '--switch', :target => a_target} }
+    let(:params) { {:gpg_options => '--switch'} }
 
     specify { should contain_file(default_config_file).with_content(/^GPG_OPTS='--switch'$/) }
   end
 
   describe 'with gpg_options => [--switch]' do
-    let(:params) { {:gpg_options => ['--switch'], :target => a_target} }
+    let(:params) { {:gpg_options => ['--switch']} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_OPTS='--switch'$/) }
   end
 
   describe 'with gpg_options => [--switch, --key=value]' do
-    let(:params) { {:gpg_options => ['--switch', '--key=value'], :target => a_target} }
+    let(:params) { {:gpg_options => ['--switch', '--key=value']} }
 
     it { should contain_file(default_config_file).with_content(/^GPG_OPTS='--switch --key=value'$/) }
   end
 
   describe 'with empty source' do
-    let(:params) { {:source => '', :target => a_target } }
+    let(:params) { {:source => '' } }
 
     it do
       expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /source/)
@@ -164,7 +165,7 @@ describe 'duplicity::profile' do
   end
 
   describe 'with source => /path/of/source' do
-    let(:params) { {:source => '/path/of/source', :target => a_target, } }
+    let(:params) { {:source => '/path/of/source', } }
 
     it { should contain_file(default_config_file).with_content(/^SOURCE='\/path\/of\/source'$/) }
   end
@@ -184,31 +185,31 @@ describe 'duplicity::profile' do
   end
 
   describe 'with target_username => johndoe' do
-    let(:params) { {:target_username => 'johndoe', :target => a_target} }
+    let(:params) { {:target_username => 'johndoe'} }
 
     it { should contain_file(default_config_file).with_content(/^TARGET_USER='johndoe'$/) }
   end
 
   describe 'with target_password => secret' do
-    let(:params) { {:target_password => 'secret', :target => a_target} }
+    let(:params) { {:target_password => 'secret'} }
 
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS='secret'$/) }
   end
 
   describe 'should accept max_full_backups as integer' do
-    let(:params) { {:max_full_backups => 5, :target => a_target} }
+    let(:params) { {:max_full_backups => 5} }
 
     it { should contain_file(default_config_file).with_content(/^MAX_FULL_BACKUPS=5$/) }
   end
 
   describe 'should accept max_full_backups as string' do
-    let(:params) { {:max_full_backups => '5', :target => a_target} }
+    let(:params) { {:max_full_backups => '5'} }
 
     it { should contain_file(default_config_file).with_content(/^MAX_FULL_BACKUPS=5$/) }
   end
 
   describe 'should not accept any string as max_full_backups' do
-    let(:params) { {:max_full_backups => 'invalid', :target => a_target} }
+    let(:params) { {:max_full_backups => 'invalid'} }
 
     specify {
       expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /max_full_backups/)
@@ -216,14 +217,14 @@ describe 'duplicity::profile' do
   end
 
   describe 'with full_if_older_than => 1M' do
-    let(:params) { {:full_if_older_than => '1M', :target => a_target} }
+    let(:params) { {:full_if_older_than => '1M'} }
 
     it { should contain_file(default_config_file).with_content(/^MAX_FULLBKP_AGE=1M$/) }
     it { should contain_file(default_config_file).with_content(/^DUPL_PARAMS="\$DUPL_PARAMS --full-if-older-than \$MAX_FULLBKP_AGE "$/) }
   end
 
   describe 'with invalid volsize' do
-    let(:params) { {:volsize => 'invalid', :target => a_target} }
+    let(:params) { {:volsize => 'invalid'} }
 
     specify {
       expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /volsize/)
@@ -231,20 +232,20 @@ describe 'duplicity::profile' do
   end
 
   describe 'with volsize => 25' do
-    let(:params) { {:volsize => 25, :target => a_target} }
+    let(:params) { {:volsize => 25} }
 
     it { should contain_file(default_config_file).with_content(/^VOLSIZE=25$/) }
     it { should contain_file(default_config_file).with_content(/^DUPL_PARAMS="\$DUPL_PARAMS --volsize \$VOLSIZE "$/) }
   end
 
   describe 'with include_files => "/a/b"' do
-    let(:params) { {:include_filelist => ['/a/b'], :target => a_target} }
+    let(:params) { {:include_filelist => ['/a/b']} }
 
     it { should contain_concat__fragment("#{default_filelist}/include").with_content(/^\+ \/a\/b$/) }
   end
 
   describe 'with invalid include_filelist' do
-    let(:params) { {:include_filelist => 'invalid', :target => a_target} }
+    let(:params) { {:include_filelist => 'invalid'} }
 
     specify {
       expect { should contain_concat__fragment("#{default_filelist}/include") }.to raise_error(Puppet::Error, /include_filelist/)
@@ -252,13 +253,13 @@ describe 'duplicity::profile' do
   end
 
   describe 'with exclude_files => "/a/b"' do
-    let(:params) { {:exclude_filelist => ['/a/b'], :target => a_target} }
+    let(:params) { {:exclude_filelist => ['/a/b']} }
 
     it { should contain_concat__fragment("#{default_filelist}/exclude").with_content(/^\- \/a\/b$/) }
   end
 
   describe 'with invalid exclude_filelist' do
-    let(:params) { {:exclude_filelist => 'invalid', :target => a_target} }
+    let(:params) { {:exclude_filelist => 'invalid'} }
 
     specify {
       expect { should contain_concat__fragment("#{default_filelist}/exclude") }.to raise_error(Puppet::Error, /exclude_filelist/)
@@ -266,13 +267,13 @@ describe 'duplicity::profile' do
   end
 
   describe 'with exclude_by_default => false' do
-    let(:params) { {:exclude_by_default => false, :target => a_target} }
+    let(:params) { {:exclude_by_default => false} }
 
     it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_ensure('absent') }
   end
 
   describe 'with cron_enabled and cron_hour and cron_minute set' do
-    let(:params) { {:cron_enabled => true, :cron_hour => '1', :cron_minute => '2', :target => a_target} }
+    let(:params) { {:cron_enabled => true, :cron_hour => '1', :cron_minute => '2'} }
 
     specify do
       should contain_cron("backup-default").with(
