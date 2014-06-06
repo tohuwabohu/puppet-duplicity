@@ -40,8 +40,8 @@ define duplicity::profile_exec_before(
     fail("Duplicity::Profile_Exec_Before[${title}]: ensure must be either present or absent, got '${ensure}'")
   }
 
-  if $profile !~ /^[a-zA-Z0-9]+$/ {
-    fail("Duplicity::Profile_Exec_Before[${title}]: profile must be alphanumeric, got '${profile}'")
+  if $profile !~ /^[a-zA-Z0-9\._-]+$/ {
+    fail("Duplicity::Profile_Exec_Before[${title}]: profile must be alphanumeric including dot, dash and underscore; got '${profile}'")
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${profile}"
