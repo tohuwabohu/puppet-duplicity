@@ -37,8 +37,8 @@ define duplicity::file(
     fail("Duplicity::File[${title}]: ensure must be either present, backup or absent, got '${ensure}'")
   }
 
-  if $ensure =~ /^present$/ and $profile !~ /^[a-zA-Z0-9]+$/ {
-    fail("Duplicity::File[${title}]: profile must be alphanumeric, got '${profile}'")
+  if $ensure =~ /^present$/ and $profile !~ /^[a-zA-Z0-9\._-]+$/ {
+    fail("Duplicity::File[${title}]: profile must be alphanumeric including dot, dash and underscore; got '${profile}'")
   }
 
   if !is_array($exclude) {
