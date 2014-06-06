@@ -19,11 +19,11 @@ define duplicity::private_key_link($ensure = present) {
   }
 
   $profile = $values[0]
-  if $profile !~ /^[a-zA-Z0-9]+$/ {
-    fail("Duplicity::Private_Key_Link[${title}]: profile must be alphanumeric, got '${profile}'")
+  if $profile !~ /^[a-zA-Z0-9\._-]+$/ {
+    fail("Duplicity::Private_Key_Link[${title}]: profile must be alphanumeric including dot, dash and underscore; got '${profile}'")
   }
   $keyid = $values[1]
-  if $profile !~ /^[a-zA-Z0-9]+$/ {
+  if $keyid !~ /^[a-zA-Z0-9]+$/ {
     fail("Duplicity::Private_Key_Link[${title}]: keyid must be alphanumeric, got '${keyid}'")
   }
 
