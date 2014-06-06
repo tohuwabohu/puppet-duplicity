@@ -1,3 +1,7 @@
+<%-
+  real_gpg_passphrase = (@gpg_passphrase and !@gpg_passphrase.empty?) ? @gpg_passphrase.gsub("'", %q('\\\'')) : ''
+  real_gpg_signing_key = (@real_gpg_signing_key and !@real_gpg_signing_key.empty?) ? @real_gpg_signing_key : 'disabled'
+-%>
 # This file is managed by Puppet
 
 # gpg encryption settings, simple settings:
@@ -6,7 +10,7 @@
 #    with key1 if secret key available and use GPG_PW for sign & decrypt
 #  GPG_PW='passphrase' - symmetric encryption using passphrase only
 #GPG_KEY='_KEY_ID_'
-GPG_PW='<%= @gpg_passphrase.gsub("'", %q('\\\'')) %>'
+GPG_PW='<%= real_gpg_passphrase %>'
 # gpg encryption settings in detail (extended settings)
 #  the above settings translate to the following more specific settings
 #  GPG_KEYS_ENC='<keyid1>,[<keyid2>,...]' - list of pubkeys to encrypt to
@@ -21,8 +25,8 @@ GPG_PW='<%= @gpg_passphrase.gsub("'", %q('\\\'')) %>'
 #  decryption happens on restore and incrementals (compare archdir contents).
 #  for security reasons it makes sense to separate the signing key from the
 #  encryption keys. https://answers.launchpad.net/duplicity/+question/107216
-GPG_KEYS_ENC='<%= @gpg_encryption_keys.join(',') %>'
-GPG_KEY_SIGN='<%= (@gpg_signing_key and !@gpg_signing_key.empty?) ? @gpg_signing_key : 'disabled' %>'
+GPG_KEYS_ENC='<%= @real_gpg_encryption_keys.join(',') %>'
+GPG_KEY_SIGN='<%= real_gpg_signing_key %>'
 # set if signing key passphrase differs from encryption (key) passphrase
 # NOTE: available since duplicity 0.6.14, translates to SIGN_PASSPHRASE
 #GPG_PW_SIGN='<signpass>'
@@ -32,7 +36,7 @@ GPG_KEY_SIGN='<%= (@gpg_signing_key and !@gpg_signing_key.empty?) ? @gpg_signing
 #   or "--compress-algo=bzip2 --bzip2-compress-level=9"
 #   or "--personal-cipher-preferences AES256,AES192,AES..."
 #   or "--homedir ~/.duply" - keep keyring and gpg settings duply specific
-GPG_OPTS='<%= @gpg_options.join(' ') %>'
+GPG_OPTS='<%= @real_gpg_options.join(' ') %>'
 
 # disable preliminary tests with the following setting
 #GPG_TEST='disabled'

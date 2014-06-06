@@ -20,7 +20,7 @@
 #   List of options passed from duplicity to the gpg process.
 #
 # [*source*]
-#   Set the base directory to backup.
+#   Set the base directory to backup. Defaults to the root directory of the filesystem.
 #
 # [*target*]
 #   Set the target where to store / find the backups. Expected to be an url like scheme://host[:port]/[/]path.
@@ -65,40 +65,32 @@
 #
 define duplicity::profile(
   $ensure              = present,
-  $gpg_encryption_keys = [],
-  $gpg_signing_key     = undef,
-  $gpg_passphrase      = '',
-  $gpg_options         = [],
-  $source              = '',
-  $target              = '',
-  $target_username     = '',
-  $target_password     = '',
+  $gpg_encryption_keys = $duplicity::gpg_encryption_keys,
+  $gpg_signing_key     = $duplicity::gpg_signing_key,
+  $gpg_passphrase      = $duplicity::gpg_passphrase,
+  $gpg_options         = $duplicity::gpg_options,
+  $target              = "${duplicity::backup_target_url}/${title}",
+  $target_username     = $duplicity::backup_target_username,
+  $target_password     = $duplicity::backup_target_password,
+  $source              = '/',
   $full_if_older_than  = '',
   $max_full_backups    = '',
   $volsize             = 50,
   $include_filelist    = [],
   $exclude_filelist    = [],
   $exclude_by_default  = true,
-  $cron_enabled        = false,
+  $cron_enabled        = $duplicity::cron_enabled,
   $cron_hour           = undef,
   $cron_minute         = undef,
 ) {
-  require duplicity::params
+  require duplicity
 
   if $ensure !~ /^present|absent$/ {
     fail("Duplicity::Profile[${title}]: ensure must be either present or absent, got '${ensure}'")
   }
 
-  if !is_array($gpg_encryption_keys) {
-    fail("Duplicity::Profile[${title}]: gpg_encryption_keys must be an array, got '${gpg_encryption_keys}'")
-  }
-
   if !empty($gpg_signing_key) and $gpg_signing_key !~ /^[a-zA-Z0-9]+$/ {
     fail("Duplicity::Profile[${title}]: signing_key must be alphanumeric, got '${gpg_signing_key}'")
-  }
-
-  if !is_array($gpg_options) {
-    fail("Duplicity::Profile[${title}]: gpg_options must be an array")
   }
 
   if $ensure =~ /^present$/ and empty($source) {
@@ -123,6 +115,19 @@ define duplicity::profile(
 
   if !is_array($exclude_filelist) {
     fail("Duplicity::Profile[${title}]: exclude_filelist must be an array")
+  }
+
+  $real_gpg_encryption_keys = empty($gpg_encryption_keys) ? {
+    true    => [],
+    default => any2array($gpg_encryption_keys)
+  }
+  $real_gpg_signing_key = empty($gpg_signing_key) ? {
+    true    => undef,
+    default => $gpg_signing_key
+  }
+  $real_gpg_options = empty($gpg_options) ? {
+    true    => [],
+    default => any2array($gpg_options)
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"
@@ -152,8 +157,8 @@ define duplicity::profile(
     true    => present,
     default => absent,
   }
-  $complete_encryption_keys = prefix($gpg_encryption_keys, "${title}/")
-  $complete_signing_keys = prefix(delete_undef_values([$gpg_signing_key]), "${title}/")
+  $complete_encryption_keys = prefix($real_gpg_encryption_keys, "${title}/")
+  $complete_signing_keys = prefix(delete_undef_values([$real_gpg_signing_key]), "${title}/")
 
   file { $profile_config_dir:
     ensure => $profile_config_dir_ensure,

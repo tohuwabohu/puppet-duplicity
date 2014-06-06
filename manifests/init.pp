@@ -37,6 +37,31 @@
 # [*duplicity_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
 #
+# [*gpg_encryption_keys*]
+#   List of default public keyids used to encrypt the backup.
+#
+# [*gpg_signing_key*]
+#   Set the default keyid of the key used to sign the backup; default value unless specified per profile.
+#
+# [*gpg_passphrase*]
+#   Set the default passphrase needed for signing, decryption and symmetric encryption.
+#
+# [*gpg_options*]
+#   List of default options passed from duplicity to the gpg process; default value unless specified per profile
+#
+# [*backup_target_url*]
+#   Set the default backup target where to store / find the backups. Expected to be an url like
+#   scheme://host[:port]/[/]path. By default, the profile title will be appended at the end.
+#
+# [*backup_target_username*]
+#   Set the default username used to authenticate with the backup target host.
+#
+# [*backup_target_password*]
+#   Set the default password to authenticate the username at the backup target host.
+#
+# [*cron_enabled*]
+#   Set the default state of the cron job. Either true or false.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -57,6 +82,14 @@ class duplicity (
   $duply_archive_install_dir = params_lookup('duply_archive_install_dir'),
   $duply_executable          = params_lookup('duply_executable'),
   $duply_log_dir             = params_lookup('duply_log_dir'),
+  $gpg_encryption_keys       = params_lookup('gpg_encryption_keys'),
+  $gpg_signing_key           = params_lookup('gpg_signing_key'),
+  $gpg_passphrase            = params_lookup('gpg_passphrase'),
+  $gpg_options               = params_lookup('gpg_options'),
+  $backup_target_url         = params_lookup('backup_target_url'),
+  $backup_target_username    = params_lookup('backup_target_username'),
+  $backup_target_password    = params_lookup('backup_target_password'),
+  $cron_enabled              = params_lookup('cron_enabled'),
 ) inherits duplicity::params {
   if empty($duplicity_package_ensure) {
     fail('Class[Duplicity]: duplicity_package_ensure must not be empty')

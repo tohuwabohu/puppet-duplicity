@@ -43,4 +43,14 @@ class duplicity::params {
   $duply_log_dir = $::osfamily ? {
     default => '/var/log/duply'
   }
+
+  $gpg_encryption_keys = []
+  $gpg_signing_key = ''
+  $gpg_passphrase = ''
+  $gpg_options = []
+  $backup_target_url = ''
+  $backup_target_username = ''
+  $backup_target_password = ''
+
+  $cron_enabled = false
 }

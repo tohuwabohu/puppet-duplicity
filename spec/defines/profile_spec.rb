@@ -83,12 +83,17 @@ describe 'duplicity::profile' do
     end
   end
 
-  describe 'with invalid gpg_encryption_keys' do
-    let(:params) { {:gpg_encryption_keys => 'foobar', :source => a_source, :target => a_target} }
+  describe 'with empty gpg_encryption_keys' do
+    let(:params) { {:gpg_encryption_keys => '', :source => a_source, :target => a_target} }
 
-    it do
-      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /gpg_encryption_keys/)
-    end
+    it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC=''$/) }
+  end
+
+  describe 'with gpg_encryption_keys => key1' do
+    let(:params) { {:gpg_encryption_keys => 'key1', :source => a_source, :target => a_target} }
+
+    it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC='key1'$/) }
+    it { should contain_duplicity__public_key_link('default/key1') }
   end
 
   describe 'with gpg_encryption_keys => [key1]' do
@@ -127,12 +132,16 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^GPG_PW='secret'$/) }
   end
 
-  describe 'with invalid gpg_options' do
+  describe 'with empty gpg_options' do
+    let(:params) { {:gpg_options => '', :source => a_source, :target => a_target} }
+
+    specify { should contain_file(default_config_file).with_content(/^GPG_OPTS=''$/) }
+  end
+
+  describe 'with gpg_options => --switch' do
     let(:params) { {:gpg_options => '--switch', :source => a_source, :target => a_target} }
 
-    specify {
-      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /gpg_options/)
-    }
+    specify { should contain_file(default_config_file).with_content(/^GPG_OPTS='--switch'$/) }
   end
 
   describe 'with gpg_options => [--switch]' do
