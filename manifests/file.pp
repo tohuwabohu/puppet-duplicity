@@ -29,7 +29,7 @@ define duplicity::file(
   $ensure  = present,
   $path    = $title,
   $exclude = [],
-  $profile = 'backup',
+  $profile = 'system',
 ) {
   require duplicity::params
 

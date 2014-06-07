@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'duplicity::file' do
   let(:title) { '/path/to/file' }
   let(:facts) { {:concat_basedir => '/path/to/dir'} }
-  let(:include_fragment) { '/etc/duply/backup/include/b4a91649090a2784056565363583d067' }
-  let(:exclude_fragment) { '/etc/duply/backup/exclude/b4a91649090a2784056565363583d067' }
+  let(:include_fragment) { '/etc/duply/system/include/b4a91649090a2784056565363583d067' }
+  let(:exclude_fragment) { '/etc/duply/system/exclude/b4a91649090a2784056565363583d067' }
   let(:restore_exec) { "restore /path/to/file" }
 
   describe 'by default' do
@@ -16,7 +16,7 @@ describe 'duplicity::file' do
         'content' => "+ /path/to/file"
       )
     }
-    specify { should contain_exec(restore_exec).with_command(/backup fetch path\/to\/file \/path\/to\/file$/) }
+    specify { should contain_exec(restore_exec).with_command(/system fetch path\/to\/file \/path\/to\/file$/) }
     specify { should contain_exec(restore_exec).with_creates('/path/to/file') }
   end
 
