@@ -17,6 +17,11 @@
 # [*profile*]
 #   Set the name of the profile to which the file should belong to.
 #
+# [*timeout*]
+#   Set the maximum time the restore should take. If the restore takes longer than the timeout, it is considered to
+#   have failed and will be stopped. The timeout is specified in seconds. The default timeout is 300 seconds and you
+#   can set it to 0 to disable the timeout.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -30,6 +35,7 @@ define duplicity::file(
   $path    = $title,
   $exclude = [],
   $profile = 'system',
+  $timeout = 300,
 ) {
   require duplicity::params
 
@@ -77,10 +83,11 @@ define duplicity::file(
     exec { "restore ${path}":
       command => "${duplicity::duply_executable} ${profile} fetch ${path_without_slash} ${path}",
       creates => $path,
+      timeout => $timeout,
       require => [
         File[$duplicity::duply_executable],
         Duplicity::Profile[$profile],
-      ]
+      ],
     }
   }
 }

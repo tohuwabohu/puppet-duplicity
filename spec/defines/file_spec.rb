@@ -85,4 +85,10 @@ describe 'duplicity::file' do
       expect { should contain_concat__fragment(exclude_fragment) }.to raise_error(Puppet::Error, /exclude/)
     }
   end
+
+  describe 'with timeout => 60' do
+    let(:params) { {:timeout => 60} }
+
+    specify { should contain_exec(restore_exec).with_timeout(60) }
+  end
 end
