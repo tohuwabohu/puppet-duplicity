@@ -47,4 +47,5 @@ DEPENDENCIES
   puppet-syntax (~> 1.1.1)
   puppetlabs_spec_helper (~> 0.4.1)
   rake (~> 10.1.1)
+  rspec (~> 2.14.1)
   rspec-puppet (~> 1.0.1)

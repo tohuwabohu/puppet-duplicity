@@ -7,7 +7,6 @@ license 'Apache License, Version 2.0'
 summary 'Install and manage duplicity'
 description ''
 
-dependency 'example42/puppi', '2.x'
 dependency 'gini/archive', '0.2.x'
 dependency 'puppetlabs/concat', '>= 1.1.0 < 2.0.0'
 dependency 'puppetlabs/stdlib', '>= 4.2.0 < 5.0.0'
