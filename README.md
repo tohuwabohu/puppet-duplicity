@@ -8,10 +8,16 @@ Install duplicity and manage its configuration.
 
 Install duplicity with all default values.
 
-Example:
-
 ```
 class { 'duplicity':
+  ensure => present,
+}
+```
+
+Backup a file and restore it from a previous backup if it is not existing.
+
+```
+duplicity::file { '/path/to/file':
   ensure => present,
 }
 ```
