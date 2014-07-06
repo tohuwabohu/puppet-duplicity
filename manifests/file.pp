@@ -22,9 +22,6 @@
 #   have failed and will be stopped. The timeout is specified in seconds. The default timeout is 300 seconds and you
 #   can set it to 0 to disable the timeout.
 #
-# [*restore_before*]
-#   Set one or more resources which depend on the path to exist.
-#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -34,12 +31,11 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::file(
-  $ensure          = present,
-  $path            = $title,
-  $exclude         = [],
-  $profile         = 'system',
-  $timeout         = 300,
-  $restore_before  = File[$title],
+  $ensure  = present,
+  $path    = $title,
+  $exclude = [],
+  $profile = 'system',
+  $timeout = 300,
 ) {
   require duplicity::params
 
@@ -88,7 +84,6 @@ define duplicity::file(
       command => "${duplicity::duply_executable} ${profile} fetch ${path_without_slash} ${path}",
       creates => $path,
       timeout => $timeout,
-      before  => $restore_before,
       require => [
         File[$duplicity::duply_executable],
         Duplicity::Profile[$profile],

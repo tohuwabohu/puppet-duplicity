@@ -18,7 +18,6 @@ describe 'duplicity::file' do
     }
     specify { should contain_exec(restore_exec).with_command(/system fetch path\/to\/file \/path\/to\/file$/) }
     specify { should contain_exec(restore_exec).with_creates('/path/to/file') }
-    specify { should contain_exec(restore_exec).with_before('File[/path/to/file]') }
   end
 
   describe 'with ensure absent' do
@@ -91,11 +90,5 @@ describe 'duplicity::file' do
     let(:params) { {:timeout => 60} }
 
     specify { should contain_exec(restore_exec).with_timeout(60) }
-  end
-
-  describe 'with custom before' do
-    let(:params) { {:restore_before => 'Class[xyz]'} }
-
-    specify { should contain_exec(restore_exec).with_before('Class[xyz]') }
   end
 end
