@@ -18,7 +18,7 @@ describe 'duplicity::file' do
     }
     specify { should contain_exec(restore_exec).with_command(/system fetch path\/to\/file \/path\/to\/file$/) }
     specify { should contain_exec(restore_exec).with_creates('/path/to/file') }
-    specify { should contain_exec(restore_exec).with_before(nil) }
+    specify { should contain_exec(restore_exec).with_before('File[/path/to/file]') }
   end
 
   describe 'with ensure absent' do

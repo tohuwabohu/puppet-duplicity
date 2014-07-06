@@ -23,7 +23,7 @@
 #   can set it to 0 to disable the timeout.
 #
 # [*restore_before*]
-#   Set one or more resources which depend on the `path` to exist.
+#   Set one or more resources which depend on the path to exist.
 #
 # === Authors
 #
@@ -39,7 +39,7 @@ define duplicity::file(
   $exclude         = [],
   $profile         = 'system',
   $timeout         = 300,
-  $restore_before  = undef,
+  $restore_before  = File[$title],
 ) {
   require duplicity::params
 
