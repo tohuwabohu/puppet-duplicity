@@ -5,8 +5,8 @@
 # === Parameters
 #
 # [*ensure*]
-#   Set state the file should be in: either present (= backup and restore if not existing), backup (= backup only),
-#   or absent.
+#   Set state the file should be in: either `present` (= backup and restore if not existing), `backup (= backup only),
+#   or `absent` (= remove file or directory from backup at all, do not attempt to restore it).
 #
 # [*path*]
 #   Set full path to the file or directory to be included in the backup.
