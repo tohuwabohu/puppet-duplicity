@@ -92,8 +92,8 @@ describe 'duplicity::file' do
     }
   end
 
-  describe 'with timeout => 60' do
-    let(:params) { {:timeout => 60} }
+  describe 'with restore_timeout => 60' do
+    let(:params) { {:restore_timeout => 60} }
 
     specify { should contain_exec(restore_exec).with_timeout(60) }
   end
@@ -104,30 +104,42 @@ describe 'duplicity::file' do
     specify { should contain_exec('restore /a/b/c').with_creates('/a/b/c') }
   end
 
-  describe 'should accept creates => /a/b/c' do
-    let(:params) { {:creates => '/a/b/c'} }
+  describe 'should accept restore_creates => /a/b/c' do
+    let(:params) { {:restore_creates => '/a/b/c'} }
 
     specify { should contain_exec(restore_exec).with_creates('/a/b/c') }
   end
 
-  describe 'should not accept invalid creates' do
-    let(:params) { {:creates => 'invalid-path'} }
+  describe 'should not accept invalid restore_creates' do
+    let(:params) { {:restore_creates => 'invalid-path'} }
 
     specify {
       expect { should contain_exec(restore_exec) }.to raise_error(Puppet::Error, /invalid-path/)
     }
   end
 
-  describe 'should not accept invalid force' do
-    let(:params) { {:force => 'invalid'} }
+  describe 'should accept restore_onlyif' do
+    let(:params) { {:restore_onlyif => 'test /path/to/file is empty'} }
+
+    specify { should contain_exec(restore_exec).with_onlyif('test /path/to/file is empty') }
+  end
+
+  describe 'should accept restore_unless' do
+    let(:params) { {:restore_unless => 'test /path/to/file is not empty'} }
+
+    specify { should contain_exec(restore_exec).with_unless('test /path/to/file is not empty') }
+  end
+
+  describe 'should not accept invalid restore_force' do
+    let(:params) { {:restore_force => 'invalid'} }
 
     specify {
-      expect { should contain_exec(restore_exec) }.to raise_error(Puppet::Error, /force/)
+      expect { should contain_exec(restore_exec) }.to raise_error(Puppet::Error, /restore_force/)
     }
   end
 
-  describe 'with force => true' do
-    let(:params) { {:force => true} }
+  describe 'with restore_force => true' do
+    let(:params) { {:restore_force => true} }
 
     specify { should contain_exec(restore_exec).with_command(/system fetch path\/to\/file \/path\/to\/file --force$/) }
   end

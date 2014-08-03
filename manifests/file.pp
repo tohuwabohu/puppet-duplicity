@@ -17,17 +17,23 @@
 # [*profile*]
 #   Set the name of the profile to which the file should belong to.
 #
-# [*creates*]
+# [*restore_creates*]
 #   Set the file which is created as part of the restore. The restore won't run if the referenced file already exists.
 #   Defaults to the `path` if specified; otherwise the `title` is used.
 #
-# [*force*]
+# [*restore_onlyif*]
+#   If this parameter is set, then the restore (`exec` under the hood) will only run if the command returns 0.
+#
+# [*restore_unless*]
+#   If this parameter is set, then the restore (`exec` under the hood) will run unless the command returns 0.
+#
+# [*restore_force*]
 #   Set to `true` will force duplicity to restore the backup even if this includes overwriting existing files. Use with
 #   care! By default duplicity will reject overwriting existing data, including empty directories. Hence the only known
-#   use case when to apply `force` is to replace empty directories which where created during the installation of a
-#   certain package which happened before the backup could be restored. Defaults to `false`.
+#   use case when to apply `restore_force` is to replace empty directories which where created during the installation
+#   of a certain package which happened before the backup could be restored. Defaults to `false`.
 #
-# [*timeout*]
+# [*restore_timeout*]
 #   Set the maximum time the restore should take. If the restore takes longer than the timeout, it is considered to
 #   have failed and will be stopped. The timeout is specified in seconds. The default timeout is 300 seconds and you
 #   can set it to 0 to disable the timeout.
@@ -41,13 +47,15 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::file(
-  $ensure  = present,
-  $path    = $title,
-  $exclude = [],
-  $profile = 'system',
-  $creates = pick($path, $title),
-  $force   = false,
-  $timeout = 300,
+  $ensure          = present,
+  $path            = $title,
+  $exclude         = [],
+  $profile         = 'system',
+  $restore_creates = pick($path, $title),
+  $restore_onlyif  = undef,
+  $restore_unless  = undef,
+  $restore_force   = false,
+  $restore_timeout = 300,
 ) {
   require duplicity::params
 
@@ -64,10 +72,10 @@ define duplicity::file(
   }
 
   validate_absolute_path($path)
-  validate_absolute_path($creates)
+  validate_absolute_path($restore_creates)
 
-  if !is_bool($force) {
-    fail("Duplicity::File[${title}]: force must be a boolean expression, got '${force}'")
+  if !is_bool($restore_force) {
+    fail("Duplicity::File[${title}]: restore_force must be a boolean expression, got '${restore_force}'")
   }
 
   $profile_dir = "${duplicity::params::duply_config_dir}/${profile}"
@@ -79,7 +87,7 @@ define duplicity::file(
   $exclude_filelist = join(prefix($exclude, '- '), "\n")
   $path_md5 = md5($path)
   $path_without_slash = regsubst($path, '^/(.*)$', '\1')
-  $force_option = str2bool($force) ? {
+  $force_option = str2bool($restore_force) ? {
     false   => '',
     default => '--force',
   }
@@ -103,8 +111,10 @@ define duplicity::file(
   if $ensure == present {
     exec { "restore ${path}":
       command => "${duplicity::duply_executable} ${profile} fetch ${path_without_slash} ${path} ${force_option}",
-      creates => $creates,
-      timeout => $timeout,
+      creates => $restore_creates,
+      onlyif  => $restore_onlyif,
+      unless  => $restore_unless,
+      timeout => $restore_timeout,
       require => [
         File[$duplicity::duply_executable],
         Duplicity::Profile[$profile],
