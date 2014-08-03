@@ -17,6 +17,10 @@
 # [*profile*]
 #   Set the name of the profile to which the file should belong to.
 #
+# [*creates*]
+#   Set the file which is created as part of the restore. The restore won't run if the referenced file already exists.
+#   Defaults to the `path` if specified; otherwise the `title` is used.
+#
 # [*force*]
 #   Set to `true` will force duplicity to restore the backup even if this includes overwriting existing files. Use with
 #   care! By default duplicity will reject overwriting existing data, including empty directories. Hence the only known
@@ -41,6 +45,7 @@ define duplicity::file(
   $path    = $title,
   $exclude = [],
   $profile = 'system',
+  $creates = pick($path, $title),
   $force   = false,
   $timeout = 300,
 ) {
@@ -59,6 +64,7 @@ define duplicity::file(
   }
 
   validate_absolute_path($path)
+  validate_absolute_path($creates)
 
   if !is_bool($force) {
     fail("Duplicity::File[${title}]: force must be a boolean expression, got '${force}'")
@@ -97,7 +103,7 @@ define duplicity::file(
   if $ensure == present {
     exec { "restore ${path}":
       command => "${duplicity::duply_executable} ${profile} fetch ${path_without_slash} ${path} ${force_option}",
-      creates => $path,
+      creates => $creates,
       timeout => $timeout,
       require => [
         File[$duplicity::duply_executable],
