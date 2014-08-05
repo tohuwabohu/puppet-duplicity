@@ -49,12 +49,6 @@ describe 'duplicity::file' do
     end
   end
 
-  describe 'should acccept custom path' do
-    let(:params) { {:path => '/a/b/c'} }
-
-    specify { should contain_exec('restore /a/b/c').with_command(/system fetch a\/b\/c \/a\/b\/c\s*$/) }
-  end
-
   describe 'with empty profile' do
     let(:params) { {:profile => ''} }
 
@@ -96,26 +90,6 @@ describe 'duplicity::file' do
     let(:params) { {:timeout => 60} }
 
     specify { should contain_exec(restore_exec).with_timeout(60) }
-  end
-
-  describe 'should acccept custom path' do
-    let(:params) { {:path => '/a/b/c'} }
-
-    specify { should contain_exec('restore /a/b/c').with_creates('/a/b/c') }
-  end
-
-  describe 'should accept creates => /a/b/c' do
-    let(:params) { {:creates => '/a/b/c'} }
-
-    specify { should contain_exec(restore_exec).with_creates('/a/b/c') }
-  end
-
-  describe 'should not accept invalid creates' do
-    let(:params) { {:creates => 'invalid-path'} }
-
-    specify {
-      expect { should contain_exec(restore_exec) }.to raise_error(Puppet::Error, /invalid-path/)
-    }
   end
 
   describe 'should not accept invalid force' do
