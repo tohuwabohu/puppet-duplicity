@@ -17,12 +17,6 @@
 # [*profile*]
 #   Set the name of the profile to which the file should belong to.
 #
-# [*force*]
-#   Set to `true` will force duplicity to restore the backup even if this includes overwriting existing files. Use with
-#   care! By default duplicity will reject overwriting existing data, including empty directories. Hence the only known
-#   use case when to apply `force` is to replace empty directories which where created during the installation of a
-#   certain package which happened before the backup could be restored. Defaults to `false`.
-#
 # [*timeout*]
 #   Set the maximum time the restore should take. If the restore takes longer than the timeout, it is considered to
 #   have failed and will be stopped. The timeout is specified in seconds. The default timeout is 300 seconds and you
@@ -41,7 +35,6 @@ define duplicity::file(
   $path    = $title,
   $exclude = [],
   $profile = 'system',
-  $force   = false,
   $timeout = 300,
 ) {
   require duplicity::params
@@ -60,10 +53,6 @@ define duplicity::file(
 
   validate_absolute_path($path)
 
-  if !is_bool($force) {
-    fail("Duplicity::File[${title}]: force must be a boolean expression, got '${force}'")
-  }
-
   $profile_dir = "${duplicity::params::duply_config_dir}/${profile}"
   $profile_filelist = "${profile_dir}/${duplicity::params::duply_profile_filelist_name}"
   $profile_filelist_ensure = $ensure ? {
@@ -73,10 +62,6 @@ define duplicity::file(
   $exclude_filelist = join(prefix($exclude, '- '), "\n")
   $path_md5 = md5($path)
   $path_without_slash = regsubst($path, '^/(.*)$', '\1')
-  $force_option = str2bool($force) ? {
-    false   => '',
-    default => '--force',
-  }
 
   if !empty($exclude) {
     concat::fragment { "${profile_dir}/exclude/${path_md5}":
@@ -96,7 +81,7 @@ define duplicity::file(
 
   if $ensure == present {
     exec { "restore ${path}":
-      command => "${duplicity::duply_executable} ${profile} fetch ${path_without_slash} ${path} ${force_option}",
+      command => "${duplicity::duply_executable} ${profile} fetch ${path_without_slash} ${path}",
       creates => $path,
       timeout => $timeout,
       require => [

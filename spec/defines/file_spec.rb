@@ -16,7 +16,7 @@ describe 'duplicity::file' do
         'content' => "+ /path/to/file"
       )
     }
-    specify { should contain_exec(restore_exec).with_command(/system fetch path\/to\/file \/path\/to\/file\s*$/) }
+    specify { should contain_exec(restore_exec).with_command(/system fetch path\/to\/file \/path\/to\/file$/) }
     specify { should contain_exec(restore_exec).with_creates('/path/to/file') }
   end
 
@@ -90,19 +90,5 @@ describe 'duplicity::file' do
     let(:params) { {:timeout => 60} }
 
     specify { should contain_exec(restore_exec).with_timeout(60) }
-  end
-
-  describe 'should not accept invalid force' do
-    let(:params) { {:force => 'invalid'} }
-
-    specify {
-      expect { should contain_exec(restore_exec) }.to raise_error(Puppet::Error, /force/)
-    }
-  end
-
-  describe 'with force => true' do
-    let(:params) { {:force => true} }
-
-    specify { should contain_exec(restore_exec).with_command(/system fetch path\/to\/file \/path\/to\/file --force$/) }
   end
 end
