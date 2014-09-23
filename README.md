@@ -14,6 +14,16 @@ class { 'duplicity':
 }
 ```
 
+Specify the backup server to be used; see the duplicity documentation for more information about the available protocols.
+
+```
+class { 'duplicity':
+  backup_target_url: 'ftps://backup.example.com/',
+  backup_target_username: 'username',
+  backup_target_password: 'password',
+}
+```
+
 Configure a simple backup profile. It will run once a day, do incremental backups by default and create a full backup if
 the previous full backup is older than 7 days. Duplicity will keep at most two full backups and purge older ones.
 
