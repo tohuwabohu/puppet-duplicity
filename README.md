@@ -28,7 +28,7 @@ The module has been tested on the following operating systems. Testing and patch
 
 * Debian Linux 6.0 (Squeeze)
 
-[![Build Status](https://travis-ci.org/tohuwabohu/tohuwabohu-duplicity.png?branch=master)](https://travis-ci.org/tohuwabohu/tohuwabohu-duplicity)
+[![Build Status](https://travis-ci.org/tohuwabohu/puppet-duplicity.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-duplicity)
 
 ##Contributing
 
