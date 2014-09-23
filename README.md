@@ -27,6 +27,7 @@ duplicity::file { '/path/to/file':
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
 * Debian Linux 6.0 (Squeeze)
+* Debian Linux 7.0 (Wheezy)
 
 [![Build Status](https://travis-ci.org/tohuwabohu/puppet-duplicity.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-duplicity)
 
