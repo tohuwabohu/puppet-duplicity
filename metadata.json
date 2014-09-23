@@ -1,0 +1,35 @@
+{
+    "name": "tohuwabohu-duplicity",
+    "version": "1.0.0",
+    "author": "Martin Meinhold",
+    "license": "Apache License, Version 2.0",
+    "summary": "Install and manage duplicity",
+    "source": "https://github.com/tohuwabohu/puppet-duplicity.git",
+    "project_page": "https://github.com/tohuwabohu/puppet-duplicity",
+    "issues_url": "https://github.com/tohuwabohu/puppet-duplicity/issues",
+    "types": [ "duplicity", "duply", "backup" ],
+    "operatingsystem_support": [
+        {
+            "operatingsystem": "Debian",
+            "operatingsystemrelease": [ "6.0", "7.0" ]
+        }
+    ],
+    "dependencies": [
+        {
+            "name": "gini/archive",
+            "version_requirement": "0.2.x"
+        },
+        {
+            "name": "puppetlabs/concat",
+            "version_requirement": ">= 1.1.0 < 2.0.0"
+        },
+        {
+            "name": "puppetlabs/stdlib",
+            "version_requirement": ">= 4.2.0 < 5.0.0"
+        },
+        {
+            "name": "rodjek/logrotate",
+            "version_requirement": "1.x"
+        }
+    ]
+}
