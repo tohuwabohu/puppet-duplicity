@@ -7,7 +7,7 @@
     "source": "https://github.com/tohuwabohu/puppet-duplicity.git",
     "project_page": "https://github.com/tohuwabohu/puppet-duplicity",
     "issues_url": "https://github.com/tohuwabohu/puppet-duplicity/issues",
-    "types": [ "duplicity", "duply", "backup" ],
+    "tags": [ "duplicity", "duply", "backup" ],
     "operatingsystem_support": [
         {
             "operatingsystem": "Debian",
