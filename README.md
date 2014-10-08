@@ -2,11 +2,12 @@
 
 ##Overview
 
-Install duplicity and manage its configuration.
+Configure [duply](http://duply.net/) on top of [duplicity](http://duplicity.nongnu.org/) to provide a profile-based,
+easy to use backup and restore system.
 
 ##Usage
 
-Install duplicity with all default values.
+Install duplicity and duply with all default values.
 
 ```
 class { 'duplicity':
