@@ -16,8 +16,8 @@
     ],
     "dependencies": [
         {
-            "name": "gini/archive",
-            "version_requirement": "0.2.x"
+            "name": "camptocamp/archive",
+            "version_requirement": "0.x"
         },
         {
             "name": "puppetlabs/concat",
