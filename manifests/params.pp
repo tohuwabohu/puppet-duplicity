@@ -14,9 +14,18 @@ class duplicity::params {
   $duplicity_package_ensure = installed
   $duplicity_package_name = 'duplicity'
 
-  $duply_package_ensure = '1.7.3'
-  $duply_package_name = 'duply-1.7.3'
-  $duply_package_provider = archive
+  $duply_package_ensure = $::osfamily ? {
+    'debian' => 'installed',
+    default  => '1.7.3',
+  }
+  $duply_package_name = $::osfamily ? {
+    'debian' => 'duply',
+    default  => 'duply-1.7.3',
+  }
+  $duply_package_provider = $::osfamily ? {
+    'debian' => 'apt',
+    default  => 'archive'
+  }
   $duply_archive_md5sum = '139e36c3ee35d8bca15b6aa9c7f8939b'
   $duply_archive_url = "https://www.dropbox.com/s/atfhw4hj5bev7n7/${duply_package_name}.tgz"
   $duply_archive_package_dir = $::operatingsystem ? {
@@ -26,7 +35,8 @@ class duplicity::params {
     default => '/opt',
   }
   $duply_executable = $::osfamily ? {
-    default => '/usr/local/sbin/duply'
+    'debian' => '/usr/bin/duply',
+    default  => '/usr/local/sbin/duply',
   }
   $duply_config_dir = $::osfamily ? {
     default => '/etc/duply'
