@@ -19,9 +19,9 @@ Specify the backup server to be used; see the duplicity documentation for more i
 
 ```
 class { 'duplicity':
-  backup_target_url: 'ftps://backup.example.com/',
-  backup_target_username: 'username',
-  backup_target_password: 'password',
+  backup_target_url      => 'ftps://backup.example.com/',
+  backup_target_username => 'username',
+  backup_target_password => 'password',
 }
 ```
 
