@@ -16,5 +16,5 @@ end
 if puppetversion = ENV['PUPPET_VERSION']
   gem 'puppet', puppetversion
 else
-  gem 'puppet'
+  gem 'puppet', '~> 3.7.3'
 end
