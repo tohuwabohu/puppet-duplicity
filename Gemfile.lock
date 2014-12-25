@@ -9,13 +9,18 @@ GEM
       json_pure
     json_pure (1.8.1)
     metaclass (0.0.4)
+    mime-types (2.4.3)
     mocha (1.0.0)
       metaclass (~> 0.0.1)
+    netrc (0.10.2)
     puppet (3.5.1)
       facter (> 1.6, < 3)
       hiera (~> 1.0)
       json_pure
       rgen (~> 0.6.5)
+    puppet-blacksmith (3.1.1)
+      puppet (>= 2.7.16)
+      rest-client
     puppet-lint (0.3.2)
     puppet-syntax (1.1.1)
       puppet (>= 2.7.0)
@@ -26,6 +31,9 @@ GEM
       rspec (>= 2.9.0)
       rspec-puppet (>= 0.1.1)
     rake (10.1.1)
+    rest-client (1.7.2)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rgen (0.6.6)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
@@ -43,6 +51,7 @@ PLATFORMS
 
 DEPENDENCIES
   puppet
+  puppet-blacksmith (~> 3.1.1)
   puppet-lint (~> 0.3.2)
   puppet-syntax (~> 1.1.1)
   puppetlabs_spec_helper (~> 0.4.1)

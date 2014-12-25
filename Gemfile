@@ -9,6 +9,10 @@ group :development, :test do
   gem 'puppet-lint', '~> 0.3.2'
 end
 
+group :development do
+  gem 'puppet-blacksmith', '~> 3.1.1'
+end
+
 if puppetversion = ENV['PUPPET_VERSION']
   gem 'puppet', puppetversion
 else
