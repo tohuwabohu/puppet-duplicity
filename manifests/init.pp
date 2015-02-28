@@ -11,28 +11,33 @@
 #   Set the name of the package to be installed.
 #
 # [*duply_package_ensure*]
-#   Set state the package should be in (if duply_package_provider is empty or not archive).
+#   Set state the package should be in. If the native `package` resource is used, the regular `ensure` rules apply.
+#   When using the `archive` variant, only `absent` and the target version number are supported.
 #
 # [*duply_package_name*]
 #   Set the name of the package to be installed.
 #
 # [*duply_package_provider*]
-#   Set the provider used to install the duply package. Use archive to download a version from a remote host.
+#   Set the provider used to install the duply package. Use `archive` to download the package from a remote host
+#   (defaults to the project's sourceforge page). Otherwise the native `package` resource will be used with `provider`
+#   set to the given value.
 #
 # [*duply_archive_md5sum*]
-#   Set the MD5 checksum of the archive (if duply_package_provider is archive).
+#   Set the MD5 checksum of the archive (if `duply_package_provider` is set to `archive`).
 #
 # [*duply_archive_url*]
-#   Set the url where to download the archive from (if duply_package_provider is archive).
+#   Set the full url where to download the archive from (if `duply_package_provider` is set to `archive`). Make sure the
+#   default `duplicity_package_name` matches the remote file or update the property otherwise.
 #
 # [*duply_archive_package_dir*]
-#   Set the directory where the downloaded package is stored (if duply_package_provider is archive).
+#   Set the directory where the downloaded package is stored (if `duply_package_provider` is set to `archive`).
 #
 # [*duply_archive_install_dir*]
-#   Set the directory where the application is installed (if duply_package_provider is archive).
+#   Set the directory where the application is installed (if `duply_package_provider` is set to `archive`).
 #
 # [*duply_executable*]
-#   Set the path of the duply executable pointing to the one contained in the package (if duply_package_provider is archive).
+#   Set the path of the duply executable pointing to the one contained in the package (if `duply_package_provider` is
+#   set to `archive`).
 #
 # [*duplicity_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
