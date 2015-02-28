@@ -20,14 +20,13 @@ class duplicity::params {
   }
   $duply_package_name = $::osfamily ? {
     'debian' => 'duply',
-    default  => 'duply-1.7.3',
+    default  => undef, # generated based on version number
   }
   $duply_package_provider = $::osfamily ? {
     'debian' => 'apt',
     default  => 'archive'
   }
   $duply_archive_md5sum = '139e36c3ee35d8bca15b6aa9c7f8939b'
-  $duply_archive_url = "https://www.dropbox.com/s/atfhw4hj5bev7n7/${duply_package_name}.tgz"
   $duply_archive_package_dir = $::operatingsystem ? {
     default => '/var/cache/puppet/archives',
   }

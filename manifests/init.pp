@@ -82,7 +82,7 @@ class duplicity (
   $duply_package_name        = $duplicity::params::duply_package_name,
   $duply_package_provider    = $duplicity::params::duply_package_provider,
   $duply_archive_md5sum      = $duplicity::params::duply_archive_md5sum,
-  $duply_archive_url         = $duplicity::params::duply_archive_url,
+  $duply_archive_url         = undef,
   $duply_archive_package_dir = $duplicity::params::duply_archive_package_dir,
   $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
   $duply_executable          = $duplicity::params::duply_executable,
@@ -108,7 +108,7 @@ class duplicity (
     fail('Class[Duplicity]: duply_package_ensure must not be empty')
   }
 
-  if $duply_package_name !~ /^[a-zA-Z0-9\._-]+$/ {
+  if $duply_package_provider != archive and $duply_package_name !~ /^[a-zA-Z0-9\._-]+$/ {
     fail("Class[Duplicity]: duply_package_name must be alphanumeric, got '${duply_package_name}'")
   }
 

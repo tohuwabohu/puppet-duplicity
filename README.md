@@ -15,6 +15,16 @@ class { 'duplicity':
 }
 ```
 
+Install a more recent version of duply from [the sourceforge project page](http://sourceforge.net/projects/ftplicity/)
+
+```
+class { 'duplicity':
+  duply_package_provider => 'archive',
+  duply_package_ensure   => '1.7.3',
+  duply_archive_md5sum   => '139e36c3ee35d8bca15b6aa9c7f8939b',
+}
+```
+
 Specify the backup server to be used; see the duplicity documentation for more information about the available protocols.
 
 ```
