@@ -20,8 +20,8 @@ Install a more recent version of duply from [the sourceforge project page](http:
 ```
 class { 'duplicity':
   duply_package_provider => 'archive',
-  duply_package_ensure   => '1.7.3',
-  duply_archive_md5sum   => '139e36c3ee35d8bca15b6aa9c7f8939b',
+  duply_archive_version  => '1.9.1',
+  duply_archive_md5sum   => 'd584940b9c740c81a2a081bc154084b9',
 }
 ```
 
