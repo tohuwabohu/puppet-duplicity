@@ -102,6 +102,12 @@ describe 'duplicity' do
     it { should contain_package('duply').with_ensure('1.2.3') }
   end
 
+  describe 'with duply_archive_version => 1.2.3' do
+    let(:params) { {:duply_archive_version => '1.2.3', :duply_package_provider => 'archive'} }
+
+    it { should contain_archive('duply_1.2.3') }
+  end
+
   describe 'with empty duply_package_ensure' do
     let(:params) { {:duply_package_ensure => ''} }
 
