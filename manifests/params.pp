@@ -34,8 +34,8 @@ class duplicity::params {
     default => '/opt',
   }
   $duply_executable = $::osfamily ? {
-    'debian' => '/usr/bin/duply',
-    default  => '/usr/local/sbin/duply',
+    # only used when `duply_package_provider` set to `archive`
+    default => '/usr/local/sbin/duply',
   }
   $duply_config_dir = $::osfamily ? {
     default => '/etc/duply'
