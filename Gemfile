@@ -12,6 +12,12 @@ group :development, :test do
   gem 'puppet-syntax', '~> 1.1.1'
 end
 
+group :system_tests do
+  gem 'beaker', '~> 1.19.1'
+  gem 'beaker-rspec', '~> 3.0.0'
+  gem 'serverspec', '~> 1.7.0'
+end
+
 if puppetversion = ENV['PUPPET_VERSION']
   gem 'puppet', puppetversion
 else

@@ -1,0 +1,16 @@
+HOSTS:
+  debian-6-64:
+    roles:
+      - master
+    platform: debian-6-amd64
+    hypervisor: vagrant
+    # The current Debian 6 image on vagrantcloud is broken
+    #
+    # see https://tickets.puppetlabs.com/browse/PUP-3058
+    box: debian-607-x64-vbox4210-nocm
+    box_url: http://puppet-vagrant-boxes.puppetlabs.com/debian-607-x64-vbox4210-nocm.box
+
+CONFIG:
+  log_level: info
+  trace_limit: 100
+  type: git
