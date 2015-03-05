@@ -11,10 +11,6 @@ rvm:
   - 2.1.0
 env:
   matrix:
-    - PUPPET_VERSION="~> 2.7.0"
-    - PUPPET_VERSION="~> 3.1.0"
-    - PUPPET_VERSION="~> 3.2.0"
-    - PUPPET_VERSION="~> 3.3.0"
     - PUPPET_VERSION="~> 3.4.0"
     - PUPPET_VERSION="~> 3.5.0"
     - PUPPET_VERSION="~> 3.6.0"
@@ -22,21 +18,5 @@ env:
 matrix:
   fast_finish: true
   exclude:
-  - rvm: 1.9.3
-    env: PUPPET_VERSION="~> 2.7.0"
-  - rvm: 2.0.0
-    env: PUPPET_VERSION="~> 2.7.0"
-  - rvm: 2.0.0
-    env: PUPPET_VERSION="~> 3.1.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 2.7.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 3.1.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 3.2.0"
-  - rvm: 2.1.0
-    env: PUPPET_VERSION="~> 3.3.0"
   - rvm: 2.1.0
     env: PUPPET_VERSION="~> 3.4.0"
-notifications:
-  email: false
