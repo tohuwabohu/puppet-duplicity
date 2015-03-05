@@ -113,11 +113,11 @@ class duplicity (
     fail('Class[Duplicity]: duply_package_ensure must not be empty')
   }
 
-  if $duply_package_name !~ /^[a-zA-Z0-9\._-\{\}]+$/ {
+  if $duply_package_name !~ /^[a-zA-Z0-9\._-]+$/ {
     fail("Class[Duplicity]: duply_package_name must be alphanumeric, got '${duply_package_name}'")
   }
 
-  if $duply_archive_version !~ /^[a-zA-Z0-9\._-\{\}]+$/ {
+  if $duply_archive_version !~ /^[a-zA-Z0-9\._-]+$/ {
     fail("Class[Duplicity]: duply_archive_version must be alphanumeric, got '${duply_archive_version}'")
   }
 
