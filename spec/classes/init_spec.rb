@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'duplicity' do
   let(:title) { 'duplicity' }
+  let(:archive) { 'duply_1.7.3' }
 
   describe 'by default' do
     let(:params) { {} }
@@ -11,12 +12,13 @@ describe 'duplicity' do
         'name'   => 'duplicity'
       )
     }
-    it { should contain_archive('duply_1.7.3').with(
-        'ensure'     => 'present',
+    specify { should contain_archive(archive).with_ensure('present') }
+    specify { should contain_archive(archive).with(
         'target'     => '/opt',
         'src_target' => '/var/cache/puppet/archives'
       )
     }
+    specify { should contain_archive(archive).with_follow_redirects(true) }
     it { should contain_file('/usr/local/sbin/duply') }
     it {
       should contain_file('/etc/duply').with(
@@ -95,7 +97,7 @@ describe 'duplicity' do
   end
 
   describe 'with duply_package_ensure => 1.2.3' do
-    let(:params) { {:duply_package_ensure => '1.2.3', :duply_package_provider => '', :duply_package_name => 'duply'} }
+    let(:params) { {:duply_package_ensure => '1.2.3', :duply_package_provider => ''} }
 
     it { should contain_package('duply').with_ensure('1.2.3') }
   end
@@ -123,13 +125,13 @@ describe 'duplicity' do
   end
 
   describe 'with duply_package_provider => apt' do
-    let(:params) { {:duply_package_provider => 'apt', :duply_package_name => 'duply'} }
+    let(:params) { {:duply_package_provider => 'apt'} }
 
     it { should contain_package('duply').with_provider('apt') }
   end
 
   describe 'with empty duply_package_provider' do
-    let(:params) { {:duply_package_provider => '', :duply_package_name => 'duply'} }
+    let(:params) { {:duply_package_provider => ''} }
 
     it { should contain_package('duply').with_provider('') }
   end
