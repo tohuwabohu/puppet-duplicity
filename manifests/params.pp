@@ -15,17 +15,16 @@ class duplicity::params {
   $duplicity_package_name = 'duplicity'
 
   $duply_package_ensure = $::osfamily ? {
-    'debian' => 'installed',
-    default  => '1.7.3',
+    default => 'installed',
   }
   $duply_package_name = $::osfamily ? {
-    'debian' => 'duply',
-    default  => undef, # generated based on version number
+    default => 'duply',
   }
   $duply_package_provider = $::osfamily ? {
     'debian' => 'apt',
     default  => 'archive'
   }
+  $duply_archive_version = '1.7.3'
   $duply_archive_md5sum = '139e36c3ee35d8bca15b6aa9c7f8939b'
   $duply_archive_package_dir = $::operatingsystem ? {
     default => '/var/cache/puppet/archives',

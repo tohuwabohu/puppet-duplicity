@@ -17,20 +17,16 @@ class duplicity::install inherits duplicity {
   }
 
   if $duplicity::duply_package_provider == archive {
-    $real_duply_package_version = $duplicity::duply_package_ensure
     $real_duply_package_ensure = $duplicity::duply_package_ensure ? {
       absent  => absent,
       default => present
     }
-    $real_duply_archive_name = empty($duply_package_name) ? {
-      true    => "duply_${real_duply_package_version}",
-      default => $duply_package_name,
-    }
+    $real_duply_archive_name = "duply_${duply_archive_version}"
     $real_duply_archive_url = empty($duply_archive_url) ? {
       true    => "http://downloads.sourceforge.net/ftplicity/${real_duply_archive_name}.tgz",
       default => $duply_archive_url,
     }
-    $real_duply_executable_target = "${duplicity::duply_archive_install_dir}/${real_duply_archive_root_dir}/duply"
+    $real_duply_executable_target = "${duplicity::duply_archive_install_dir}/${real_duply_archive_name}/duply"
     $real_duply_executable_ensure = $duplicity::duply_package_ensure ? {
       absent  => absent,
       default => link,

@@ -12,7 +12,8 @@
 #
 # [*duply_package_ensure*]
 #   Set state the package should be in. If the native `package` resource is used, the regular `ensure` rules apply.
-#   When using the `archive` variant, only `absent` and the target version number are supported.
+#   When using the `archive` variant, only `present` and `absent` are supported. To specify a version in the later case
+#   please use the `duply_archive_version` property.
 #
 # [*duply_package_name*]
 #   Set the name of the package to be installed.
@@ -22,12 +23,15 @@
 #   (defaults to the project's sourceforge page). Otherwise the native `package` resource will be used with `provider`
 #   set to the given value.
 #
+# [*duply_archive_version*]
+#   Set the version of duply to be installed (if `duply_package_provider` is set to `archive`).
+#
 # [*duply_archive_md5sum*]
 #   Set the MD5 checksum of the archive (if `duply_package_provider` is set to `archive`).
 #
 # [*duply_archive_url*]
 #   Set the full url where to download the archive from (if `duply_package_provider` is set to `archive`). Make sure the
-#   default `duplicity_package_name` matches the remote file or update the property otherwise.
+#   downloaded filename matches the expected pattern.
 #
 # [*duply_archive_package_dir*]
 #   Set the directory where the downloaded package is stored (if `duply_package_provider` is set to `archive`).
@@ -81,6 +85,7 @@ class duplicity (
   $duply_package_ensure      = $duplicity::params::duply_package_ensure,
   $duply_package_name        = $duplicity::params::duply_package_name,
   $duply_package_provider    = $duplicity::params::duply_package_provider,
+  $duply_archive_version     = $duplicity::params::duply_archive_version,
   $duply_archive_md5sum      = $duplicity::params::duply_archive_md5sum,
   $duply_archive_url         = undef,
   $duply_archive_package_dir = $duplicity::params::duply_archive_package_dir,
@@ -108,8 +113,12 @@ class duplicity (
     fail('Class[Duplicity]: duply_package_ensure must not be empty')
   }
 
-  if $duply_package_provider != archive and $duply_package_name !~ /^[a-zA-Z0-9\._-]+$/ {
+  if $duply_package_name !~ /^[a-zA-Z0-9\._-\{\}]+$/ {
     fail("Class[Duplicity]: duply_package_name must be alphanumeric, got '${duply_package_name}'")
+  }
+
+  if $duply_archive_version !~ /^[a-zA-Z0-9\._-\{\}]+$/ {
+    fail("Class[Duplicity]: duply_archive_version must be alphanumeric, got '${duply_archive_version}'")
   }
 
   validate_absolute_path($duply_archive_package_dir)
