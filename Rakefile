@@ -13,7 +13,7 @@ exclude_paths = [
 # Puppet-Lint 1.1.0
 Rake::Task[:lint].clear
 PuppetLint::RakeTask.new :lint do |config|
-  config.disable_checks = ['80chars']
+  config.disable_checks = ['80chars', 'class_inherits_from_params_class']
   config.fail_on_warnings = true
   config.ignore_paths = exclude_paths
 end

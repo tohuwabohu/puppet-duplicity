@@ -21,10 +21,10 @@ class duplicity::install inherits duplicity {
       absent  => absent,
       default => present
     }
-    $real_duply_archive_name = "duply_${duply_archive_version}"
-    $real_duply_archive_url = empty($duply_archive_url) ? {
+    $real_duply_archive_name = "duply_${duplicity::duply_archive_version}"
+    $real_duply_archive_url = empty($duplicity::duply_archive_url) ? {
       true    => "http://downloads.sourceforge.net/ftplicity/${real_duply_archive_name}.tgz",
-      default => $duply_archive_url,
+      default => $duplicity::duply_archive_url,
     }
     $real_duply_executable_target = "${duplicity::duply_archive_install_dir}/${real_duply_archive_name}/duply"
     $real_duply_executable_ensure = $duplicity::duply_package_ensure ? {
