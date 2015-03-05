@@ -33,12 +33,13 @@ class duplicity::install inherits duplicity {
     }
 
     archive { $real_duply_archive_name:
-      ensure        => $real_duply_package_ensure,
-      url           => $real_duply_archive_url,
-      extension     => 'tgz',
-      target        => $duplicity::duply_archive_install_dir,
-      src_target    => $duplicity::duply_archive_package_dir,
-      digest_string => $duplicity::duply_archive_md5sum,
+      ensure           => $real_duply_package_ensure,
+      url              => $real_duply_archive_url,
+      follow_redirects => true,
+      extension        => 'tgz',
+      target           => $duplicity::duply_archive_install_dir,
+      src_target       => $duplicity::duply_archive_package_dir,
+      digest_string    => $duplicity::duply_archive_md5sum,
     }
 
     file { $duplicity::duply_executable:
