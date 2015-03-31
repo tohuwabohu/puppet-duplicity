@@ -21,6 +21,7 @@ class duplicity::params {
     default => 'duply',
   }
   $duply_package_provider = $::osfamily ? {
+    'redhat' => 'yum',
     'debian' => 'apt',
     default  => 'archive'
   }
@@ -50,6 +51,10 @@ class duplicity::params {
   $duply_private_key_dir = "${duply_key_dir}/private"
   $duply_log_dir = $::osfamily ? {
     default => '/var/log/duply'
+  }
+  $duply_log_group = $::osfamily ? {
+    'redhat' => 'root',
+    default  => 'adm',
   }
 
   $gpg_encryption_keys = []

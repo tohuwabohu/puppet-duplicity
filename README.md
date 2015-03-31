@@ -101,6 +101,7 @@ The module has been tested on the following operating systems. Testing and patch
 * Debian 7.0 (Wheezy)
 * Ubuntu 12.04 (Precise Pangolin)
 * Ubuntu 14.04 (Trusty Tahr)
+* RHEL/Centos 6
 
 [![Build Status](https://travis-ci.org/tohuwabohu/puppet-duplicity.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-duplicity)
 

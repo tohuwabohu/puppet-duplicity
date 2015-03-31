@@ -46,6 +46,9 @@
 # [*duplicity_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
 #
+# [*duplicity_log_group*]
+#   Set the group that owns the log directory.
+#
 # [*gpg_encryption_keys*]
 #   List of default public keyids used to encrypt the backup.
 #
@@ -92,6 +95,7 @@ class duplicity (
   $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
   $duply_executable          = $duplicity::params::duply_executable,
   $duply_log_dir             = $duplicity::params::duply_log_dir,
+  $duply_log_group           = $duplicity::params::duply_log_group,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
   $gpg_signing_key           = $duplicity::params::gpg_signing_key,
   $gpg_passphrase            = $duplicity::params::gpg_passphrase,
@@ -125,6 +129,7 @@ class duplicity (
   validate_absolute_path($duply_archive_install_dir)
   validate_absolute_path($duply_executable)
   validate_absolute_path($duply_log_dir)
+  validate_string($duply_log_group)
 
   class { 'duplicity::install': } ->
   class { 'duplicity::setup': }
