@@ -5,7 +5,6 @@ HOSTS:
     platform: ubuntu-1404-x86_64
     hypervisor: vagrant
     box: puppetlabs/ubuntu-14.04-64-puppet
-    box_url: https://vagrantcloud.com/puppetlabs/boxes/ubuntu-14.04-64-puppet
 
 CONFIG:
   log_level: info

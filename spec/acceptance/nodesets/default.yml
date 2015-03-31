@@ -5,7 +5,6 @@ HOSTS:
     platform: debian-7-amd64
     hypervisor: vagrant
     box: puppetlabs/debian-7.6-64-puppet
-    box_url: https://vagrantcloud.com/puppetlabs/boxes/debian-7.6-64-puppet
 
 CONFIG:
   log_level: info
