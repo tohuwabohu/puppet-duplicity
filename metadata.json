@@ -1,57 +1,61 @@
 {
-    "name": "tohuwabohu-duplicity",
-    "version": "3.0.0",
-    "author": "Martin Meinhold",
-    "license": "Apache License, Version 2.0",
-    "summary": "Install and manage duplicity",
-    "source": "https://github.com/tohuwabohu/puppet-duplicity.git",
-    "project_page": "https://github.com/tohuwabohu/puppet-duplicity",
-    "issues_url": "https://github.com/tohuwabohu/puppet-duplicity/issues",
-    "tags": [ "duplicity", "duply", "backup" ],
-    "operatingsystem_support": [
-        {
-            "operatingsystem": "Debian",
-            "operatingsystemrelease": [
-                "6",
-                "7"
-            ]
-        },
-        {
-            "operatingsystem": "Ubuntu",
-            "operatingsystemrelease": [
-                "12.04",
-                "14.04"
-            ]
-        },
-        {
-            "operatingsystem": "RedHat",
-            "operatingsystemrelease": [
-                "6"
-            ]
-        },
-        {
-            "operatingsystem": "CentOS",
-            "operatingsystemrelease": [
-                "6"
-            ]
-        }
-    ],
-    "dependencies": [
-        {
-            "name": "camptocamp/archive",
-            "version_requirement": "0.x"
-        },
-        {
-            "name": "puppetlabs/concat",
-            "version_requirement": ">= 1.1.0 < 2.0.0"
-        },
-        {
-            "name": "puppetlabs/stdlib",
-            "version_requirement": ">= 4.2.0 < 5.0.0"
-        },
-        {
-            "name": "rodjek/logrotate",
-            "version_requirement": "1.x"
-        }
-    ]
+  "name": "tohuwabohu-duplicity",
+  "version": "3.0.1",
+  "author": "Martin Meinhold",
+  "license": "Apache License, Version 2.0",
+  "summary": "Install and manage duplicity",
+  "source": "https://github.com/tohuwabohu/puppet-duplicity.git",
+  "project_page": "https://github.com/tohuwabohu/puppet-duplicity",
+  "issues_url": "https://github.com/tohuwabohu/puppet-duplicity/issues",
+  "tags": [
+    "duplicity",
+    "duply",
+    "backup"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "12.04",
+        "14.04"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "camptocamp/archive",
+      "version_requirement": "0.x"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">= 1.1.0 < 2.0.0"
+    },
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.2.0 < 5.0.0"
+    },
+    {
+      "name": "rodjek/logrotate",
+      "version_requirement": "1.x"
+    }
+  ]
 }
