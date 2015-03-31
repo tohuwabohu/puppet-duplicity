@@ -43,10 +43,10 @@
 #   Set the path of the duply executable used in the cron and exec resources. Furthermore it is used to create a symlink
 #   pointing to the executable when installing the archive from sourceforge.
 #
-# [*duplicity_log_dir*]
+# [*duply_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
 #
-# [*duplicity_log_group*]
+# [*duply_log_group*]
 #   Set the group that owns the log directory.
 #
 # [*gpg_encryption_keys*]
