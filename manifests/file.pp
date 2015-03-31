@@ -81,11 +81,11 @@ define duplicity::file(
 
   if $ensure == present {
     exec { "restore ${path}":
-      command => "${duplicity::duply_executable} ${profile} fetch ${path_without_slash} ${path}",
+      command => "${duplicity::real_duply_executable} ${profile} fetch ${path_without_slash} ${path}",
       creates => $path,
       timeout => $timeout,
       require => [
-        File[$duplicity::duply_executable],
+        File[$duplicity::real_duply_executable],
         Duplicity::Profile[$profile],
       ],
     }

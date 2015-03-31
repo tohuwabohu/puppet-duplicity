@@ -40,8 +40,8 @@
 #   Set the directory where the application is installed (if `duply_package_provider` is set to `archive`).
 #
 # [*duply_executable*]
-#   Set the path of the duply executable pointing to the one contained in the package (if `duply_package_provider` is
-#   set to `archive`).
+#   Set the path of the duply executable used in the cron and exec resources. Furthermore it is used to create a symlink
+#   pointing to the executable when installing the archive from sourceforge.
 #
 # [*duplicity_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
@@ -93,7 +93,7 @@ class duplicity (
   $duply_archive_url         = undef,
   $duply_archive_package_dir = $duplicity::params::duply_archive_package_dir,
   $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
-  $duply_executable          = $duplicity::params::duply_executable,
+  $duply_executable          = undef,
   $duply_log_dir             = $duplicity::params::duply_log_dir,
   $duply_log_group           = $duplicity::params::duply_log_group,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
@@ -125,9 +125,17 @@ class duplicity (
     fail("Class[Duplicity]: duply_archive_version must be alphanumeric, got '${duply_archive_version}'")
   }
 
+  $real_duply_executable = empty($duply_executable) ? {
+    true => $duplicity::duply_package_provider ? {
+      archive => '/usr/local/sbin/duply',
+      default => '/usr/bin/duply'
+    },
+    default   => $duply_executable,
+  }
+
   validate_absolute_path($duply_archive_package_dir)
   validate_absolute_path($duply_archive_install_dir)
-  validate_absolute_path($duply_executable)
+  validate_absolute_path($real_duply_executable)
   validate_absolute_path($duply_log_dir)
   validate_string($duply_log_group)
 

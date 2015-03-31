@@ -1,3 +1,8 @@
+##2014-03-31 - Release 3.0.1
+###Summary
+
+Just a bugfix release that fixes the wrong `duply_executable` being used.
+
 ##2014-03-31 - Release 3.0.0
 ###Summary
 

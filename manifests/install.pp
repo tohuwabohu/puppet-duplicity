@@ -42,7 +42,7 @@ class duplicity::install inherits duplicity {
       digest_string    => $duplicity::duply_archive_md5sum,
     }
 
-    file { $duplicity::duply_executable:
+    file { $duplicity::real_duply_executable:
       ensure => $real_duply_executable_ensure,
       target => $real_duply_executable_target,
       owner  => 'root',
