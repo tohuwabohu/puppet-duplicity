@@ -26,13 +26,13 @@
         {
             "operatingsystem": "RedHat",
             "operatingsystemrelease": [
-                "6",
+                "6"
             ]
         },
         {
             "operatingsystem": "CentOS",
             "operatingsystemrelease": [
-                "6",
+                "6"
             ]
         }
     ],
