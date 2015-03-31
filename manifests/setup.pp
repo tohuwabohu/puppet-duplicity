@@ -65,7 +65,7 @@ class duplicity::setup inherits duplicity {
     missingok    => true,
     create       => true,
     create_owner => 'root',
-    create_group => $duplicity::duplicity_log_group,
+    create_group => $duplicity::duply_log_group,
     create_mode  => '0640',
     require      => File[$duplicity::duply_log_dir],
   }
