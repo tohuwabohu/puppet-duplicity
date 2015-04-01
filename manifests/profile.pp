@@ -7,6 +7,9 @@
 # [*ensure*]
 #   Set state the profile should be in. Either present or absent.
 #
+# [*gpg_encryption*]
+#   Enable or disable GPG encryption of backups. Defaults to 'true'.
+#
 # [*gpg_encryption_keys*]
 #   List of public keyids used to encrypt the backup.
 #
@@ -65,6 +68,7 @@
 #
 define duplicity::profile(
   $ensure              = present,
+  $gpg_encryption      = true,
   $gpg_encryption_keys = $duplicity::gpg_encryption_keys,
   $gpg_signing_key     = $duplicity::gpg_signing_key,
   $gpg_passphrase      = $duplicity::gpg_passphrase,
@@ -116,6 +120,11 @@ define duplicity::profile(
   if !is_array($exclude_filelist) {
     fail("Duplicity::Profile[${title}]: exclude_filelist must be an array")
   }
+
+  if !is_bool($gpg_encryption) {
+    fail("Duplicity::Profile[${title}]: gpg_encryption must be true or false")
+  }
+
 
   $real_gpg_encryption_keys = empty($gpg_encryption_keys) ? {
     true    => [],
