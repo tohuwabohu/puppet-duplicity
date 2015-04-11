@@ -49,6 +49,7 @@ describe 'duplicity::profile' do
         'mode'   => '0700'
       )
     }
+    it { should contain_file(default_config_file).with_content(/^# GPG_KEY='disabled'/) }
     it { should contain_file(default_config_file).with_content(/^GPG_KEYS_ENC=''$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='disabled'$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_PW=''$/) }
@@ -81,6 +82,18 @@ describe 'duplicity::profile' do
     it do
       expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /ensure/)
     end
+  end
+
+  describe 'with gpg_encryption => false' do
+    let(:params) { {:gpg_encryption => false} }
+
+    it { should contain_file(default_config_file).with_content(/^GPG_KEY='disabled'$/) }
+  end
+
+  describe 'with gpg_encryption => true' do
+    let(:params) { {:gpg_encryption => true} }
+
+    it { should contain_file(default_config_file).with_content(/^# GPG_KEY='disabled'/) }
   end
 
   describe 'with empty gpg_encryption_keys' do
