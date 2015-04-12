@@ -93,6 +93,14 @@ class { 'duplicity':
 }
 ```
 
+Or turn off the encryption of backups for a particular profile altogether:
+
+```
+duplicity::profile { 'system':
+  gpg_encryption => false,
+}
+```
+
 ##Limitations
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.

@@ -1,3 +1,9 @@
+##2014-04-12 - Release 3.1.0
+###Summary
+
+By default, all backups are encrypted via GPG. With the new boolean `gpg_encryption` parameter, this behaviour can be
+turned off in case encryption is not necessary. It can be configured on a per-profile level.
+
 ##2014-03-31 - Release 3.0.1
 ###Summary
 
