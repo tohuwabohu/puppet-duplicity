@@ -1,8 +1,15 @@
+##2014-04-15 - Release 3.1.1
+###Summary
+
+Fix up too restrictive permission on files contained in the tarball that was published to the forge during the last
+release (see [#8](https://github.com/tohuwabohu/puppet-duplicity/issues/8)).
+
 ##2014-04-12 - Release 3.1.0
 ###Summary
 
 By default, all backups are encrypted via GPG. With the new boolean `gpg_encryption` parameter, this behaviour can be
-turned off in case encryption is not necessary. It can be configured on a per-profile level.
+turned off in case encryption is not necessary. It can be configured on a per-profile level (see
+[#3](https://github.com/tohuwabohu/puppet-duplicity/issues/3)).
 
 ##2014-03-31 - Release 3.0.1
 ###Summary
