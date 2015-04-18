@@ -257,9 +257,16 @@ define duplicity::profile(
     ensure  => present,
   }
 
+  if versioncmp($duplicity::params::duply_version, '1.7.1') < 0 {
+    $cron_command  = "${duplicity::real_duply_executable} ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
+  }
+  else {
+    $cron_command  = "${duplicity::real_duply_executable} ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
+  }
+
   cron { "backup-${title}":
     ensure  => $cron_ensure,
-    command => "${duplicity::real_duply_executable} ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log",
+    command => $cron_command,
     user    => 'root',
     hour    => $cron_hour,
     minute  => $cron_minute,
