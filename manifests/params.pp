@@ -52,6 +52,26 @@ class duplicity::params {
     'redhat' => 'root',
     default  => 'adm',
   }
+  
+  case $::operatingsystem {
+    'Debian': {
+      $duply_version = $::lsbmajdistrelease ? {
+        '7' => '1.5.5.5',
+        '8' => '1.9.1'
+      }
+    }
+    'Ubuntu': {
+      $duply_version = $::lsbdistrelease ? {
+        '12.04' => '1.5.5.4',
+        '14.04' => '1.5.10',
+        '14.10' => '1.8.0',
+        '15.04' => '1.9.1'
+      }
+    }
+    default: {
+      $duply_version = $duply_archive_version
+    }
+  }
 
   $gpg_encryption_keys = []
   $gpg_signing_key = ''
