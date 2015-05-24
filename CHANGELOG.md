@@ -1,3 +1,8 @@
+##2014-XX-YY - Release 3.1.2
+###Summary
+
+Improve compatibility with Puppet 4.
+
 ##2014-04-15 - Release 3.1.1
 ###Summary
 
