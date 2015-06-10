@@ -43,6 +43,11 @@
 #   Set the path of the duply executable used in the cron and exec resources. Furthermore it is used to create a symlink
 #   pointing to the executable when installing the archive from sourceforge.
 #
+# [*duply_version*]
+#   Set the version of the installed duply package in case you are not using the default package of your distribution or 
+#   your version is not automatically detected. If you are using `archive` as `duply_package_provider`, please
+#   specify the version via `duply_archive_version`.
+#
 # [*duply_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
 #
@@ -94,6 +99,7 @@ class duplicity (
   $duply_archive_package_dir = $duplicity::params::duply_archive_package_dir,
   $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
   $duply_executable          = undef,
+  $duply_version             = undef,
   $duply_log_dir             = $duplicity::params::duply_log_dir,
   $duply_log_group           = $duplicity::params::duply_log_group,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
@@ -131,6 +137,14 @@ class duplicity (
       default => '/usr/bin/duply'
     },
     default   => $duply_executable,
+  }
+
+  $real_duply_version = empty($duply_version) ? {
+    true => $duply_package_provider ? {
+      archive => $duply_archive_version,
+      default => $duplicity::params::duply_version,
+    },
+    default   => $duply_version,
   }
 
   validate_absolute_path($duply_archive_package_dir)
