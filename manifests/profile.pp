@@ -58,6 +58,12 @@
 # [*cron_minute*]
 #   The minute expression of the cron job.
 #
+# [*duply_executable*]
+#   Set the path of the duply executable .
+#
+# [*duply_version*]
+#   Currently installed duply version.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -86,6 +92,8 @@ define duplicity::profile(
   $cron_enabled        = $duplicity::cron_enabled,
   $cron_hour           = undef,
   $cron_minute         = undef,
+  $duply_executable    = $duplicity::real_duply_executable,
+  $duply_version       = $duplicity::real_duply_version,
 ) {
   require duplicity
 
@@ -257,11 +265,11 @@ define duplicity::profile(
     ensure  => present,
   }
 
-  if versioncmp($duplicity::params::duply_version, '1.7.1') < 0 {
-    $cron_command  = "${duplicity::real_duply_executable} ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
+  if versioncmp($duply_version, '1.7.1') < 0 {
+    $cron_command  = "${duply_executable} ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
   }
   else {
-    $cron_command  = "${duplicity::real_duply_executable} ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
+    $cron_command  = "${duply_executable} ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
   }
 
   cron { "backup-${title}":
