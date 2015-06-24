@@ -74,6 +74,9 @@
 # [*cron_enabled*]
 #   Set the default state of the cron job. Either true or false.
 #
+# [*exec_path*]
+#   Set the PATH passed to any exec resources.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -104,6 +107,7 @@ class duplicity (
   $backup_target_username    = $duplicity::params::backup_target_username,
   $backup_target_password    = $duplicity::params::backup_target_password,
   $cron_enabled              = $duplicity::params::cron_enabled,
+  $exec_path                 = $duplicity::params::exec_path,
 ) inherits duplicity::params {
   if empty($duplicity_package_ensure) {
     fail('Class[Duplicity]: duplicity_package_ensure must not be empty')

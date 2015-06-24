@@ -62,4 +62,7 @@ class duplicity::params {
   $backup_target_password = ''
 
   $cron_enabled = false
+  $exec_path = $::osfamily ? {
+    default => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  }
 }
