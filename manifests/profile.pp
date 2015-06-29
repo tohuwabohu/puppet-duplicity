@@ -258,10 +258,11 @@ define duplicity::profile(
   }
 
   cron { "backup-${title}":
-    ensure  => $cron_ensure,
-    command => "${duplicity::real_duply_executable} ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log",
-    user    => 'root',
-    hour    => $cron_hour,
-    minute  => $cron_minute,
+    ensure      => $cron_ensure,
+    command     => "duply ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log",
+    environment => "PATH=${duplicity::exec_path}",
+    user        => 'root',
+    hour        => $cron_hour,
+    minute      => $cron_minute,
   }
 }
