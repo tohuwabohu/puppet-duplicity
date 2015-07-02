@@ -1,7 +1,12 @@
-##2014-XX-YY - Release 3.1.2
+##2014-07-YY - Release 3.2.0
 ###Summary
 
-Improve compatibility with Puppet 4.
+The duply executable is no longer referenced directly but sourced from the `PATH` environment variable instead (#10). As
+a result of this change, the `duply_executable` parameter has been deprecated and was replaced with the more specific
+`exec_path` and `duply_archive_executable` parameters.
+
+####Further changes
+* Improved compatibility with Puppet 4 ([logrotate #46](https://github.com/rodjek/puppet-logrotate/issues/46)).
 
 ##2014-04-15 - Release 3.1.1
 ###Summary
