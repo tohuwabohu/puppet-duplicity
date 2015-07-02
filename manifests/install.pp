@@ -56,5 +56,10 @@ class duplicity::install inherits duplicity {
       name     => $duplicity::duply_package_name,
       provider => $duplicity::duply_package_provider,
     }
+
+    # If duply was previously installed from archive, it should not pollute the PATH any more ...
+    file { $duplicity::duply_archive_executable:
+      ensure => absent,
+    }
   }
 }
