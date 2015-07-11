@@ -1,4 +1,4 @@
-##2014-07-YY - Release 3.2.0
+##2014-07-11 - Release 3.2.0
 ###Summary
 
 The duply executable is no longer referenced directly but sourced from the `PATH` environment variable instead (#10). As
