@@ -33,6 +33,9 @@
 #   Set the full url where to download the archive from (if `duply_package_provider` is set to `archive`). Make sure the
 #   downloaded filename matches the expected pattern.
 #
+# [*duply_archive_proxy*]
+#   Set the proxy to use for archive download, in format `http://host:port` (if `duply_package_provider` is set to `archive`).
+#
 # [*duply_archive_package_dir*]
 #   Set the directory where the downloaded package is stored (if `duply_package_provider` is set to `archive`).
 #
