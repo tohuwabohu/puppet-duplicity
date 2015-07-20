@@ -15,7 +15,7 @@ RSpec.configure do |c|
       # Install dependencies
       on host, puppet('module', 'install', 'puppetlabs-stdlib', '--version 4.3.2')
       on host, puppet('module', 'install', 'puppetlabs-concat', '--version 1.1.0')
-      on host, puppet('module', 'install', 'camptocamp-archive', '--version 0.3.1')
+      on host, puppet('module', 'install', 'camptocamp-archive', '--version 0.7.4')
       on host, puppet('module', 'install', 'rodjek-logrotate', '--version 1.1.1')
     end
   end
