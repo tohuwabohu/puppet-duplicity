@@ -1,3 +1,8 @@
+##2014-07-21 - Release 3.3.0
+###Summary
+
+Add extra option that allows to download duply using a proxy server ([#11](https://github.com/tohuwabohu/puppet-duplicity/pull/11)).
+
 ##2014-07-11 - Release 3.2.0
 ###Summary
 
