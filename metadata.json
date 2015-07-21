@@ -43,7 +43,7 @@
   "dependencies": [
     {
       "name": "camptocamp/archive",
-      "version_requirement": "0.x"
+      "version_requirement": ">= 0.5.0 < 1.0.0"
     },
     {
       "name": "puppetlabs/concat",

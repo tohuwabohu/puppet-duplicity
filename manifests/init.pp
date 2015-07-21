@@ -33,6 +33,9 @@
 #   Set the full url where to download the archive from (if `duply_package_provider` is set to `archive`). Make sure the
 #   downloaded filename matches the expected pattern.
 #
+# [*duply_archive_proxy*]
+#   Set the proxy to use for archive download, in format `http://host:port` (if `duply_package_provider` is set to `archive`).
+#
 # [*duply_archive_package_dir*]
 #   Set the directory where the downloaded package is stored (if `duply_package_provider` is set to `archive`).
 #
@@ -97,6 +100,7 @@ class duplicity (
   $duply_archive_version     = $duplicity::params::duply_archive_version,
   $duply_archive_md5sum      = $duplicity::params::duply_archive_md5sum,
   $duply_archive_url         = undef,
+  $duply_archive_proxy       = undef,       
   $duply_archive_package_dir = $duplicity::params::duply_archive_package_dir,
   $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
   $duply_archive_executable  = $duplicity::params::duply_archive_executable,
