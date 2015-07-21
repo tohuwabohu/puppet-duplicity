@@ -100,7 +100,7 @@ class duplicity (
   $duply_archive_version     = $duplicity::params::duply_archive_version,
   $duply_archive_md5sum      = $duplicity::params::duply_archive_md5sum,
   $duply_archive_url         = undef,
-  $duply_archive_proxy       = undef,       
+  $duply_archive_proxy       = undef,
   $duply_archive_package_dir = $duplicity::params::duply_archive_package_dir,
   $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
   $duply_archive_executable  = $duplicity::params::duply_archive_executable,
