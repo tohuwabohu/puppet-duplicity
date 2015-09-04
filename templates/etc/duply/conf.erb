@@ -178,5 +178,7 @@ DUPL_PARAMS="$DUPL_PARAMS --volsize $VOLSIZE "
 
 # more duplicity command line options can be added in the following way
 # don't forget to leave a separating space char at the end
+<% if @real_duplicity_params -%>
+DUPL_PARAMS="$DUPL_PARAMS <%= @real_duplicity_params.join(' ') %> "
+<% end -%>
 #DUPL_PARAMS="$DUPL_PARAMS --put_your_options_here " 
-

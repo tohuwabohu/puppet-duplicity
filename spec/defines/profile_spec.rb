@@ -84,6 +84,15 @@ describe 'duplicity::profile' do
     end
   end
 
+  describe 'with duplicity_extra_params defined' do
+    let(:params) { {:duplicity_extra_params => [ '--s3-use-3-use-server-side-encryption' ]} }
+
+    it do 
+      should contain_file('/etc/duply/default/conf')
+      .with('content' => /DUPL_PARAMS --s3-use-3-use-server-side-encryption/)
+    end
+  end
+
   describe 'with gpg_encryption => false' do
     let(:params) { {:gpg_encryption => false} }
 
