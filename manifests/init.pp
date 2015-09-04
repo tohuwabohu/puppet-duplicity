@@ -10,6 +10,9 @@
 # [*duplicity_package_name*]
 #   Set the name of the package to be installed.
 #
+# [*duplicity_extra_params*]
+#   An array of options to pass to the duplicity program.
+#
 # [*duply_package_ensure*]
 #   Set state the package should be in. If the native `package` resource is used, the regular `ensure` rules apply.
 #   When using the `archive` variant, only `present` and `absent` are supported. To specify a version in the later case
@@ -94,6 +97,7 @@
 class duplicity (
   $duplicity_package_ensure  = $duplicity::params::duplicity_package_ensure,
   $duplicity_package_name    = $duplicity::params::duplicity_package_name,
+  $duplicity_extra_params    = undef,
   $duply_package_ensure      = $duplicity::params::duply_package_ensure,
   $duply_package_name        = $duplicity::params::duply_package_name,
   $duply_package_provider    = $duplicity::params::duply_package_provider,
