@@ -58,6 +58,9 @@
 # [*cron_minute*]
 #   The minute expression of the cron job.
 #
+# [*duplicity_extra_params*]
+#   An array of extra parameters to pass to duplicity.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -67,25 +70,26 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::profile(
-  $ensure              = present,
-  $gpg_encryption      = true,
-  $gpg_encryption_keys = $duplicity::gpg_encryption_keys,
-  $gpg_signing_key     = $duplicity::gpg_signing_key,
-  $gpg_passphrase      = $duplicity::gpg_passphrase,
-  $gpg_options         = $duplicity::gpg_options,
-  $target              = "${duplicity::backup_target_url}/${title}",
-  $target_username     = $duplicity::backup_target_username,
-  $target_password     = $duplicity::backup_target_password,
-  $source              = '/',
-  $full_if_older_than  = '',
-  $max_full_backups    = '',
-  $volsize             = 50,
-  $include_filelist    = [],
-  $exclude_filelist    = [],
-  $exclude_by_default  = true,
-  $cron_enabled        = $duplicity::cron_enabled,
-  $cron_hour           = undef,
-  $cron_minute         = undef,
+  $ensure                 = present,
+  $gpg_encryption         = true,
+  $gpg_encryption_keys    = $duplicity::gpg_encryption_keys,
+  $gpg_signing_key        = $duplicity::gpg_signing_key,
+  $gpg_passphrase         = $duplicity::gpg_passphrase,
+  $gpg_options            = $duplicity::gpg_options,
+  $target                 = "${duplicity::backup_target_url}/${title}",
+  $target_username        = $duplicity::backup_target_username,
+  $target_password        = $duplicity::backup_target_password,
+  $source                 = '/',
+  $full_if_older_than     = '',
+  $max_full_backups       = '',
+  $volsize                = 50,
+  $include_filelist       = [],
+  $exclude_filelist       = [],
+  $exclude_by_default     = true,
+  $cron_enabled           = $duplicity::cron_enabled,
+  $cron_hour              = undef,
+  $cron_minute            = undef,
+  $duplicity_extra_params = $duplicity::duplicity_extra_params,
 ) {
   require duplicity
 
@@ -137,6 +141,10 @@ define duplicity::profile(
   $real_gpg_options = empty($gpg_options) ? {
     true    => [],
     default => any2array($gpg_options)
+  }
+  $real_duplicity_params = empty($duplicity_extra_params) ? {
+    true    => [],
+    default => any2array($duplicity_extra_params)
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"
