@@ -1,3 +1,8 @@
+##2014-09-09 - Release 3.4.0
+###Summary
+
+Add ability to pass extra options to duplicity ([#12](https://github.com/tohuwabohu/puppet-duplicity/pull/12)).
+
 ##2014-07-21 - Release 3.3.0
 ###Summary
 
