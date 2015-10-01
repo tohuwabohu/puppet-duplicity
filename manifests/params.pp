@@ -61,8 +61,8 @@ class duplicity::params {
   $gpg_passphrase = ''
   $gpg_options = []
   $backup_target_url = ''
-  $backup_target_username = ''
-  $backup_target_password = ''
+  $backup_target_username = undef
+  $backup_target_password = undef
 
   $cron_enabled = false
   $exec_path = $::osfamily ? {
