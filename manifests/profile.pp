@@ -85,7 +85,7 @@ define duplicity::profile(
   $volsize                = 50,
   $include_filelist       = [],
   $exclude_filelist       = [],
-  $exclude_by_default     = true,
+  $exclude_by_default     = false,
   $cron_enabled           = $duplicity::cron_enabled,
   $cron_hour              = undef,
   $cron_minute            = undef,
