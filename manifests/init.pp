@@ -55,6 +55,12 @@
 # [*duply_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
 #
+# [*duply_cache_dir*]
+#   Defines a folder that holds unencrypted meta data of the backup, enabling new incrementals without the
+#   need to decrypt backend metadata first. If empty or deleted somehow, the private key and it's password are needed.
+#   NOTE: This is confidential data. Put it somewhere safe. It can grow quite big over time so you might want to put 
+#   it not in the home dir. default '~/.cache/duplicity/duply_<profile>/'
+#
 # [*duply_log_group*]
 #   Set the group that owns the log directory.
 #
@@ -110,6 +116,7 @@ class duplicity (
   $duply_archive_executable  = $duplicity::params::duply_archive_executable,
   $duply_log_dir             = $duplicity::params::duply_log_dir,
   $duply_log_group           = $duplicity::params::duply_log_group,
+  $duply_cache_dir           = undef,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
   $gpg_signing_key           = $duplicity::params::gpg_signing_key,
   $gpg_passphrase            = $duplicity::params::gpg_passphrase,
@@ -147,6 +154,9 @@ class duplicity (
   validate_absolute_path($duply_archive_install_dir)
   validate_absolute_path($duply_archive_executable)
   validate_absolute_path($duply_log_dir)
+  if ($duply_cache_dir) {
+    validate_absolute_path($duply_cache_dir)
+  }
   validate_string($duply_log_group)
 
   class { 'duplicity::install': } ->

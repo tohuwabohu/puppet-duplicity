@@ -90,6 +90,7 @@ define duplicity::profile(
   $cron_hour              = undef,
   $cron_minute            = undef,
   $duplicity_extra_params = $duplicity::duplicity_extra_params,
+  $duply_cache_dir        = $duplicity::duply_cache_dir,
 ) {
   require duplicity
 
