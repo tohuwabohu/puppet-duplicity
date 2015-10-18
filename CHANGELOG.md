@@ -1,3 +1,8 @@
+##2014-10-18 - Release 3.5.0
+###Summary
+
+Allow configuration of the Duply cache (ARCH_DIR) directory. ([#17](https://github.com/tohuwabohu/puppet-duplicity/pull/17)).
+
 ##2014-09-09 - Release 3.4.0
 ###Summary
 
