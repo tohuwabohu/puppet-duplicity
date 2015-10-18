@@ -158,6 +158,9 @@ DUPL_PARAMS="$DUPL_PARAMS --volsize $VOLSIZE "
 # default '~/.cache/duplicity/duply_<profile>/'
 # if set  '${ARCH_DIR}/<profile>'
 #ARCH_DIR=/some/space/safe/.duply-cache
+<% if @duply_cache_dir -%>
+ARCH_DIR=<%= @duply_cache_dir %>
+<% end %>
 
 # DEPRECATED setting
 # sets duplicity --time-separator option (since v0.4.4.RC2) to allow users 
