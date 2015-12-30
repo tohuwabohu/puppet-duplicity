@@ -16,7 +16,7 @@ describe 'duplicity::file' do
         'content' => "+ /path/to/file"
       )
     }
-    specify { should contain_exec(restore_exec).with_command(/system fetch path\/to\/file \/path\/to\/file$/) }
+    specify { should contain_exec(restore_exec).with_command(/system fetch "path\/to\/file" "\/path\/to\/file"$/) }
     specify { should contain_exec(restore_exec).with_creates('/path/to/file') }
   end
 

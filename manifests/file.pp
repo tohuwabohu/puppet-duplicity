@@ -81,7 +81,7 @@ define duplicity::file(
 
   if $ensure == present {
     exec { "restore ${path}":
-      command => "duply ${profile} fetch ${path_without_slash} ${path}",
+      command => "duply ${profile} fetch \"${path_without_slash}\" \"${path}\"",
       path    => $duplicity::exec_path,
       creates => $path,
       timeout => $timeout,
