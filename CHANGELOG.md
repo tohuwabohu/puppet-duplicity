@@ -1,19 +1,31 @@
-##2014-10-18 - Release 3.5.0
+##2015-12-30 - Release 3.5.1
+###Summary
+
+Fixes a bug which causes an error when trying to restore a `duplicity::file`' file resource whose path contains
+whitespaces. This issue effects the `path` parameter - the root - of the `duplicity::file` resource only, e.g.
+
+```
+duplicity::file { '/path/with/white space': }
+```
+
+Any path that is part of an inclusion list is NOT effected by the problem.
+
+##2015-10-18 - Release 3.5.0
 ###Summary
 
 Allow configuration of the Duply cache (ARCH_DIR) directory. ([#17](https://github.com/tohuwabohu/puppet-duplicity/pull/17)).
 
-##2014-09-09 - Release 3.4.0
+##2015-09-09 - Release 3.4.0
 ###Summary
 
 Add ability to pass extra options to duplicity ([#12](https://github.com/tohuwabohu/puppet-duplicity/pull/12)).
 
-##2014-07-21 - Release 3.3.0
+##2015-07-21 - Release 3.3.0
 ###Summary
 
 Add extra option that allows to download duply using a proxy server ([#11](https://github.com/tohuwabohu/puppet-duplicity/pull/11)).
 
-##2014-07-11 - Release 3.2.0
+##2015-07-11 - Release 3.2.0
 ###Summary
 
 The duply executable is no longer referenced directly but sourced from the `PATH` environment variable instead (#10). As
@@ -23,25 +35,25 @@ a result of this change, the `duply_executable` parameter has been deprecated an
 ####Further changes
 * Improved compatibility with Puppet 4 ([logrotate #46](https://github.com/rodjek/puppet-logrotate/issues/46)).
 
-##2014-04-15 - Release 3.1.1
+##2015-04-15 - Release 3.1.1
 ###Summary
 
 Fix up too restrictive permission on files contained in the tarball that was published to the forge during the last
 release (see [#8](https://github.com/tohuwabohu/puppet-duplicity/issues/8)).
 
-##2014-04-12 - Release 3.1.0
+##2015-04-12 - Release 3.1.0
 ###Summary
 
 By default, all backups are encrypted via GPG. With the new boolean `gpg_encryption` parameter, this behaviour can be
 turned off in case encryption is not necessary. It can be configured on a per-profile level (see
 [#3](https://github.com/tohuwabohu/puppet-duplicity/issues/3)).
 
-##2014-03-31 - Release 3.0.1
+##2015-03-31 - Release 3.0.1
 ###Summary
 
 Just a bugfix release that fixes the wrong `duply_executable` being used.
 
-##2014-03-31 - Release 3.0.0
+##2015-03-31 - Release 3.0.0
 ###Summary
 
 This release adds a better separation of the configuration parameters when using the package vs. archive resource type.
