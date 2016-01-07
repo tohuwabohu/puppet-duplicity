@@ -238,7 +238,7 @@ define duplicity::profile(
     ensure_newline => true,
   }
 
-  profile_exec_before { "${title}/header":
+  duplicity::profile_exec_before { "${title}/header":
     profile => $title,
     content => "#!/bin/bash\n",
     order   => '01',
@@ -252,7 +252,7 @@ define duplicity::profile(
     ensure_newline => true,
   }
 
-  profile_exec_after { "${title}/header":
+  duplicity::profile_exec_after { "${title}/header":
     profile => $title,
     content => "#!/bin/bash\n",
     order   => '01',
