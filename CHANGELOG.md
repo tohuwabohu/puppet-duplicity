@@ -1,3 +1,8 @@
+##2016-01-10 - Release 3.5.2
+###Summary
+
+Add scope to `profile_exec_*` calls so that duplicity works with Puppet 4 ([#18](https://github.com/tohuwabohu/puppet-duplicity/pull/18)).
+
 ##2015-12-30 - Release 3.5.1
 ###Summary
 
@@ -13,7 +18,7 @@ Any path that is part of an inclusion list is NOT effected by the problem.
 ##2015-10-18 - Release 3.5.0
 ###Summary
 
-Allow configuration of the Duply cache (ARCH_DIR) directory. ([#17](https://github.com/tohuwabohu/puppet-duplicity/pull/17)).
+Allow configuration of the Duply cache (ARCH_DIR) directory ([#17](https://github.com/tohuwabohu/puppet-duplicity/pull/17)).
 
 ##2015-09-09 - Release 3.4.0
 ###Summary
