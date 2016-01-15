@@ -66,10 +66,10 @@ $data_dir = '/var/lib/jira'
 duplicity::file { $data_dir:
   profile => 'jira',
   exclude => [
-    "${$data_dir}/caches",
-    "${$data_dir}/tmp",
-    "${$data_dir}/plugins/.osgi-plugins/felix/felix-cache",
-    "${$data_dir}/plugins/.osgi-plugins/transformed-plugins",
+    "${data_dir}/caches",
+    "${data_dir}/tmp",
+    "${data_dir}/plugins/.osgi-plugins/felix/felix-cache",
+    "${data_dir}/plugins/.osgi-plugins/transformed-plugins",
   ],
 }
 ```
