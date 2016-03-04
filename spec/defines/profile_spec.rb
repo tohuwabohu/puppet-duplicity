@@ -306,35 +306,35 @@ describe 'duplicity::profile' do
     end
   end
 
-  describe 'with cron_enabled and duply_executable and duply_version 1.7.1' do
-    let(:params) { {:cron_enabled => true, :duply_version => '1.7.1', :duply_executable => 'duply-executable'} }
+  describe 'with cron_enabled and duply_version 1.7.1' do
+    let(:params) { {:cron_enabled => true, :duply_version => '1.7.1'} }
 
     specify do
       should contain_cron("backup-default").with(
         'ensure'  => 'present',
-	'command' => 'duply-executable default cleanup_backup_purgeFull --force >> /var/log/duply/default.log'
+	'command' => 'duply default cleanup_backup_purgeFull --force >> /var/log/duply/default.log'
       )
     end
   end
 
-  describe 'with cron_enabled and duply_executable and duply_version 1.9.1' do
-    let(:params) { {:cron_enabled => true, :duply_version => '1.9.1', :duply_executable => 'duply-executable'} }
+  describe 'with cron_enabled and duply_version 1.9.1' do
+    let(:params) { {:cron_enabled => true, :duply_version => '1.9.1'} }
 
     specify do
       should contain_cron("backup-default").with(
         'ensure'  => 'present',
-	'command' => 'duply-executable default cleanup_backup_purgeFull --force >> /var/log/duply/default.log'
+	'command' => 'duply default cleanup_backup_purgeFull --force >> /var/log/duply/default.log'
       )
     end
   end
 
-  describe 'with cron_enabled and duply_executable and duply_version 1.6' do
-    let(:params) { {:cron_enabled => true, :duply_version => '1.6', :duply_executable => 'duply-executable'} }
+  describe 'with cron_enabled and duply_version 1.6' do
+    let(:params) { {:cron_enabled => true, :duply_version => '1.6''} }
 
     specify do
       should contain_cron("backup-default").with(
         'ensure'  => 'present',
-	'command' => 'duply-executable default cleanup_backup_purge-full --force >> /var/log/duply/default.log'
+	'command' => 'duply default cleanup_backup_purge-full --force >> /var/log/duply/default.log'
       )
     end
   end
