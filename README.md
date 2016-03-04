@@ -35,15 +35,18 @@ class { 'duplicity':
 }
 ```
 
-Configure a simple backup profile. It will run once a day, do incremental backups by default and create a full backup if
-the previous full backup is older than 7 days. Duplicity will keep at most two full backups and purge older ones.
+Configure a simple backup profile that stops an application before the backup starts and starts it when complete.
+It will run once a day, do incremental backups by default and create a full backup if the previous full backup
+is older than 7 days. Duplicity will keep at most two full backups and purge older ones.
 
 ```
 duplicity::profile { 'system':
-  full_if_older_than => '7D',
-  max_full_backups   => 2,
-  cron_hour          => '4',
-  cron_minute        => '0',
+  full_if_older_than  => '7D',
+  max_full_backups    => 2,
+  cron_hour           => '4',
+  cron_minute         => '0',
+  exec_before_content => '/bin/systemctl stop myapp',
+  exec_after_content  => '/bin/systemctl start myapp',
 }
 ```
 
