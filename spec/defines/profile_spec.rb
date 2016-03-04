@@ -329,7 +329,7 @@ describe 'duplicity::profile' do
   end
 
   describe 'with cron_enabled and duply_version 1.6' do
-    let(:params) { {:cron_enabled => true, :duply_version => '1.6''} }
+    let(:params) { {:cron_enabled => true, :duply_version => '1.6'} }
 
     specify do
       should contain_cron("backup-default").with(
