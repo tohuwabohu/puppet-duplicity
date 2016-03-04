@@ -58,11 +58,11 @@
 # [*cron_minute*]
 #   The minute expression of the cron job.
 #
-# [*duply_executable*]
-#   Set the path of the duply executable .
-#
 # [*duply_version*]
 #   Currently installed duply version.
+#
+# [*duplicity_extra_params*]
+#   An array of extra parameters to pass to duplicity.
 #
 # === Authors
 #
@@ -73,27 +73,28 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::profile(
-  $ensure              = present,
-  $gpg_encryption      = true,
-  $gpg_encryption_keys = $duplicity::gpg_encryption_keys,
-  $gpg_signing_key     = $duplicity::gpg_signing_key,
-  $gpg_passphrase      = $duplicity::gpg_passphrase,
-  $gpg_options         = $duplicity::gpg_options,
-  $target              = "${duplicity::backup_target_url}/${title}",
-  $target_username     = $duplicity::backup_target_username,
-  $target_password     = $duplicity::backup_target_password,
-  $source              = '/',
-  $full_if_older_than  = '',
-  $max_full_backups    = '',
-  $volsize             = 50,
-  $include_filelist    = [],
-  $exclude_filelist    = [],
-  $exclude_by_default  = true,
-  $cron_enabled        = $duplicity::cron_enabled,
-  $cron_hour           = undef,
-  $cron_minute         = undef,
-  $duply_executable    = $duplicity::real_duply_executable,
-  $duply_version       = $duplicity::real_duply_version,
+  $ensure                 = present,
+  $gpg_encryption         = true,
+  $gpg_encryption_keys    = $duplicity::gpg_encryption_keys,
+  $gpg_signing_key        = $duplicity::gpg_signing_key,
+  $gpg_passphrase         = $duplicity::gpg_passphrase,
+  $gpg_options            = $duplicity::gpg_options,
+  $target                 = "${duplicity::backup_target_url}/${title}",
+  $target_username        = $duplicity::backup_target_username,
+  $target_password        = $duplicity::backup_target_password,
+  $source                 = '/',
+  $full_if_older_than     = '',
+  $max_full_backups       = '',
+  $volsize                = 50,
+  $include_filelist       = [],
+  $exclude_filelist       = [],
+  $exclude_by_default     = true,
+  $cron_enabled           = $duplicity::cron_enabled,
+  $cron_hour              = undef,
+  $cron_minute            = undef,
+  $duply_version          = $duplicity::real_duply_version,
+  $duplicity_extra_params = $duplicity::duplicity_extra_params,
+  $duply_cache_dir        = $duplicity::duply_cache_dir,
 ) {
   require duplicity
 
@@ -145,6 +146,10 @@ define duplicity::profile(
   $real_gpg_options = empty($gpg_options) ? {
     true    => [],
     default => any2array($gpg_options)
+  }
+  $real_duplicity_params = empty($duplicity_extra_params) ? {
+    true    => [],
+    default => any2array($duplicity_extra_params)
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"
@@ -237,7 +242,7 @@ define duplicity::profile(
     ensure_newline => true,
   }
 
-  profile_exec_before { "${title}/header":
+  duplicity::profile_exec_before { "${title}/header":
     profile => $title,
     content => "#!/bin/bash\n",
     order   => '01',
@@ -251,7 +256,7 @@ define duplicity::profile(
     ensure_newline => true,
   }
 
-  profile_exec_after { "${title}/header":
+  duplicity::profile_exec_after { "${title}/header":
     profile => $title,
     content => "#!/bin/bash\n",
     order   => '01',
@@ -266,17 +271,18 @@ define duplicity::profile(
   }
 
   if versioncmp($duply_version, '1.7.1') < 0 {
-    $cron_command  = "${duply_executable} ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
+    $cron_command  = "duply ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
   }
   else {
-    $cron_command  = "${duply_executable} ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
+    $cron_command  = "duply ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
   }
 
   cron { "backup-${title}":
-    ensure  => $cron_ensure,
-    command => $cron_command,
-    user    => 'root',
-    hour    => $cron_hour,
-    minute  => $cron_minute,
+    ensure      => $cron_ensure,
+    command     => $cron_command,
+    environment => "PATH=${duplicity::exec_path}",
+    user        => 'root',
+    hour        => $cron_hour,
+    minute      => $cron_minute,
   }
 }

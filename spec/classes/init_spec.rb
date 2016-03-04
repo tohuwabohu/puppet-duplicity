@@ -60,12 +60,14 @@ describe 'duplicity' do
     let(:facts) { {:osfamily => 'debian'} }
 
     it { should contain_package('duply').with_ensure('installed') }
+    it { should contain_file('/usr/local/sbin/duply').with_ensure('absent') }
   end
 
   describe 'by default on RedHat' do
     let(:facts) { {:osfamily => 'RedHat'} }
 
     it { should contain_package('duply').with_ensure('installed') }
+    it { should contain_file('/usr/local/sbin/duply').with_ensure('absent') }
   end
 
   describe 'with duplicity_package_ensure => 1.2.3' do
@@ -146,6 +148,17 @@ describe 'duplicity' do
     let(:params) { {:duply_package_provider => ''} }
 
     it { should contain_package('duply').with_provider('') }
+  end
+
+  describe 'with custom duply_archive_executable' do
+    let(:params) { {:duply_archive_executable => '/path/to/duply'} }
+
+    it {
+      should contain_file('/path/to/duply').with(
+        'ensure' => 'link',
+        'target' => "/opt/#{archive}/duply"
+      )
+    }
   end
 end
 

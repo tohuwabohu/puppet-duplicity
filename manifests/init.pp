@@ -10,6 +10,9 @@
 # [*duplicity_package_name*]
 #   Set the name of the package to be installed.
 #
+# [*duplicity_extra_params*]
+#   An array of options to pass to the duplicity program.
+#
 # [*duply_package_ensure*]
 #   Set state the package should be in. If the native `package` resource is used, the regular `ensure` rules apply.
 #   When using the `archive` variant, only `present` and `absent` are supported. To specify a version in the later case
@@ -33,15 +36,21 @@
 #   Set the full url where to download the archive from (if `duply_package_provider` is set to `archive`). Make sure the
 #   downloaded filename matches the expected pattern.
 #
+# [*duply_archive_proxy*]
+#   Set the proxy to use for archive download, in format `http://host:port` (if `duply_package_provider` is set to `archive`).
+#
 # [*duply_archive_package_dir*]
 #   Set the directory where the downloaded package is stored (if `duply_package_provider` is set to `archive`).
 #
 # [*duply_archive_install_dir*]
 #   Set the directory where the application is installed (if `duply_package_provider` is set to `archive`).
 #
-# [*duply_executable*]
-#   Set the path of the duply executable used in the cron and exec resources. Furthermore it is used to create a symlink
-#   pointing to the executable when installing the archive from sourceforge.
+# [*duply_archive_executable*]
+#   Set the symbolic path pointing to the configured duply executable when installing the archive from sourceforge.
+#
+# [*duply_executable*] *deprecated*
+#   The duply executable is sourced from the PATH environment variable. Please use `exec_path` and
+#   `duply_archive_executable` to customize those settings instead.
 #
 # [*duply_version*]
 #   Set the version of the installed duply package in case you are not using the default package of your distribution or 
@@ -50,6 +59,12 @@
 #
 # [*duply_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
+#
+# [*duply_cache_dir*]
+#   Defines a folder that holds unencrypted meta data of the backup, enabling new incrementals without the
+#   need to decrypt backend metadata first. If empty or deleted somehow, the private key and it's password are needed.
+#   NOTE: This is confidential data. Put it somewhere safe. It can grow quite big over time so you might want to put 
+#   it not in the home dir. default '~/.cache/duplicity/duply_<profile>/'
 #
 # [*duply_log_group*]
 #   Set the group that owns the log directory.
@@ -79,6 +94,9 @@
 # [*cron_enabled*]
 #   Set the default state of the cron job. Either true or false.
 #
+# [*exec_path*]
+#   Set the PATH passed to any exec resources.
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -90,18 +108,21 @@
 class duplicity (
   $duplicity_package_ensure  = $duplicity::params::duplicity_package_ensure,
   $duplicity_package_name    = $duplicity::params::duplicity_package_name,
+  $duplicity_extra_params    = undef,
   $duply_package_ensure      = $duplicity::params::duply_package_ensure,
   $duply_package_name        = $duplicity::params::duply_package_name,
   $duply_package_provider    = $duplicity::params::duply_package_provider,
   $duply_archive_version     = $duplicity::params::duply_archive_version,
   $duply_archive_md5sum      = $duplicity::params::duply_archive_md5sum,
   $duply_archive_url         = undef,
+  $duply_archive_proxy       = undef,
   $duply_archive_package_dir = $duplicity::params::duply_archive_package_dir,
   $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
-  $duply_executable          = undef,
   $duply_version             = undef,
+  $duply_archive_executable  = $duplicity::params::duply_archive_executable,
   $duply_log_dir             = $duplicity::params::duply_log_dir,
   $duply_log_group           = $duplicity::params::duply_log_group,
+  $duply_cache_dir           = undef,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
   $gpg_signing_key           = $duplicity::params::gpg_signing_key,
   $gpg_passphrase            = $duplicity::params::gpg_passphrase,
@@ -110,6 +131,10 @@ class duplicity (
   $backup_target_username    = $duplicity::params::backup_target_username,
   $backup_target_password    = $duplicity::params::backup_target_password,
   $cron_enabled              = $duplicity::params::cron_enabled,
+  $exec_path                 = $duplicity::params::exec_path,
+
+  # deprecated
+  $duply_executable = undef,
 ) inherits duplicity::params {
   if empty($duplicity_package_ensure) {
     fail('Class[Duplicity]: duplicity_package_ensure must not be empty')
@@ -131,14 +156,6 @@ class duplicity (
     fail("Class[Duplicity]: duply_archive_version must be alphanumeric, got '${duply_archive_version}'")
   }
 
-  $real_duply_executable = empty($duply_executable) ? {
-    true => $duplicity::duply_package_provider ? {
-      archive => '/usr/local/sbin/duply',
-      default => '/usr/bin/duply'
-    },
-    default   => $duply_executable,
-  }
-
   $real_duply_version = empty($duply_version) ? {
     true => $duply_package_provider ? {
       archive => $duply_archive_version,
@@ -149,8 +166,11 @@ class duplicity (
 
   validate_absolute_path($duply_archive_package_dir)
   validate_absolute_path($duply_archive_install_dir)
-  validate_absolute_path($real_duply_executable)
+  validate_absolute_path($duply_archive_executable)
   validate_absolute_path($duply_log_dir)
+  if ($duply_cache_dir) {
+    validate_absolute_path($duply_cache_dir)
+  }
   validate_string($duply_log_group)
 
   class { 'duplicity::install': } ->

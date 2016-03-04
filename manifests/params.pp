@@ -33,6 +33,9 @@ class duplicity::params {
   $duply_archive_install_dir = $::osfamily ? {
     default => '/opt',
   }
+  $duply_archive_executable = $::osfamily ? {
+    default => '/usr/local/sbin/duply',
+  }
   $duply_config_dir = $::osfamily ? {
     default => '/etc/duply'
   }
@@ -82,4 +85,7 @@ class duplicity::params {
   $backup_target_password = ''
 
   $cron_enabled = false
+  $exec_path = $::osfamily ? {
+    default => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  }
 }

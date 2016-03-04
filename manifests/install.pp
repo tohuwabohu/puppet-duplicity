@@ -35,6 +35,7 @@ class duplicity::install inherits duplicity {
     archive { $real_duply_archive_name:
       ensure           => $real_duply_package_ensure,
       url              => $real_duply_archive_url,
+      proxy_server     => $duplicity::duply_archive_proxy,
       follow_redirects => true,
       extension        => 'tgz',
       target           => $duplicity::duply_archive_install_dir,
@@ -42,7 +43,7 @@ class duplicity::install inherits duplicity {
       digest_string    => $duplicity::duply_archive_md5sum,
     }
 
-    file { $duplicity::real_duply_executable:
+    file { $duplicity::duply_archive_executable:
       ensure => $real_duply_executable_ensure,
       target => $real_duply_executable_target,
       owner  => 'root',
@@ -55,6 +56,11 @@ class duplicity::install inherits duplicity {
       ensure   => $duplicity::duply_package_ensure,
       name     => $duplicity::duply_package_name,
       provider => $duplicity::duply_package_provider,
+    }
+
+    # If duply was previously installed from archive, it should not pollute the PATH any more ...
+    file { $duplicity::duply_archive_executable:
+      ensure => absent,
     }
   }
 }
