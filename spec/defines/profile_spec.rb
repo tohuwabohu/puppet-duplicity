@@ -323,4 +323,37 @@ describe 'duplicity::profile' do
     it { should_not contain_duplicity__profile_exec_after('default/header') }
     it { should contain_duplicity__profile_exec_after('default/content') }
   end
+
+  describe 'with cron_enabled and duply_version 1.7.1' do
+    let(:params) { {:cron_enabled => true, :duply_version => '1.7.1'} }
+
+    specify do
+      should contain_cron("backup-default").with(
+        'ensure'  => 'present',
+	'command' => 'duply default cleanup_backup_purgeFull --force >> /var/log/duply/default.log'
+      )
+    end
+  end
+
+  describe 'with cron_enabled and duply_version 1.9.1' do
+    let(:params) { {:cron_enabled => true, :duply_version => '1.9.1'} }
+
+    specify do
+      should contain_cron("backup-default").with(
+        'ensure'  => 'present',
+	'command' => 'duply default cleanup_backup_purgeFull --force >> /var/log/duply/default.log'
+      )
+    end
+  end
+
+  describe 'with cron_enabled and duply_version 1.6' do
+    let(:params) { {:cron_enabled => true, :duply_version => '1.6'} }
+
+    specify do
+      should contain_cron("backup-default").with(
+        'ensure'  => 'present',
+	'command' => 'duply default cleanup_backup_purge-full --force >> /var/log/duply/default.log'
+      )
+    end
+  end
 end
