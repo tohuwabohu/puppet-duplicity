@@ -58,6 +58,9 @@
 # [*cron_minute*]
 #   The minute expression of the cron job.
 #
+# [*duply_version*]
+#   Currently installed duply version.
+#
 # [*duplicity_extra_params*]
 #   An array of extra parameters to pass to duplicity.
 #
@@ -101,6 +104,7 @@ define duplicity::profile(
   $cron_enabled           = $duplicity::cron_enabled,
   $cron_hour              = undef,
   $cron_minute            = undef,
+  $duply_version          = $duplicity::real_duply_version,
   $duplicity_extra_params = $duplicity::duplicity_extra_params,
   $duply_cache_dir        = $duplicity::duply_cache_dir,
   $exec_before_content    = undef,
@@ -298,9 +302,16 @@ define duplicity::profile(
     ensure  => present,
   }
 
+  if versioncmp($duply_version, '1.7.1') < 0 {
+    $cron_command  = "duply ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
+  }
+  else {
+    $cron_command  = "duply ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
+  }
+
   cron { "backup-${title}":
     ensure      => $cron_ensure,
-    command     => "duply ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log",
+    command     => $cron_command,
     environment => "PATH=${duplicity::exec_path}",
     user        => 'root',
     hour        => $cron_hour,
