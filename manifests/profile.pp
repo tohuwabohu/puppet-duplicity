@@ -61,6 +61,18 @@
 # [*duplicity_extra_params*]
 #   An array of extra parameters to pass to duplicity.
 #
+# [*exec_before_content*]
+#   Content to be added to the pre-backup script
+#
+# [*exec_before_source*]
+#   Source file to be used as the pre-backup script
+#
+# [*exec_after_content*]
+#   Content to be added to the post-backup script
+#
+# [*exec_after_source*]
+#   Source file to be used as the post-backup script
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -91,6 +103,10 @@ define duplicity::profile(
   $cron_minute            = undef,
   $duplicity_extra_params = $duplicity::duplicity_extra_params,
   $duply_cache_dir        = $duplicity::duply_cache_dir,
+  $exec_before_content    = undef,
+  $exec_before_source     = undef,
+  $exec_after_content     = undef,
+  $exec_after_source      = undef,
 ) {
   require duplicity
 
@@ -238,10 +254,18 @@ define duplicity::profile(
     ensure_newline => true,
   }
 
-  duplicity::profile_exec_before { "${title}/header":
+  if ! $exec_before_source {
+    duplicity::profile_exec_before { "${title}/header":
+      profile => $title,
+      content => "#!/bin/bash\n",
+      order   => '01',
+    }
+  }
+
+  duplicity::profile_exec_before { "${title}/content":
     profile => $title,
-    content => "#!/bin/bash\n",
-    order   => '01',
+    content => $exec_before_content,
+    source  => $exec_before_source,
   }
 
   concat { $profile_post_script:
@@ -252,10 +276,18 @@ define duplicity::profile(
     ensure_newline => true,
   }
 
-  duplicity::profile_exec_after { "${title}/header":
+  if ! $exec_after_source {
+    duplicity::profile_exec_after { "${title}/header":
+      profile => $title,
+      content => "#!/bin/bash\n",
+      order   => '01',
+    }
+  }
+
+  duplicity::profile_exec_after { "${title}/content":
     profile => $title,
-    content => "#!/bin/bash\n",
-    order   => '01',
+    content => $exec_after_content,
+    source  => $exec_after_source,
   }
 
   duplicity::public_key_link { $complete_encryption_keys:

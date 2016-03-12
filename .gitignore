@@ -2,6 +2,7 @@
 *.iml
 /spec/fixtures/manifests
 /spec/fixtures/modules
+.bundle
 
 # https://tickets.puppetlabs.com/browse/PUP-3444
 vendor/**

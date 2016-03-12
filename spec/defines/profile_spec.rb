@@ -64,6 +64,8 @@ describe 'duplicity::profile' do
     specify { should contain_cron("backup-default").with_ensure('absent') }
     specify { should contain_file(default_config_file).with_content(/^SOURCE='\/'$/) }
     specify { should contain_file(default_config_file).with_content(/^TARGET='\/default'$/) }
+    it { should contain_duplicity__profile_exec_before('default/header') }
+    it { should contain_duplicity__profile_exec_after('default/header') }
   end
 
   describe 'with ensure absent' do
@@ -87,7 +89,7 @@ describe 'duplicity::profile' do
   describe 'with duplicity_extra_params defined' do
     let(:params) { {:duplicity_extra_params => [ '--s3-use-3-use-server-side-encryption' ]} }
 
-    it do 
+    it do
       should contain_file('/etc/duply/default/conf')
       .with('content' => /DUPL_PARAMS --s3-use-3-use-server-side-encryption/)
     end
@@ -304,5 +306,21 @@ describe 'duplicity::profile' do
         'minute' => '2'
       )
     end
+  end
+
+  describe 'with pre and post script contents' do
+    let(:params) { { :exec_before_content => 'echo stuff', :exec_after_content => 'echo "more stuff"' } }
+    it { should contain_duplicity__profile_exec_before('default/header') }
+    it { should contain_duplicity__profile_exec_before('default/content') }
+    it { should contain_duplicity__profile_exec_after('default/header') }
+    it { should contain_duplicity__profile_exec_after('default/content') }
+  end
+
+  describe 'with pre and post script source' do
+    let(:params) { { :exec_before_source => 'puppet:///a', :exec_after_source => 'puppet:///b' } }
+    it { should_not contain_duplicity__profile_exec_before('default/header') }
+    it { should contain_duplicity__profile_exec_before('default/content') }
+    it { should_not contain_duplicity__profile_exec_after('default/header') }
+    it { should contain_duplicity__profile_exec_after('default/content') }
   end
 end
