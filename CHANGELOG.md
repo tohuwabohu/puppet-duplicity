@@ -9,6 +9,13 @@ Furthermore, the `pre` and `post` scripts run before and after a backup can be r
 * Add the ability to specify before/after script source/content in a profile ([#21](https://github.com/tohuwabohu/puppet-duplicity/pull/21))
 * Fix pre 1.7.1 error (purgeFull vs. purge-full) ([#9](https://github.com/tohuwabohu/puppet-duplicity/pull/9))
 
+The unit and acceptance test infrastructure has been updated as well:
+
+* Test only against the latest Puppet 3.x version
+* Test against Puppet 4.x (experimental, Puppet 4 is currently not
+  support due to issues with logrotate)
+* Replace VirtualBox with Docker
+
 ##2016-01-10 - Release 3.5.2
 ###Summary
 
