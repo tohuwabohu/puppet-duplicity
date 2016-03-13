@@ -13,7 +13,7 @@ The unit and acceptance test infrastructure has been updated as well:
 
 * Test only against the latest Puppet 3.x version
 * Test against Puppet 4.x (experimental, Puppet 4 is currently not
-  support due to issues with logrotate)
+  supported due to issues with logrotate)
 * Replace VirtualBox with Docker
 
 ##2016-01-10 - Release 3.5.2
