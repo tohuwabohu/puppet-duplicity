@@ -1,3 +1,14 @@
+##2016-03-13 - Release 3.6.0
+###Summary
+
+This release fixes a bug in the `duplicity::profile`'s cron job when using a version of duply that is lower than 1.7.1.
+The bug affects the default system package provided by Debian 7 / Ubuntu 14.04 and below.
+
+Furthermore, the `pre` and `post` scripts run before and after a backup can be replaced with custom ones.
+
+* Add the ability to specify before/after script source/content in a profile ([#21](https://github.com/tohuwabohu/puppet-duplicity/pull/21))
+* Fix pre 1.7.1 error (purgeFull vs. purge-full) ([#9](https://github.com/tohuwabohu/puppet-duplicity/pull/9))
+
 ##2016-01-10 - Release 3.5.2
 ###Summary
 
