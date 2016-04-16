@@ -73,6 +73,11 @@ class duplicity::params {
         '16.04' => '1.11'
       }
     }
+    'CentOS': {
+      $duply_version = $::operatingsystemmajrelease ? {
+        '6' => '1.6.0'
+      }
+    }
     default: {
       $duply_version = $duply_archive_version
     }
