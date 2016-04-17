@@ -1,3 +1,8 @@
+##2016-04-17 - Release 3.6.1
+###Summary
+
+Update cron job to use correct `purgeFull`/`purge-full` command on CentOS 6 ([#22](https://github.com/tohuwabohu/puppet-duplicity/pull/22)).
+
 ##2016-03-13 - Release 3.6.0
 ###Summary
 
