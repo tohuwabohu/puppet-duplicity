@@ -265,11 +265,12 @@ define duplicity::profile(
       order   => '01',
     }
   }
-
-  duplicity::profile_exec_before { "${title}/content":
-    profile => $title,
-    content => $exec_before_content,
-    source  => $exec_before_source,
+  if $exec_before_content or $exec_before_source {
+    duplicity::profile_exec_before { "${title}/content":
+      profile => $title,
+      content => $exec_before_content,
+      source  => $exec_before_source,
+    }
   }
 
   concat { $profile_post_script:
@@ -287,11 +288,12 @@ define duplicity::profile(
       order   => '01',
     }
   }
-
-  duplicity::profile_exec_after { "${title}/content":
-    profile => $title,
-    content => $exec_after_content,
-    source  => $exec_after_source,
+  if $exec_after_content or $exec_after_source {
+    duplicity::profile_exec_after { "${title}/content":
+      profile => $title,
+      content => $exec_after_content,
+      source  => $exec_after_source,
+    }
   }
 
   duplicity::public_key_link { $complete_encryption_keys:

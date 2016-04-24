@@ -1,3 +1,9 @@
+##2016-04-24 - Release 3.6.2
+###Summary
+
+Fix `No content, source or symlink specified` warnings caused by concat when neither `$exec_before_content` nor
+`$exec_before_source` are specified (same for `$exec_after_*`).
+
 ##2016-04-17 - Release 3.6.1
 ###Summary
 

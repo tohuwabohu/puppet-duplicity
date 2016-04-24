@@ -65,7 +65,9 @@ describe 'duplicity::profile' do
     specify { should contain_file(default_config_file).with_content(/^SOURCE='\/'$/) }
     specify { should contain_file(default_config_file).with_content(/^TARGET='\/default'$/) }
     it { should contain_duplicity__profile_exec_before('default/header') }
+    it { should_not contain_duplicity__profile_exec_before('default/content') }
     it { should contain_duplicity__profile_exec_after('default/header') }
+    it { should_not contain_duplicity__profile_exec_after('default/content') }
   end
 
   describe 'with ensure absent' do
