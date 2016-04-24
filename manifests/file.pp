@@ -37,7 +37,7 @@ define duplicity::file(
   $profile = 'system',
   $timeout = 300,
 ) {
-  require duplicity::params
+  require duplicity
 
   if $ensure !~ /^present|backup|absent$/ {
     fail("Duplicity::File[${title}]: ensure must be either present, backup or absent, got '${ensure}'")
