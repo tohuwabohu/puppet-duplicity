@@ -1,5 +1,8 @@
 #duplicity
 
+[![Puppet Forge](https://img.shields.io/puppetforge/v/tohuwabohu/duplicity.svg)](https://forge.puppetlabs.com/tohuwabohu/duplicity)
+[![Build Status](https://travis-ci.org/tohuwabohu/puppet-duplicity.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-duplicity)
+
 ##Overview
 
 Configure [duply](http://duply.net/) on top of [duplicity](http://duplicity.nongnu.org/) to provide a profile-based,
@@ -113,8 +116,6 @@ The module has been tested on the following operating systems. Testing and patch
 * Ubuntu 12.04 (Precise Pangolin)
 * Ubuntu 14.04 (Trusty Tahr)
 * RHEL/Centos 6
-
-[![Build Status](https://travis-ci.org/tohuwabohu/puppet-duplicity.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-duplicity)
 
 ##Contributing
 
