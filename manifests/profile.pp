@@ -104,7 +104,7 @@ define duplicity::profile(
   $cron_enabled           = $duplicity::cron_enabled,
   $cron_hour              = undef,
   $cron_minute            = undef,
-  $duply_version          = $duplicity::real_duply_version,
+  $duply_version          = undef,
   $duplicity_extra_params = $duplicity::duplicity_extra_params,
   $duply_cache_dir        = $duplicity::duply_cache_dir,
   $exec_before_content    = undef,
@@ -163,6 +163,7 @@ define duplicity::profile(
     true    => [],
     default => any2array($gpg_options)
   }
+  $real_duply_version = pick($duply_version, $duplicity::real_duply_version)
   $real_duplicity_params = empty($duplicity_extra_params) ? {
     true    => [],
     default => any2array($duplicity_extra_params)
@@ -304,7 +305,7 @@ define duplicity::profile(
     ensure  => present,
   }
 
-  if versioncmp($duply_version, '1.7.1') < 0 {
+  if versioncmp($real_duply_version, '1.7.1') < 0 {
     $cron_command  = "duply ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
   }
   else {
