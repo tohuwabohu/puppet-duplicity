@@ -111,8 +111,8 @@ duplicity::profile { 'system':
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
-* Debian 6.0 (Squeeze)
 * Debian 7.0 (Wheezy)
+* Debian 8.0 (Jessie)
 * Ubuntu 12.04 (Precise Pangolin)
 * Ubuntu 14.04 (Trusty Tahr)
 * RHEL/Centos 6
