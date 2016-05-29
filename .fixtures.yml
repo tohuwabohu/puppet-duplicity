@@ -7,8 +7,8 @@ fixtures:
       repo: "https://github.com/puppetlabs/puppetlabs-concat.git"
       ref: "1.1.0"
     logrotate:
-      repo: "https://github.com/rodjek/puppet-logrotate.git"
-      ref: "1.1.1"
+      repo: "https://github.com/yo61/puppet-logrotate.git"
+      ref: "v1.3.0"
     stdlib:
       repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
       ref: "4.2.1"

@@ -1,3 +1,11 @@
+##2016-05-XX - Release 4.0.0
+###Summary
+
+This release adds compatibility with Puppet 4 ([#20](https://github.com/tohuwabohu/puppet-duplicity/issues/20)).
+
+**Note:** As part of the upgrade the abandoned module [rodjek/logrotate](https://forge.puppetlabs.com/rodjek/logrotate)
+was replaced with [yo61/logrotate](https://forge.puppetlabs.com/yo61/logrotate).
+
 ##2016-04-25 - Release 3.6.3
 ###Summary
 

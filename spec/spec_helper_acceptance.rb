@@ -2,7 +2,7 @@ require 'beaker-rspec/spec_helper'
 require 'beaker-rspec/helpers/serverspec'
 
 unless ENV['BEAKER_PROVISION'] == 'no'
-  install_puppet(:version => '3.8.6')
+  install_puppet
 end
 
 RSpec.configure do |c|
@@ -20,7 +20,7 @@ RSpec.configure do |c|
       on host, puppet('module', 'install', 'puppetlabs-stdlib', '--version 4.3.2')
       on host, puppet('module', 'install', 'puppetlabs-concat', '--version 1.1.0')
       on host, puppet('module', 'install', 'camptocamp-archive', '--version 0.7.4')
-      on host, puppet('module', 'install', 'rodjek-logrotate', '--version 1.1.1')
+      on host, puppet('module', 'install', 'yo61-logrotate', '--version 1.3.0')
     end
   end
 end

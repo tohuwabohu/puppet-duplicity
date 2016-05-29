@@ -59,7 +59,7 @@ class duplicity::setup inherits duplicity {
   logrotate::rule { 'duply':
     ensure       => present,
     path         => "${duplicity::duply_log_dir}/*.log",
-    rotate       => '5',
+    rotate       => 5,
     size         => '100k',
     compress     => true,
     missingok    => true,
