@@ -130,7 +130,7 @@ define duplicity::profile(
     fail("Duplicity::Profile[${title}]: target must not be empty")
   }
 
-  if !empty($max_full_backups) and !is_integer($max_full_backups) {
+  if "str${max_full_backups}" !~ /^str[0-9]*$/ {
     fail("Duplicity::Profile[${title}]: max_full_backups must be an integer, got '${max_full_backups}'")
   }
 
