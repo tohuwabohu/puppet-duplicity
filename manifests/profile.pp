@@ -170,8 +170,8 @@ define duplicity::profile(
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"
   $profile_config_dir_ensure = $ensure ? {
-    absent  => absent,
-    default => directory,
+    'absent' => absent,
+    default  => directory,
   }
   $profile_config_file = "${profile_config_dir}/conf"
   $profile_filelist_file = "${profile_config_dir}/${duplicity::params::duply_profile_filelist_name}"
@@ -180,12 +180,12 @@ define duplicity::profile(
   $profile_pre_script = "${profile_config_dir}/${duplicity::params::duply_profile_pre_script_name}"
   $profile_post_script = "${profile_config_dir}/${duplicity::params::duply_profile_post_script_name}"
   $profile_file_ensure = $ensure ? {
-    absent  => absent,
-    default => file,
+    'absent' => absent,
+    default  => file,
   }
   $profile_concat_ensure = $ensure ? {
-    absent  => absent,
-    default => present,
+    'absent' => absent,
+    default  => present,
   }
   $cron_ensure = str2bool($cron_enabled) ? {
     false   => absent,

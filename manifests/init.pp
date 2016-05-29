@@ -158,8 +158,8 @@ class duplicity (
 
   $real_duply_version = empty($duply_version) ? {
     true => $duply_package_provider ? {
-      archive => $duply_archive_version,
-      default => $duplicity::params::duply_version,
+      'archive' => $duply_archive_version,
+      default   => $duplicity::params::duply_version,
     },
     default   => $duply_version,
   }
