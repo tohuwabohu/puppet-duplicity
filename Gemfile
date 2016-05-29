@@ -8,6 +8,7 @@ group :development, :test do
   gem 'puppet-blacksmith', '~> 3.3.1'
   gem 'puppet-lint', '~> 1.1.0'
   gem 'puppet-syntax', '~> 2.0.0'
+  gem 'metadata-json-lint', '~> 0.0.11'
 end
 
 group :system_tests do
