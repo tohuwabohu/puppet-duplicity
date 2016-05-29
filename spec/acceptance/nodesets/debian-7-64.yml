@@ -1,10 +1,10 @@
 HOSTS:
-  debian-8-64:
+  debian-7-64:
     roles:
       - master
-    platform: debian-8-amd64
+    platform: debian-7-amd64
     hypervisor: docker
-    image: debian:8
+    image: debian:7
     docker_preserve_image: true
     docker_image_commands:
       - 'apt-get update'
