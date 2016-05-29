@@ -1,8 +1,8 @@
+# https://tickets.puppetlabs.com/browse/PUP-3444
 .idea
 *.iml
 .bundle
-
-# https://tickets.puppetlabs.com/browse/PUP-3444
+Gemfile.lock
 junit/**
 log/**
 spec/fixtures/**

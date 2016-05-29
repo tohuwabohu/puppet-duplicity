@@ -110,7 +110,7 @@ SOURCE='<%= @source %>'
 # Number of full backups to keep. Used for the "purge-full" command. 
 # See duplicity man page, action "remove-all-but-n-full".
 #MAX_FULL_BACKUPS=1
-<% if @max_full_backups and !@max_full_backups.empty? -%>
+<% if @max_full_backups and !@max_full_backups.to_s.empty? -%>
 MAX_FULL_BACKUPS=<%= @max_full_backups %>
 <% end -%>
 

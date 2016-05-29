@@ -18,8 +18,8 @@ class duplicity::install inherits duplicity {
 
   if $duplicity::duply_package_provider == archive {
     $real_duply_package_ensure = $duplicity::duply_package_ensure ? {
-      absent  => absent,
-      default => present
+      'absent' => absent,
+      default  => present
     }
     $real_duply_archive_name = "duply_${duplicity::duply_archive_version}"
     $real_duply_archive_url = empty($duplicity::duply_archive_url) ? {
@@ -28,8 +28,8 @@ class duplicity::install inherits duplicity {
     }
     $real_duply_executable_target = "${duplicity::duply_archive_install_dir}/${real_duply_archive_name}/duply"
     $real_duply_executable_ensure = $duplicity::duply_package_ensure ? {
-      absent  => absent,
-      default => link,
+      'absent' => absent,
+      default  => link,
     }
 
     archive { $real_duply_archive_name:

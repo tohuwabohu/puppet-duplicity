@@ -41,8 +41,8 @@ define duplicity::public_key(
   }
 
   $keyfile_ensure = $ensure ? {
-    absent  => absent,
-    default => file,
+    'absent' => absent,
+    default  => file,
   }
 
   file { "${duplicity::params::duply_public_key_dir}/${keyid}.asc":

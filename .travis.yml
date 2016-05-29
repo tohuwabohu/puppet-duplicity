@@ -12,8 +12,6 @@ rvm:
 env:
   matrix:
     - PUPPET_VERSION="~> 3.8.0"
-    - PUPPET_VERSION="~> 4.3.0"
+    - PUPPET_VERSION="~> 4.4.0"
 matrix:
   fast_finish: true
-  allow_failures:  # the logrotate puppet module doesn't work with Puppet 4 right now
-    - env: PUPPET_VERSION="~> 4.3.0"

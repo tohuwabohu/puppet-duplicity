@@ -104,7 +104,7 @@ define duplicity::profile(
   $cron_enabled           = $duplicity::cron_enabled,
   $cron_hour              = undef,
   $cron_minute            = undef,
-  $duply_version          = $duplicity::real_duply_version,
+  $duply_version          = undef,
   $duplicity_extra_params = $duplicity::duplicity_extra_params,
   $duply_cache_dir        = $duplicity::duply_cache_dir,
   $exec_before_content    = undef,
@@ -130,7 +130,7 @@ define duplicity::profile(
     fail("Duplicity::Profile[${title}]: target must not be empty")
   }
 
-  if !empty($max_full_backups) and !is_integer($max_full_backups) {
+  if "str${max_full_backups}" !~ /^str[0-9]*$/ {
     fail("Duplicity::Profile[${title}]: max_full_backups must be an integer, got '${max_full_backups}'")
   }
 
@@ -163,6 +163,7 @@ define duplicity::profile(
     true    => [],
     default => any2array($gpg_options)
   }
+  $real_duply_version = pick($duply_version, $duplicity::real_duply_version)
   $real_duplicity_params = empty($duplicity_extra_params) ? {
     true    => [],
     default => any2array($duplicity_extra_params)
@@ -170,8 +171,8 @@ define duplicity::profile(
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"
   $profile_config_dir_ensure = $ensure ? {
-    absent  => absent,
-    default => directory,
+    'absent' => absent,
+    default  => directory,
   }
   $profile_config_file = "${profile_config_dir}/conf"
   $profile_filelist_file = "${profile_config_dir}/${duplicity::params::duply_profile_filelist_name}"
@@ -180,12 +181,12 @@ define duplicity::profile(
   $profile_pre_script = "${profile_config_dir}/${duplicity::params::duply_profile_pre_script_name}"
   $profile_post_script = "${profile_config_dir}/${duplicity::params::duply_profile_post_script_name}"
   $profile_file_ensure = $ensure ? {
-    absent  => absent,
-    default => file,
+    'absent' => absent,
+    default  => file,
   }
   $profile_concat_ensure = $ensure ? {
-    absent  => absent,
-    default => present,
+    'absent' => absent,
+    default  => present,
   }
   $cron_ensure = str2bool($cron_enabled) ? {
     false   => absent,
@@ -304,7 +305,7 @@ define duplicity::profile(
     ensure  => present,
   }
 
-  if versioncmp($duply_version, '1.7.1') < 0 {
+  if versioncmp($real_duply_version, '1.7.1') < 0 {
     $cron_command  = "duply ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
   }
   else {

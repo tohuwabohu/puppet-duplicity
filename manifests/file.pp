@@ -56,8 +56,8 @@ define duplicity::file(
   $profile_dir = "${duplicity::params::duply_config_dir}/${profile}"
   $profile_filelist = "${profile_dir}/${duplicity::params::duply_profile_filelist_name}"
   $profile_filelist_ensure = $ensure ? {
-    absent  => absent,
-    default => present,
+    'absent' => absent,
+    default  => present,
   }
   $exclude_filelist = join(prefix($exclude, '- '), "\n")
   $path_md5 = md5($path)
