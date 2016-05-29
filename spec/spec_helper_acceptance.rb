@@ -1,6 +1,10 @@
 require 'beaker-rspec/spec_helper'
 require 'beaker-rspec/helpers/serverspec'
 
+unless ENV['BEAKER_PROVISION'] == 'no'
+  install_puppet(:version => '3.8.6')
+end
+
 RSpec.configure do |c|
   proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
   ignore_list = %w(junit log spec tests vendor)

@@ -37,7 +37,7 @@ define duplicity::file(
   $profile = 'system',
   $timeout = 300,
 ) {
-  require duplicity::params
+  require duplicity
 
   if $ensure !~ /^present|backup|absent$/ {
     fail("Duplicity::File[${title}]: ensure must be either present, backup or absent, got '${ensure}'")
@@ -81,7 +81,7 @@ define duplicity::file(
 
   if $ensure == present {
     exec { "restore ${path}":
-      command => "duply ${profile} fetch ${path_without_slash} ${path}",
+      command => "duply ${profile} fetch \"${path_without_slash}\" \"${path}\"",
       path    => $duplicity::exec_path,
       creates => $path,
       timeout => $timeout,

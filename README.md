@@ -1,5 +1,8 @@
 #duplicity
 
+[![Puppet Forge](https://img.shields.io/puppetforge/v/tohuwabohu/duplicity.svg)](https://forge.puppetlabs.com/tohuwabohu/duplicity)
+[![Build Status](https://travis-ci.org/tohuwabohu/puppet-duplicity.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-duplicity)
+
 ##Overview
 
 Configure [duply](http://duply.net/) on top of [duplicity](http://duplicity.nongnu.org/) to provide a profile-based,
@@ -35,15 +38,18 @@ class { 'duplicity':
 }
 ```
 
-Configure a simple backup profile. It will run once a day, do incremental backups by default and create a full backup if
-the previous full backup is older than 7 days. Duplicity will keep at most two full backups and purge older ones.
+Configure a simple backup profile that stops an application before the backup starts and starts it when complete.
+It will run once a day, do incremental backups by default and create a full backup if the previous full backup
+is older than 7 days. Duplicity will keep at most two full backups and purge older ones.
 
 ```
 duplicity::profile { 'system':
-  full_if_older_than => '7D',
-  max_full_backups   => 2,
-  cron_hour          => '4',
-  cron_minute        => '0',
+  full_if_older_than  => '7D',
+  max_full_backups    => 2,
+  cron_hour           => '4',
+  cron_minute         => '0',
+  exec_before_content => '/bin/systemctl stop myapp',
+  exec_after_content  => '/bin/systemctl start myapp',
 }
 ```
 
@@ -66,10 +72,10 @@ $data_dir = '/var/lib/jira'
 duplicity::file { $data_dir:
   profile => 'jira',
   exclude => [
-    "${$data_dir}/caches",
-    "${$data_dir}/tmp",
-    "${$data_dir}/plugins/.osgi-plugins/felix/felix-cache",
-    "${$data_dir}/plugins/.osgi-plugins/transformed-plugins",
+    "${data_dir}/caches",
+    "${data_dir}/tmp",
+    "${data_dir}/plugins/.osgi-plugins/felix/felix-cache",
+    "${data_dir}/plugins/.osgi-plugins/transformed-plugins",
   ],
 }
 ```
@@ -111,8 +117,6 @@ The module has been tested on the following operating systems. Testing and patch
 * Ubuntu 14.04 (Trusty Tahr)
 * RHEL/Centos 6
 
-[![Build Status](https://travis-ci.org/tohuwabohu/puppet-duplicity.png?branch=master)](https://travis-ci.org/tohuwabohu/puppet-duplicity)
-
 ##Contributing
 
 1. Fork it
@@ -132,5 +136,5 @@ bundle install --path vendor
 bundle exec rake spec
 bundle exec rake beaker
 ```
-(note: see [Beaker - Supported ENV variables](https://github.com/puppetlabs/beaker/wiki/How-to-Write-a-Beaker-Test-for-a-Module#beaker-rspec-details)
-for a list of environment variables to control the default behaviour of Beaker)
+(note: see [Beaker - Supported ENV variables](https://github.com/puppetlabs/beaker-rspec/blob/master/README.md) for a
+list of environment variables to control the default behaviour of Beaker)

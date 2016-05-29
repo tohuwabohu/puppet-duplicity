@@ -10,6 +10,9 @@
 # [*duplicity_package_name*]
 #   Set the name of the package to be installed.
 #
+# [*duplicity_extra_params*]
+#   An array of options to pass to the duplicity program.
+#
 # [*duply_package_ensure*]
 #   Set state the package should be in. If the native `package` resource is used, the regular `ensure` rules apply.
 #   When using the `archive` variant, only `present` and `absent` are supported. To specify a version in the later case
@@ -49,8 +52,19 @@
 #   The duply executable is sourced from the PATH environment variable. Please use `exec_path` and
 #   `duply_archive_executable` to customize those settings instead.
 #
+# [*duply_version*]
+#   Set the version of the installed duply package in case you are not using the default package of your distribution or 
+#   your version is not automatically detected. If you are using `archive` as `duply_package_provider`, please
+#   specify the version via `duply_archive_version`.
+#
 # [*duply_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
+#
+# [*duply_cache_dir*]
+#   Defines a folder that holds unencrypted meta data of the backup, enabling new incrementals without the
+#   need to decrypt backend metadata first. If empty or deleted somehow, the private key and it's password are needed.
+#   NOTE: This is confidential data. Put it somewhere safe. It can grow quite big over time so you might want to put 
+#   it not in the home dir. default '~/.cache/duplicity/duply_<profile>/'
 #
 # [*duply_log_group*]
 #   Set the group that owns the log directory.
@@ -94,6 +108,7 @@
 class duplicity (
   $duplicity_package_ensure  = $duplicity::params::duplicity_package_ensure,
   $duplicity_package_name    = $duplicity::params::duplicity_package_name,
+  $duplicity_extra_params    = undef,
   $duply_package_ensure      = $duplicity::params::duply_package_ensure,
   $duply_package_name        = $duplicity::params::duply_package_name,
   $duply_package_provider    = $duplicity::params::duply_package_provider,
@@ -103,9 +118,11 @@ class duplicity (
   $duply_archive_proxy       = undef,
   $duply_archive_package_dir = $duplicity::params::duply_archive_package_dir,
   $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
+  $duply_version             = undef,
   $duply_archive_executable  = $duplicity::params::duply_archive_executable,
   $duply_log_dir             = $duplicity::params::duply_log_dir,
   $duply_log_group           = $duplicity::params::duply_log_group,
+  $duply_cache_dir           = undef,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
   $gpg_signing_key           = $duplicity::params::gpg_signing_key,
   $gpg_passphrase            = $duplicity::params::gpg_passphrase,
@@ -139,10 +156,21 @@ class duplicity (
     fail("Class[Duplicity]: duply_archive_version must be alphanumeric, got '${duply_archive_version}'")
   }
 
+  $real_duply_version = empty($duply_version) ? {
+    true => $duply_package_provider ? {
+      archive => $duply_archive_version,
+      default => $duplicity::params::duply_version,
+    },
+    default   => $duply_version,
+  }
+
   validate_absolute_path($duply_archive_package_dir)
   validate_absolute_path($duply_archive_install_dir)
   validate_absolute_path($duply_archive_executable)
   validate_absolute_path($duply_log_dir)
+  if ($duply_cache_dir) {
+    validate_absolute_path($duply_cache_dir)
+  }
   validate_string($duply_log_group)
 
   class { 'duplicity::install': } ->

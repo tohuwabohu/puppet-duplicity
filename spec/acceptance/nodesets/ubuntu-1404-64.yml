@@ -3,10 +3,11 @@ HOSTS:
     roles:
       - master
     platform: ubuntu-1404-x86_64
-    hypervisor: vagrant
-    box: puppetlabs/ubuntu-14.04-64-puppet
+    hypervisor: docker
+    image: ubuntu:14.04
+    docker_preserve_image: true
 
 CONFIG:
+  type: foss
   log_level: info
   trace_limit: 100
-  type: git

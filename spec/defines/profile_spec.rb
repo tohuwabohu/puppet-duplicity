@@ -64,6 +64,10 @@ describe 'duplicity::profile' do
     specify { should contain_cron("backup-default").with_ensure('absent') }
     specify { should contain_file(default_config_file).with_content(/^SOURCE='\/'$/) }
     specify { should contain_file(default_config_file).with_content(/^TARGET='\/default'$/) }
+    it { should contain_duplicity__profile_exec_before('default/header') }
+    it { should_not contain_duplicity__profile_exec_before('default/content') }
+    it { should contain_duplicity__profile_exec_after('default/header') }
+    it { should_not contain_duplicity__profile_exec_after('default/content') }
   end
 
   describe 'with ensure absent' do
@@ -81,6 +85,15 @@ describe 'duplicity::profile' do
 
     it do
       expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /ensure/)
+    end
+  end
+
+  describe 'with duplicity_extra_params defined' do
+    let(:params) { {:duplicity_extra_params => [ '--s3-use-3-use-server-side-encryption' ]} }
+
+    it do
+      should contain_file('/etc/duply/default/conf')
+      .with('content' => /DUPL_PARAMS --s3-use-3-use-server-side-encryption/)
     end
   end
 
@@ -293,6 +306,55 @@ describe 'duplicity::profile' do
         'ensure' => 'present',
         'hour'   => '1',
         'minute' => '2'
+      )
+    end
+  end
+
+  describe 'with pre and post script contents' do
+    let(:params) { { :exec_before_content => 'echo stuff', :exec_after_content => 'echo "more stuff"' } }
+    it { should contain_duplicity__profile_exec_before('default/header') }
+    it { should contain_duplicity__profile_exec_before('default/content') }
+    it { should contain_duplicity__profile_exec_after('default/header') }
+    it { should contain_duplicity__profile_exec_after('default/content') }
+  end
+
+  describe 'with pre and post script source' do
+    let(:params) { { :exec_before_source => 'puppet:///a', :exec_after_source => 'puppet:///b' } }
+    it { should_not contain_duplicity__profile_exec_before('default/header') }
+    it { should contain_duplicity__profile_exec_before('default/content') }
+    it { should_not contain_duplicity__profile_exec_after('default/header') }
+    it { should contain_duplicity__profile_exec_after('default/content') }
+  end
+
+  describe 'with cron_enabled and duply_version 1.7.1' do
+    let(:params) { {:cron_enabled => true, :duply_version => '1.7.1'} }
+
+    specify do
+      should contain_cron("backup-default").with(
+        'ensure'  => 'present',
+	'command' => 'duply default cleanup_backup_purgeFull --force >> /var/log/duply/default.log'
+      )
+    end
+  end
+
+  describe 'with cron_enabled and duply_version 1.9.1' do
+    let(:params) { {:cron_enabled => true, :duply_version => '1.9.1'} }
+
+    specify do
+      should contain_cron("backup-default").with(
+        'ensure'  => 'present',
+	'command' => 'duply default cleanup_backup_purgeFull --force >> /var/log/duply/default.log'
+      )
+    end
+  end
+
+  describe 'with cron_enabled and duply_version 1.6' do
+    let(:params) { {:cron_enabled => true, :duply_version => '1.6'} }
+
+    specify do
+      should contain_cron("backup-default").with(
+        'ensure'  => 'present',
+	'command' => 'duply default cleanup_backup_purge-full --force >> /var/log/duply/default.log'
       )
     end
   end

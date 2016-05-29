@@ -58,6 +58,24 @@
 # [*cron_minute*]
 #   The minute expression of the cron job.
 #
+# [*duply_version*]
+#   Currently installed duply version.
+#
+# [*duplicity_extra_params*]
+#   An array of extra parameters to pass to duplicity.
+#
+# [*exec_before_content*]
+#   Content to be added to the pre-backup script
+#
+# [*exec_before_source*]
+#   Source file to be used as the pre-backup script
+#
+# [*exec_after_content*]
+#   Content to be added to the post-backup script
+#
+# [*exec_after_source*]
+#   Source file to be used as the post-backup script
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -67,25 +85,32 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::profile(
-  $ensure              = present,
-  $gpg_encryption      = true,
-  $gpg_encryption_keys = $duplicity::gpg_encryption_keys,
-  $gpg_signing_key     = $duplicity::gpg_signing_key,
-  $gpg_passphrase      = $duplicity::gpg_passphrase,
-  $gpg_options         = $duplicity::gpg_options,
-  $target              = "${duplicity::backup_target_url}/${title}",
-  $target_username     = $duplicity::backup_target_username,
-  $target_password     = $duplicity::backup_target_password,
-  $source              = '/',
-  $full_if_older_than  = '',
-  $max_full_backups    = '',
-  $volsize             = 50,
-  $include_filelist    = [],
-  $exclude_filelist    = [],
-  $exclude_by_default  = true,
-  $cron_enabled        = $duplicity::cron_enabled,
-  $cron_hour           = undef,
-  $cron_minute         = undef,
+  $ensure                 = present,
+  $gpg_encryption         = true,
+  $gpg_encryption_keys    = $duplicity::gpg_encryption_keys,
+  $gpg_signing_key        = $duplicity::gpg_signing_key,
+  $gpg_passphrase         = $duplicity::gpg_passphrase,
+  $gpg_options            = $duplicity::gpg_options,
+  $target                 = "${duplicity::backup_target_url}/${title}",
+  $target_username        = $duplicity::backup_target_username,
+  $target_password        = $duplicity::backup_target_password,
+  $source                 = '/',
+  $full_if_older_than     = '',
+  $max_full_backups       = '',
+  $volsize                = 50,
+  $include_filelist       = [],
+  $exclude_filelist       = [],
+  $exclude_by_default     = true,
+  $cron_enabled           = $duplicity::cron_enabled,
+  $cron_hour              = undef,
+  $cron_minute            = undef,
+  $duply_version          = $duplicity::real_duply_version,
+  $duplicity_extra_params = $duplicity::duplicity_extra_params,
+  $duply_cache_dir        = $duplicity::duply_cache_dir,
+  $exec_before_content    = undef,
+  $exec_before_source     = undef,
+  $exec_after_content     = undef,
+  $exec_after_source      = undef,
 ) {
   require duplicity
 
@@ -137,6 +162,10 @@ define duplicity::profile(
   $real_gpg_options = empty($gpg_options) ? {
     true    => [],
     default => any2array($gpg_options)
+  }
+  $real_duplicity_params = empty($duplicity_extra_params) ? {
+    true    => [],
+    default => any2array($duplicity_extra_params)
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"
@@ -229,10 +258,19 @@ define duplicity::profile(
     ensure_newline => true,
   }
 
-  profile_exec_before { "${title}/header":
-    profile => $title,
-    content => "#!/bin/bash\n",
-    order   => '01',
+  if ! $exec_before_source {
+    duplicity::profile_exec_before { "${title}/header":
+      profile => $title,
+      content => "#!/bin/bash\n",
+      order   => '01',
+    }
+  }
+  if $exec_before_content or $exec_before_source {
+    duplicity::profile_exec_before { "${title}/content":
+      profile => $title,
+      content => $exec_before_content,
+      source  => $exec_before_source,
+    }
   }
 
   concat { $profile_post_script:
@@ -243,10 +281,19 @@ define duplicity::profile(
     ensure_newline => true,
   }
 
-  profile_exec_after { "${title}/header":
-    profile => $title,
-    content => "#!/bin/bash\n",
-    order   => '01',
+  if ! $exec_after_source {
+    duplicity::profile_exec_after { "${title}/header":
+      profile => $title,
+      content => "#!/bin/bash\n",
+      order   => '01',
+    }
+  }
+  if $exec_after_content or $exec_after_source {
+    duplicity::profile_exec_after { "${title}/content":
+      profile => $title,
+      content => $exec_after_content,
+      source  => $exec_after_source,
+    }
   }
 
   duplicity::public_key_link { $complete_encryption_keys:
@@ -257,9 +304,16 @@ define duplicity::profile(
     ensure  => present,
   }
 
+  if versioncmp($duply_version, '1.7.1') < 0 {
+    $cron_command  = "duply ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
+  }
+  else {
+    $cron_command  = "duply ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
+  }
+
   cron { "backup-${title}":
     ensure      => $cron_ensure,
-    command     => "duply ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log",
+    command     => $cron_command,
     environment => "PATH=${duplicity::exec_path}",
     user        => 'root',
     hour        => $cron_hour,
