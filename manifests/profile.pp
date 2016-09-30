@@ -154,6 +154,20 @@ define duplicity::profile(
     fail("Duplicity::Profile[${title}]: gpg_encryption must be true or false")
   }
 
+  if $target =~ /^s3:/ and empty($duply_environment) and (versioncmp($duply_version, '1.11') <= 0) {
+    notify{ "Duplicity::Profile[${title}]: S3 warning":
+      message => "S3 targets now require AWS_ACCCESS_KEY_ID & AWS_SECRET_ACCESS_KEY env vars to be set - setting for you",
+    }
+    $real_duply_environment = [
+      "export AWS_ACCESS_KEY_ID='${target_username}'",
+      "export AWS_SECRET_ACCESS_KEY='${target_password}'",
+    ]
+  } else {
+    $real_duply_environment = empty($duply_environment) ? {
+      true    => [],
+      default => any2array($duply_environment)
+    }
+  }
 
   $real_gpg_encryption_keys = empty($gpg_encryption_keys) ? {
     true    => [],
@@ -171,11 +185,6 @@ define duplicity::profile(
   $real_duplicity_params = empty($duplicity_extra_params) ? {
     true    => [],
     default => any2array($duplicity_extra_params)
-  }
-  
-  $real_duply_environment = empty($duply_environment) ? {
-    true    => [],
-    default => any2array($duply_environment)
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"
@@ -216,11 +225,12 @@ define duplicity::profile(
   }
 
   file { $profile_config_file:
-    ensure  => $profile_file_ensure,
-    content => template('duplicity/etc/duply/conf.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0400',
+    ensure    => $profile_file_ensure,
+    content   => template('duplicity/etc/duply/conf.erb'),
+    owner     => 'root',
+    group     => 'root',
+    mode      => '0400',
+    show_diff => false,
   }
 
   concat { $profile_filelist_file:
