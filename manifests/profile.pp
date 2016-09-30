@@ -61,6 +61,9 @@
 # [*duply_version*]
 #   Currently installed duply version.
 #
+# [*duply_environment*]
+#   An array of extra environment variables to pass to duplicity.
+#
 # [*duplicity_extra_params*]
 #   An array of extra parameters to pass to duplicity.
 #
@@ -105,6 +108,7 @@ define duplicity::profile(
   $cron_hour              = undef,
   $cron_minute            = undef,
   $duply_version          = undef,
+  $duply_environment      = $duplicity::duply_environment,
   $duplicity_extra_params = $duplicity::duplicity_extra_params,
   $duply_cache_dir        = $duplicity::duply_cache_dir,
   $exec_before_content    = undef,
@@ -167,6 +171,11 @@ define duplicity::profile(
   $real_duplicity_params = empty($duplicity_extra_params) ? {
     true    => [],
     default => any2array($duplicity_extra_params)
+  }
+  
+  $real_duply_environment = empty($duply_environment) ? {
+    true    => [],
+    default => any2array($duply_environment)
   }
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"

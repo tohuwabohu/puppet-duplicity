@@ -185,3 +185,7 @@ ARCH_DIR=<%= @duply_cache_dir %>
 DUPL_PARAMS="$DUPL_PARAMS <%= @real_duplicity_params.join(' ') %> "
 <% end -%>
 #DUPL_PARAMS="$DUPL_PARAMS --put_your_options_here " 
+
+#Set Environment variables so it properly auth's for Boto
+<% @real_duply_environment.join("\n") -%>
+
