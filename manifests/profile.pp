@@ -76,6 +76,9 @@
 # [*exec_after_source*]
 #   Source file to be used as the post-backup script
 #
+# [*niceness*]
+#   Nice value, -20 (most favorable scheduling) to 19 (least favorable) - disabled by default
+#
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -111,6 +114,7 @@ define duplicity::profile(
   $exec_before_source     = undef,
   $exec_after_content     = undef,
   $exec_after_source      = undef,
+  $niceness               = undef,
 ) {
   require duplicity
 
@@ -306,10 +310,17 @@ define duplicity::profile(
   }
 
   if versioncmp($real_duply_version, '1.7.1') < 0 {
-    $cron_command  = "duply ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
+    $duply_command  = "duply ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
   }
   else {
-    $cron_command  = "duply ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
+    $duply_command  = "duply ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
+  }
+
+  if $niceness {
+    $cron_command = "nice -n ${niceness} ${duply_command}"
+  }
+  else {
+    $cron_command = $duply_command
   }
 
   cron { "backup-${title}":
