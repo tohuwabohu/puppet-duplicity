@@ -21,8 +21,8 @@ class duplicity::params {
     default => 'duply',
   }
   $duply_package_provider = $::osfamily ? {
-    'redhat' => 'yum',
-    'debian' => 'apt',
+    'RedHat' => 'yum',
+    'Debian' => 'apt',
     default  => 'archive'
   }
   $duply_archive_version = '1.7.3'
@@ -70,7 +70,8 @@ class duplicity::params {
         '14.10' => '1.8.0',
         '15.04' => '1.9.1',
         '15.10' => '1.9.2',
-        '16.04' => '1.11'
+        '16.04' => '1.11',
+        default => '1.11',
       }
     }
     'CentOS': {
