@@ -5,12 +5,35 @@ cache: bundler
 bundler_args: --without development system_tests
 before_install: rm Gemfile.lock || true
 script: bundle exec rake test SPEC_OPTS='--format documentation'
-rvm:
-  - 2.0.0
-  - 2.1.0
-env:
-  matrix:
-    - PUPPET_VERSION="~> 3.8.0"
-    - PUPPET_VERSION="~> 4.4.0"
 matrix:
   fast_finish: true
+  include:
+  - rvm: 2.1
+    env: PUPPET_VERSION="~> 3"
+  - rvm: 2.3.1
+    env: PUPPET_VERSION="~> 4"
+  # Beaker tests
+  - env: BEAKER_set=debian-7-64
+    bundler_args: --without development
+    script: bundle exec rake beaker
+    dist: trusty
+    services: docker
+    sudo: required
+  - env: BEAKER_set=default  # Debian 8
+    bundler_args: --without development
+    script: bundle exec rake beaker
+    dist: trusty
+    services: docker
+    sudo: required
+  - env: BEAKER_set=ubuntu-1204-64
+    bundler_args: --without development
+    script: bundle exec rake beaker
+    dist: trusty
+    services: docker
+    sudo: required
+  - env: BEAKER_set=ubuntu-1404-64
+    bundler_args: --without development
+    script: bundle exec rake beaker
+    dist: trusty
+    services: docker
+    sudo: required

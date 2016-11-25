@@ -4,8 +4,8 @@ describe 'duplicity' do
   let(:title) { 'duplicity' }
   let(:archive) { 'duply_1.7.3' }
 
-  describe 'by default' do
-    let(:params) { {} }
+  describe 'by default with archive package provider' do
+    let(:params) { {:duply_package_provider => 'archive'} }
 
     it { should contain_package('duplicity').with(
         'ensure' => 'installed',
@@ -151,7 +151,7 @@ describe 'duplicity' do
   end
 
   describe 'with custom duply_archive_executable' do
-    let(:params) { {:duply_archive_executable => '/path/to/duply'} }
+    let(:params) { {:duply_archive_executable => '/path/to/duply', :duply_package_provider => 'archive'} }
 
     it {
       should contain_file('/path/to/duply').with(

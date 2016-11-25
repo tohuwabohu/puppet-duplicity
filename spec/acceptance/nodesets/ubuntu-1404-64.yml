@@ -1,7 +1,5 @@
 HOSTS:
   ubuntu-1404-x64:
-    roles:
-      - master
     platform: ubuntu-1404-x86_64
     hypervisor: docker
     image: ubuntu:14.04

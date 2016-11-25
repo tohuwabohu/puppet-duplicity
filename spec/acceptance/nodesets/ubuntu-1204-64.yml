@@ -1,7 +1,5 @@
 HOSTS:
   ubuntu-1204-x64:
-    roles:
-      - master
     platform: ubuntu-1204-x86_64
     hypervisor: docker
     image: ubuntu:12.04
