@@ -25,13 +25,13 @@ matrix:
     dist: trusty
     services: docker
     sudo: required
-  - env: BEAKER_set=ubuntu-1204-64
+  - env: BEAKER_set=ubuntu-1404-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
-  - env: BEAKER_set=ubuntu-1404-64
+  - env: BEAKER_set=ubuntu-1604-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
