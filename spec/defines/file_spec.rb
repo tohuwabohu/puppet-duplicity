@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'duplicity::file' do
   let(:title) { '/path/to/file' }
-  let(:facts) { {:concat_basedir => '/path/to/dir'} }
   let(:include_fragment) { '/etc/duply/system/include/b4a91649090a2784056565363583d067' }
   let(:exclude_fragment) { '/etc/duply/system/exclude/b4a91649090a2784056565363583d067' }
   let(:restore_exec) { "restore /path/to/file" }

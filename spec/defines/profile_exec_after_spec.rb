@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe 'duplicity::profile_exec_after' do
   let(:title) { 'example/foobar' }
-  let(:facts) { {:concat_basedir => '/path/to/dir'} }
 
   describe 'by default' do
     let(:params) { {:profile => 'example', :content => 'foobar'} }

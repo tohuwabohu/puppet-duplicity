@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe 'duplicity::profile' do
+  let(:pre_condition) { 'class { "duplicity": }' }
+
   let(:title) { 'default' }
-  let(:facts) { {:concat_basedir => '/path/to/dir'} }
   let(:default_config_file) { '/etc/duply/default/conf' }
   let(:default_filelist) { '/etc/duply/default/exclude' }
 
