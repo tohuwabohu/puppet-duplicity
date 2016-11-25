@@ -8,7 +8,6 @@ group :development, :test do
   gem 'puppet-blacksmith', '~> 3.4'
   gem 'puppet-lint', '~> 2.0'
   gem 'metadata-json-lint', '~> 0.0.11'
-  gem 'puppet-lint-absolute_classname-check', '~> 0.1'
   gem 'puppet-lint-unquoted_string-check', '~> 0.2'
   gem 'puppet-syntax', '~> 2.1'
 end
