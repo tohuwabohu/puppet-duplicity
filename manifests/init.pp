@@ -123,6 +123,7 @@ class duplicity (
   $duply_log_dir             = $duplicity::params::duply_log_dir,
   $duply_log_group           = $duplicity::params::duply_log_group,
   $duply_cache_dir           = undef,
+  $duply_environment         = undef,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
   $gpg_signing_key           = $duplicity::params::gpg_signing_key,
   $gpg_passphrase            = $duplicity::params::gpg_passphrase,
