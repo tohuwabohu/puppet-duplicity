@@ -1,3 +1,39 @@
+## 2016-11-27 - Release 4.1.0
+### Summary
+
+This release ships two major changes
+
+* Improve compatibility with duply 1.10+ which removed the environment variable handling required by many storage
+  backends, e.g. `NoAuthHandlerFound: No handler was ready to authenticate. (S3)` ([#25](https://github.com/tohuwabohu/puppet-duplicity/issues/25))
+* Adds support to control the niceness ([#28](https://github.com/tohuwabohu/puppet-duplicity/pull/28))
+
+### Upgrade notes
+
+Duply 1.10+ removed support for many backend-specific environment variables ([see changelog](http://duply.net/wiki/index.php/Duply-Changelog)):
+
+> ... and instead opted for removing almost all code that deals with special env vars required by backends.
+> adding and modifying these results in too much overhead so i dropped this feature. the future alternative for users is
+> to consult the duplicity manpage and add the needed export definitions to the conf file.
+
+In order to upgrade to this version, it is now up to the client to provide the environment variables. This can be done
+on a class or profile level. The specified variables are stored in duply's configuration file. Example:
+
+```
+class { 'duplicity':
+  duply_environment => [
+    "export AWS_ACCESS_KEY_ID='${my_access_key}'",
+    "export AWS_SECRET_ACCESS_KEY='${my_secret_key}'",
+  ],
+}
+```
+
+### Minor
+
+A couple of minor updates have been applied
+* Consistent names for osfamily constants  ([#29](https://github.com/tohuwabohu/puppet-duplicity/pull/29))
+* Add Ubuntu 16.04 to test matrix, remove Ubuntu 12.04
+* Run beaker tests on travis CI
+
 ##2016-05-30 - Release 4.0.0
 ###Summary
 

@@ -38,6 +38,20 @@ class { 'duplicity':
 }
 ```
 
+In case you're using duply 1.10+ and a storage backend that requires additional environment variables to be set, use
+the following pattern
+
+```
+class { 'duplicity':
+  duply_environment => [
+    "export AWS_ACCESS_KEY_ID='${my_access_key}'",
+    "export AWS_SECRET_ACCESS_KEY='${my_secret_key}'",
+  ],
+}
+```
+
+This works on a profile-level as well.
+
 Configure a simple backup profile that stops an application before the backup starts and starts it when complete.
 It will run once a day, do incremental backups by default and create a full backup if the previous full backup
 is older than 7 days. Duplicity will keep at most two full backups and purge older ones.
