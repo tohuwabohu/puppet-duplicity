@@ -160,7 +160,7 @@ define duplicity::profile(
 
   if $target =~ /^s3:/ and empty($duply_environment) and (versioncmp($duply_version, '1.11') <= 0) {
     notify{ "Duplicity::Profile[${title}]: S3 warning":
-      message => "S3 targets now require AWS_ACCCESS_KEY_ID & AWS_SECRET_ACCESS_KEY env vars to be set - setting for you",
+      message => 'S3 targets now require AWS_ACCCESS_KEY_ID & AWS_SECRET_ACCESS_KEY env vars to be set - setting for you',
     }
     $real_duply_environment = [
       "export AWS_ACCESS_KEY_ID='${target_username}'",
