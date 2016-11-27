@@ -5,7 +5,7 @@ This release ships two major changes
 
 * Improve compatibility with duply 1.10+ which removed the environment variable handling required by many storage
   backends, e.g. `NoAuthHandlerFound: No handler was ready to authenticate. (S3)` ([#25](https://github.com/tohuwabohu/puppet-duplicity/issues/25))
-* Adds support to control the niceness ([#28](https://github.com/tohuwabohu/puppet-duplicity/pull/28))
+* Add support to control the niceness ([#28](https://github.com/tohuwabohu/puppet-duplicity/pull/28))
 
 ### Upgrade notes
 
@@ -30,7 +30,7 @@ class { 'duplicity':
 ### Minor
 
 A couple of minor updates have been applied
-* Consistent names for osfamily constants  ([#29](https://github.com/tohuwabohu/puppet-duplicity/pull/29))
+* Consistent operating system names for `osfamily` checks ([#29](https://github.com/tohuwabohu/puppet-duplicity/pull/29))
 * Add Ubuntu 16.04 to test matrix, remove Ubuntu 12.04
 * Run beaker tests on travis CI
 
