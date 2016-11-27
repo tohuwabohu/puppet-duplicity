@@ -1,7 +1,12 @@
 require 'beaker-rspec/spec_helper'
 require 'beaker/puppet_install_helper'
 
-run_puppet_install_helper
+if default.name =~ /ubuntu.*1604.*/
+  # https://tickets.puppetlabs.com/browse/BKR-821
+  run_puppet_install_helper(type='agent')
+else
+  run_puppet_install_helper
+end
 
 RSpec.configure do |c|
   proj_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
