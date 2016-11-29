@@ -67,6 +67,9 @@
 # [*duplicity_extra_params*]
 #   An array of extra parameters to pass to duplicity.
 #
+# [*duply_custom_batch*]
+#   Custom batch command for Duply cron job. Batch format is '<command>[[_|+|-]<command>[_|+|-]...]' check Duply man page for details. Leave undefined for default batch: 'cleanup_backup_purgeFull'
+#
 # [*exec_before_content*]
 #   Content to be added to the pre-backup script
 #
@@ -114,6 +117,7 @@ define duplicity::profile(
   $duply_environment      = $duplicity::duply_environment,
   $duplicity_extra_params = $duplicity::duplicity_extra_params,
   $duply_cache_dir        = $duplicity::duply_cache_dir,
+  $duply_custom_batch     = undef,
   $exec_before_content    = undef,
   $exec_before_source     = undef,
   $exec_after_content     = undef,
@@ -328,12 +332,19 @@ define duplicity::profile(
     ensure  => present,
   }
 
-  if versioncmp($real_duply_version, '1.7.1') < 0 {
-    $duply_command  = "duply ${title} cleanup_backup_purge-full --force >> ${duplicity::duply_log_dir}/${title}.log"
+  if $duply_custom_batch {
+    $duply_batch = $duply_custom_batch
   }
   else {
-    $duply_command  = "duply ${title} cleanup_backup_purgeFull --force >> ${duplicity::duply_log_dir}/${title}.log"
+    if versioncmp($real_duply_version, '1.7.1') < 0 {
+      $duply_batch  = "cleanup_backup_purge-full"
+    }
+    else {
+      $duply_batch  = "cleanup_backup_purgeFull"
+    }
   }
+
+  $duply_command  = "duply ${title} ${duply_batch} --force >> ${duplicity::duply_log_dir}/${title}.log"
 
   if $niceness {
     $cron_command = "nice -n ${niceness} ${duply_command}"
