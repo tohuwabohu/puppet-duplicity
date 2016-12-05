@@ -68,7 +68,8 @@
 #   An array of extra parameters to pass to duplicity.
 #
 # [*duply_custom_batch*]
-#   Custom batch command for Duply cron job. Batch format is '<command>[[_|+|-]<command>[_|+|-]...]' check Duply man page for details. Leave undefined for default batch: 'cleanup_backup_purgeFull'
+#   Custom batch command for Duply cron job. Batch format is '<command>[[_|+|-]<command>[_|+|-]...]' check Duply man page for details. 
+#   Leave undefined for default batch: 'cleanup_backup_purgeFull'
 #
 # [*exec_before_content*]
 #   Content to be added to the pre-backup script
@@ -337,10 +338,10 @@ define duplicity::profile(
   }
   else {
     if versioncmp($real_duply_version, '1.7.1') < 0 {
-      $duply_batch  = "cleanup_backup_purge-full"
+      $duply_batch  = 'cleanup_backup_purge-full'
     }
     else {
-      $duply_batch  = "cleanup_backup_purgeFull"
+      $duply_batch  = 'cleanup_backup_purgeFull'
     }
   }
 
