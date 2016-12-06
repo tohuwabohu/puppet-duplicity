@@ -1,3 +1,8 @@
+## 2016-12-06 - Release 4.2.0
+
+Allow the Duply batch command to be customized, e.g. change the used operators or add additional commands
+([#31](https://github.com/tohuwabohu/puppet-duplicity/issues/31)).
+
 ## 2016-11-27 - Release 4.1.0
 ### Summary
 
