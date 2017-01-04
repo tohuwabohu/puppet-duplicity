@@ -58,6 +58,7 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^TARGET_USER=''$/) }
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_FULLBKP_AGE=.*$/) }
+    it { should contain_file(default_config_file).without_content(/^MAX_AGE=.*$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_FULL_BACKUPS=.*$/) }
     it { should contain_file(default_config_file).with_content(/^VOLSIZE=50$/) }
     it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_content(/^\n\- \*\*$/) }
@@ -222,6 +223,12 @@ describe 'duplicity::profile' do
     let(:params) { {:target_password => 'secret'} }
 
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS='secret'$/) }
+  end
+
+  describe 'should accept max_age as string' do
+    let(:params) { {:max_age => '5d'} }
+
+    it { should contain_file(default_config_file).with_content(/^MAX_AGE=5d$/) }
   end
 
   describe 'should accept max_full_backups as integer' do

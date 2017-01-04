@@ -106,6 +106,9 @@ SOURCE='<%= @source %>'
 # Time frame for old backups to keep, Used for the "purge" command.  
 # see duplicity man page, chapter TIME_FORMATS)
 #MAX_AGE=1M
+<% if @max_age and !@max_age.to_s.empty? -%>
+MAX_AGE=<%= @max_age %>
+<% end -%>
 
 # Number of full backups to keep. Used for the "purge-full" command. 
 # See duplicity man page, action "remove-all-but-n-full".
