@@ -1,3 +1,7 @@
+## 2017-01-04 - Release 4.3.0
+
+The `max_age` parameter can be set in the profile ([#33](https://github.com/tohuwabohu/puppet-duplicity/pull/33)).
+
 ## 2016-12-06 - Release 4.2.0
 
 Allow the Duply batch command to be customized, e.g. change the used operators or add additional commands
