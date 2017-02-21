@@ -40,7 +40,7 @@ class duplicity::params {
     default => '/etc/duply'
   }
   $duply_purge_config_dir = {
-    default => 'true'
+    default => true
   }
   $duply_profile_config_name = 'conf'
   $duply_profile_filelist_name = 'exclude'
@@ -52,7 +52,7 @@ class duplicity::params {
   $duply_public_key_dir = "${duply_key_dir}/public"
   $duply_private_key_dir = "${duply_key_dir}/private"
   $duply_purge_key_dir = {
-    default => 'true'
+    default => true
   }
   $duply_log_dir = $::osfamily ? {
     default => '/var/log/duply'
