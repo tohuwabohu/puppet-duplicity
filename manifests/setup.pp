@@ -19,7 +19,7 @@ class duplicity::setup inherits duplicity {
     group   => 'root',
     mode    => '0644',
     backup  => false,
-    purge   => true,
+    purge   => $duplicity::duply_purge_config_dir,
     force   => true,
     recurse => true,
   }
@@ -30,7 +30,7 @@ class duplicity::setup inherits duplicity {
     group   => 'root',
     mode    => '0644',
     backup  => false,
-    purge   => true,
+    purge   => $duplicity::duply_purge_key_dir,
     force   => true,
     recurse => true,
   }
