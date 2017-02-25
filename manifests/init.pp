@@ -53,7 +53,7 @@
 #   `duply_archive_executable` to customize those settings instead.
 #
 # [*duply_version*]
-#   Set the version of the installed duply package in case you are not using the default package of your distribution or 
+#   Set the version of the installed duply package in case you are not using the default package of your distribution or
 #   your version is not automatically detected. If you are using `archive` as `duply_package_provider`, please
 #   specify the version via `duply_archive_version`.
 #
@@ -63,8 +63,14 @@
 # [*duply_cache_dir*]
 #   Defines a folder that holds unencrypted meta data of the backup, enabling new incrementals without the
 #   need to decrypt backend metadata first. If empty or deleted somehow, the private key and it's password are needed.
-#   NOTE: This is confidential data. Put it somewhere safe. It can grow quite big over time so you might want to put 
+#   NOTE: This is confidential data. Put it somewhere safe. It can grow quite big over time so you might want to put
 #   it not in the home dir. default '~/.cache/duplicity/duply_<profile>/'
+#
+# [*duply_purge_config_dir*]
+#   Set the purge behaviour for duply configuration folder '/etc/duply'. default 'true'
+#
+# [*duply_purge_key_dir*]
+#   Set the purge behaviour for duply key folder '/etc/duply-keys'. default 'true'
 #
 # [*duply_log_group*]
 #   Set the group that owns the log directory.
@@ -123,6 +129,8 @@ class duplicity (
   $duply_log_dir             = $duplicity::params::duply_log_dir,
   $duply_log_group           = $duplicity::params::duply_log_group,
   $duply_cache_dir           = undef,
+  $duply_purge_config_dir    = $duplicity::params::duply_purge_config_dir,
+  $duply_purge_key_dir       = $duplicity::params::duply_purge_key_dir,
   $duply_environment         = undef,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
   $gpg_signing_key           = $duplicity::params::gpg_signing_key,
