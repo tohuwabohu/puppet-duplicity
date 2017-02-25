@@ -1,7 +1,7 @@
 ## 2017-02-25 - Release 4.4.0
 
 The purge behaviour of config directories is now configurable ([#34](https://github.com/tohuwabohu/puppet-duplicity/pull/34))
-and the module supports [puppetlabs/concat](http://forge.puppetlabs.com/puppetlabs/concat) 2.x offically.
+and the module supports [puppetlabs/concat](http://forge.puppetlabs.com/puppetlabs/concat) 2.x officially.
 
 ## 2017-01-04 - Release 4.3.0
 
