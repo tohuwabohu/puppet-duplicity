@@ -78,9 +78,9 @@ describe 'duplicity::profile' do
 
     it { should contain_file('/etc/duply/default').with_ensure('absent') }
     it { should contain_file('/etc/duply/default/conf').with_ensure('absent') }
-    it { should contain_file('/etc/duply/default/exclude').with_ensure('absent') }
-    it { should contain_file('/etc/duply/default/pre').with_ensure('absent') }
-    it { should contain_file('/etc/duply/default/post').with_ensure('absent') }
+    it { should contain_concat('/etc/duply/default/exclude').with_ensure('absent') }
+    it { should contain_concat('/etc/duply/default/pre').with_ensure('absent') }
+    it { should contain_concat('/etc/duply/default/post').with_ensure('absent') }
   end
 
   describe 'with invalid ensure' do
