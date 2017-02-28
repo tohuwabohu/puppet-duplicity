@@ -1,6 +1,6 @@
 {
   "name": "tohuwabohu-duplicity",
-  "version": "4.3.1",
+  "version": "4.4.2",
   "author": "Martin Meinhold",
   "license": "Apache-2.0",
   "summary": "Install and manage duplicity",
@@ -54,7 +54,7 @@
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.1.0 < 2.0.0"
+      "version_requirement": ">= 1.1.0 < 3.0.0"
     },
     {
       "name": "puppetlabs/stdlib",

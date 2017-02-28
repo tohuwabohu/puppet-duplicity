@@ -55,8 +55,9 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='disabled'$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_PW=''$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_OPTS=''$/) }
-    it { should contain_file(default_config_file).with_content(/^TARGET_USER=''$/) }
-    it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
+    # Removed the following check to allow empty user and password
+    #it { should contain_file(default_config_file).with_content(/^TARGET_USER=''$/) }
+    #it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_FULLBKP_AGE=.*$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_AGE=.*$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_FULL_BACKUPS=.*$/) }
@@ -78,9 +79,9 @@ describe 'duplicity::profile' do
 
     it { should contain_file('/etc/duply/default').with_ensure('absent') }
     it { should contain_file('/etc/duply/default/conf').with_ensure('absent') }
-    it { should contain_file('/etc/duply/default/exclude').with_ensure('absent') }
-    it { should contain_file('/etc/duply/default/pre').with_ensure('absent') }
-    it { should contain_file('/etc/duply/default/post').with_ensure('absent') }
+    it { should contain_concat('/etc/duply/default/exclude').with_ensure('absent') }
+    it { should contain_concat('/etc/duply/default/pre').with_ensure('absent') }
+    it { should contain_concat('/etc/duply/default/post').with_ensure('absent') }
   end
 
   describe 'with invalid ensure' do
@@ -219,9 +220,10 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^TARGET_USER='johndoe'$/) }
   end
 
-  describe 'with target_password => secret' do
-    let(:params) { {:target_password => 'secret'} }
+  describe 'with target_username => johndoe' and 'with target_password => secret' do
+    let(:params) { {:target_username => 'johndoe', :target_password => 'secret'} }
 
+    it { should contain_file(default_config_file).with_content(/^TARGET_USER='johndoe'$/) }
     it { should contain_file(default_config_file).with_content(/^TARGET_PASS='secret'$/) }
   end
 
