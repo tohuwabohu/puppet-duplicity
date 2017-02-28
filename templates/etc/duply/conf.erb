@@ -87,8 +87,8 @@ GPG_OPTS='<%= @real_gpg_options.join(' ') %>'
 TARGET='<%= @target %>'
 # optionally the username/password can be defined as extra variables
 # setting them here _and_ in TARGET results in an error
-TARGET_USER='<%= @target_username %>'
-TARGET_PASS='<%= @target_password %>'
+<% if not @target_username %>#<% end %>TARGET_USER='<%= @target_username %>'
+<% if not @target_password %>#<% end %>TARGET_PASS='<%= @target_password %>'
 
 # base directory to backup
 SOURCE='<%= @source %>'
