@@ -220,7 +220,7 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^TARGET_USER='johndoe'$/) }
   end
 
-  describe 'with target_username => johndoe' and 'with target_password => secret' do
+  describe 'with target_username => johndoe, target_password => secret' do
     let(:params) { {:target_username => 'johndoe', :target_password => 'secret'} }
 
     it { should contain_file(default_config_file).with_content(/^TARGET_USER='johndoe'$/) }
