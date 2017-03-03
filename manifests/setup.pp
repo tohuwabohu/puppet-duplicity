@@ -56,17 +56,29 @@ class duplicity::setup inherits duplicity {
     mode   => '0640',
   }
 
-  logrotate::rule { 'duply':
-    ensure       => present,
-    path         => "${duplicity::duply_log_dir}/*.log",
-    rotate       => 5,
-    size         => '100k',
-    compress     => true,
-    missingok    => true,
-    create       => true,
-    create_owner => 'root',
-    create_group => $duplicity::duply_log_group,
-    create_mode  => '0640',
-    require      => File[$duplicity::duply_log_dir],
+  if $duply_use_yo61_log_module == true {
+    logrotate::rule { 'duply':
+      ensure       => present,
+      path         => "${duplicity::duply_log_dir}/*.log",
+      rotate       => 5,
+      size         => '100k',
+      compress     => true,
+      missingok    => true,
+      create       => true,
+      create_owner => 'root',
+      create_group => $duplicity::duply_log_group,
+      create_mode  => '0640',
+      require      => File[$duplicity::duply_log_dir],
+    }
   }
+  else {
+    file { '/etc/logrotate.d/duply':
+      ensure  => file,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0640',
+      content => template('duplicity/etc/logrotate.d/duply.erb'),
+    }
+  }
+
 }

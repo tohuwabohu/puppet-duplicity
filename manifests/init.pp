@@ -132,6 +132,7 @@ class duplicity (
   $duply_purge_config_dir    = $duplicity::params::duply_purge_config_dir,
   $duply_purge_key_dir       = $duplicity::params::duply_purge_key_dir,
   $duply_environment         = undef,
+  $duply_use_yo61_log_module = $duplicity::params::duply_use_yo61_log_module,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
   $gpg_signing_key           = $duplicity::params::gpg_signing_key,
   $gpg_passphrase            = $duplicity::params::gpg_passphrase,
