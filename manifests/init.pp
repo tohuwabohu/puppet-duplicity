@@ -75,6 +75,9 @@
 # [*duply_log_group*]
 #   Set the group that owns the log directory.
 #
+# [*duply_use_yo61_log_module*]
+#   Set if yo61/logrotate module is used or logrotate file created by puppet template.
+#
 # [*gpg_encryption_keys*]
 #   List of default public keyids used to encrypt the backup.
 #
