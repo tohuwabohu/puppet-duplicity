@@ -75,7 +75,7 @@
 # [*duply_log_group*]
 #   Set the group that owns the log directory.
 #
-# [*duply_use_yo61_log_module*]
+# [*duply_use_logrotate_module*]
 #   Set if yo61/logrotate module is used or logrotate file created by puppet template.
 #
 # [*gpg_encryption_keys*]
@@ -135,7 +135,7 @@ class duplicity (
   $duply_purge_config_dir    = $duplicity::params::duply_purge_config_dir,
   $duply_purge_key_dir       = $duplicity::params::duply_purge_key_dir,
   $duply_environment         = undef,
-  $duply_use_yo61_log_module = $duplicity::params::duply_use_yo61_log_module,
+  $duply_use_logrotate_module = $duplicity::params::duply_use_logrotate_module,
   $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
   $gpg_signing_key           = $duplicity::params::gpg_signing_key,
   $gpg_passphrase            = $duplicity::params::gpg_passphrase,

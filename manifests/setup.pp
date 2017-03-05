@@ -56,7 +56,7 @@ class duplicity::setup inherits duplicity {
     mode   => '0640',
   }
 
-  if $duply_use_yo61_log_module == true {
+  if $duply_use_logrotate_module == true {
     logrotate::rule { 'duply':
       ensure       => present,
       path         => "${duplicity::duply_log_dir}/*.log",
