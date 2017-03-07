@@ -56,6 +56,10 @@ class duplicity::install inherits duplicity {
       ensure   => $duplicity::duply_package_ensure,
       name     => $duplicity::duply_package_name,
       provider => $duplicity::duply_package_provider,
+      require  => Package['python-paramiko'],
+    }
+    package { 'python-paramiko':
+      ensure   => $duplicity::duply_package_ensure,
     }
 
     # If duply was previously installed from archive, it should not pollute the PATH any more ...
