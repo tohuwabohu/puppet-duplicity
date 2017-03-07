@@ -55,9 +55,8 @@ describe 'duplicity::profile' do
     it { should contain_file(default_config_file).with_content(/^GPG_KEY_SIGN='disabled'$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_PW=''$/) }
     it { should contain_file(default_config_file).with_content(/^GPG_OPTS=''$/) }
-    # Removed the following check to allow empty user and password
-    #it { should contain_file(default_config_file).with_content(/^TARGET_USER=''$/) }
-    #it { should contain_file(default_config_file).with_content(/^TARGET_PASS=''$/) }
+    it { should contain_file(default_config_file).without_content(/^TARGET_USER=''$/) }
+    it { should contain_file(default_config_file).without_content(/^TARGET_PASS=''$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_FULLBKP_AGE=.*$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_AGE=.*$/) }
     it { should contain_file(default_config_file).without_content(/^MAX_FULL_BACKUPS=.*$/) }
