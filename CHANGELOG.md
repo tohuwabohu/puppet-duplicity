@@ -1,3 +1,7 @@
+## 2017-03-07 - Release 4.4.2
+
+Set `TARGET_USER` only if it's a non-empty string ([#35](https://github.com/tohuwabohu/puppet-duplicity/pull/35)).
+
 ## 2017-02-25 - Release 4.4.1
 
 Re-release of 4.4.0 due to unwanted files contained in the tarball uploaded to the forge.
