@@ -1,3 +1,12 @@
+## 2017-03-12 - Release 4.5.0
+
+Two changes to improve the compatibility on Ubuntu 16.04
+
+* Add option to make use of yo61/logrotate module optional ([#36](https://github.com/tohuwabohu/puppet-duplicity/pull/36)); 
+  the default logrotate configuration is currently broken on Ubuntu 16.04 until [yo61/puppet-logrotate#43](https://github.com/yo61/puppet-logrotate/pull/43) 
+  is merged
+* Add missing python-paramiko package ([#39](https://github.com/tohuwabohu/puppet-duplicity/pull/39))
+
 ## 2017-03-07 - Release 4.4.2
 
 Set `TARGET_USER` only if it's a non-empty string ([#35](https://github.com/tohuwabohu/puppet-duplicity/pull/35)).
