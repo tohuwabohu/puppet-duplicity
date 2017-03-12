@@ -1,0 +1,10 @@
+# managed by puppet module duplicity
+# do not change or changes will be overwritten!
+
+<%= scope['duplicity::duply_log_dir'] %>/*.log {
+  compress
+  create 0640 root <%= scope['duplicity::duply_log_group'] %>
+  missingok
+  rotate 5
+  size 100k
+}
