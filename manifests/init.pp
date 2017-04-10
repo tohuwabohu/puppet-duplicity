@@ -66,6 +66,10 @@
 #   NOTE: This is confidential data. Put it somewhere safe. It can grow quite big over time so you might want to put
 #   it not in the home dir. default '~/.cache/duplicity/duply_<profile>/'
 #
+# [*duply_config_dir_mode*]
+#   Set the mode for duply configuration folder '/etc/duply'. This is a file mode, puppet will add +x for directories
+#   automatically. default '0600'
+#
 # [*duply_purge_config_dir*]
 #   Set the purge behaviour for duply configuration folder '/etc/duply'. default 'true'
 #
@@ -132,6 +136,7 @@ class duplicity (
   $duply_log_dir             = $duplicity::params::duply_log_dir,
   $duply_log_group           = $duplicity::params::duply_log_group,
   $duply_cache_dir           = undef,
+  $duply_config_dir_mode     = $duplicity::params::duply_config_dir_mode,
   $duply_purge_config_dir    = $duplicity::params::duply_purge_config_dir,
   $duply_purge_key_dir       = $duplicity::params::duply_purge_key_dir,
   $duply_environment         = undef,

@@ -17,7 +17,7 @@ class duplicity::setup inherits duplicity {
     ensure  => directory,
     owner   => 'root',
     group   => 'root',
-    mode    => '0644',
+    mode    => $duplicity::duply_config_dir_mode,
     backup  => false,
     purge   => $duplicity::duply_purge_config_dir,
     force   => true,

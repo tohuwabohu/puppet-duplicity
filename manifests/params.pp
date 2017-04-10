@@ -39,6 +39,7 @@ class duplicity::params {
   $duply_config_dir = $::osfamily ? {
     default => '/etc/duply'
   }
+  $duply_config_dir_mode = '0600'
   $duply_purge_config_dir = true
   $duply_profile_config_name = 'conf'
   $duply_profile_filelist_name = 'exclude'
