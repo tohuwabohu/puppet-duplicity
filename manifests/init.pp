@@ -191,6 +191,6 @@ class duplicity (
   }
   validate_string($duply_log_group)
 
-  class { 'duplicity::install': } ->
-  class { 'duplicity::setup': }
+  class { 'duplicity::install': }
+  -> class { 'duplicity::setup': }
 }
