@@ -32,15 +32,16 @@ class duplicity::install inherits duplicity {
       default  => link,
     }
 
-    archive { $real_duply_archive_name:
+    archive { "${duplicity::duply_archive_package_dir}/${real_duply_archive_name}.tgz":
       ensure           => $real_duply_package_ensure,
-      url              => $real_duply_archive_url,
+      source           => $real_duply_archive_url,
       proxy_server     => $duplicity::duply_archive_proxy,
-      follow_redirects => true,
-      extension        => 'tgz',
-      target           => $duplicity::duply_archive_install_dir,
-      src_target       => $duplicity::duply_archive_package_dir,
-      digest_string    => $duplicity::duply_archive_md5sum,
+      extract          => true,
+      extract_path     => $duplicity::duply_archive_install_dir,
+      #follow_redirects => true,
+      #extension        => 'tgz',
+      checksum         => $duplicity::duply_archive_md5sum,
+      checksum_type    => 'md5'
     }
 
     file { $duplicity::duply_archive_executable:
