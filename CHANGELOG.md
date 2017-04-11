@@ -1,3 +1,7 @@
+## 2017-04-11 - Release 4.5.1
+
+Fix profile folder default permissions ([#40](https://github.com/tohuwabohu/puppet-duplicity/pull/40)).
+
 ## 2017-03-12 - Release 4.5.0
 
 Two changes to improve the compatibility on Ubuntu 16.04
