@@ -1,3 +1,7 @@
+## 2017-04-12 - Release 4.5.2
+
+Do not ensure absent python-paramiko ([#41](https://github.com/tohuwabohu/puppet-duplicity/pull/41)).
+
 ## 2017-04-11 - Release 4.5.1
 
 Fix profile folder default permissions ([#40](https://github.com/tohuwabohu/puppet-duplicity/pull/40)).
