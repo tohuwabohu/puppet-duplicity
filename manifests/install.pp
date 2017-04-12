@@ -58,9 +58,11 @@ class duplicity::install inherits duplicity {
       provider => $duplicity::duply_package_provider,
       require  => Package['python-paramiko'],
     }
-    package { 'python-paramiko':
-      ensure   => $duplicity::duply_package_ensure,
-    }
+    # Note (arnaudmorin): we cannot ensure pyton-paramiko $duplicity::duply_package_ensure as
+    # it can break if the package is already ensure present somewhere else in another module.
+    ensure_resource ( 'package', 'python-paramiko', {
+      ensure   => present,
+    })
 
     # If duply was previously installed from archive, it should not pollute the PATH any more ...
     file { $duplicity::duply_archive_executable:
