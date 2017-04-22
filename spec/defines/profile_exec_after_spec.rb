@@ -8,7 +8,6 @@ describe 'duplicity::profile_exec_after' do
 
     specify {
       should contain_concat__fragment('profile-exec-after/example/foobar').with(
-        'ensure'  => 'present',
         'target'  => '/etc/duply/example/post',
         'content' => 'foobar'
       )
@@ -18,6 +17,6 @@ describe 'duplicity::profile_exec_after' do
   describe 'with ensure absent' do
     let(:params) { {:ensure => 'absent'} }
 
-    specify { should contain_concat__fragment('profile-exec-after/example/foobar').with_ensure('absent') }
+    specify { should_not contain_concat__fragment('profile-exec-after/example/foobar') }
   end
 end

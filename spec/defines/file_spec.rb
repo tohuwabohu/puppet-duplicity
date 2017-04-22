@@ -11,7 +11,6 @@ describe 'duplicity::file' do
 
     specify {
       should contain_concat__fragment(include_fragment).with(
-        'ensure'  => 'present',
         'content' => "+ /path/to/file"
       )
     }
@@ -22,7 +21,7 @@ describe 'duplicity::file' do
   describe 'with ensure absent' do
     let(:params) { {:ensure => 'absent'} }
 
-    specify { should contain_concat__fragment(include_fragment).with_ensure('absent') }
+    specify { should_not contain_concat__fragment(include_fragment) }
     specify { should_not contain_exec(restore_exec) }
   end
 

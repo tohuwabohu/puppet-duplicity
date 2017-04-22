@@ -47,11 +47,12 @@ define duplicity::profile_exec_before(
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${profile}"
   $profile_pre_script = "${profile_config_dir}/${duplicity::params::duply_profile_pre_script_name}"
 
-  concat::fragment { "profile-exec-before/${title}":
-    ensure  => $ensure,
-    target  => $profile_pre_script,
-    content => $content,
-    source  => $source,
-    order   => $order,
+  if $ensure == 'present' {
+    concat::fragment { "profile-exec-before/${title}":
+      target  => $profile_pre_script,
+      content => $content,
+      source  => $source,
+      order   => $order,
+    }
   }
 }
