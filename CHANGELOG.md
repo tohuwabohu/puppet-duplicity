@@ -1,3 +1,7 @@
+## 2017-04-22 - Release 4.5.3
+
+Fix `concat::fragment` deprecation warnings when using puppetlabs-concat 2.x.
+
 ## 2017-04-12 - Release 4.5.2
 
 Do not ensure absent python-paramiko ([#41](https://github.com/tohuwabohu/puppet-duplicity/pull/41)).
