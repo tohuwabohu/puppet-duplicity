@@ -305,7 +305,7 @@ describe 'duplicity::profile' do
   describe 'with exclude_by_default => false' do
     let(:params) { {:exclude_by_default => false} }
 
-    it { should contain_concat__fragment("#{default_filelist}/exclude-by-default").with_ensure('absent') }
+    it { should_not contain_concat__fragment("#{default_filelist}/exclude-by-default") }
   end
 
   describe 'with cron_enabled and cron_hour and cron_minute set' do

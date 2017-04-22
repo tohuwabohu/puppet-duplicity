@@ -47,11 +47,12 @@ define duplicity::profile_exec_after(
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${profile}"
   $profile_post_script = "${profile_config_dir}/${duplicity::params::duply_profile_post_script_name}"
 
-  concat::fragment { "profile-exec-after/${title}":
-    ensure  => $ensure,
-    target  => $profile_post_script,
-    content => $content,
-    source  => $source,
-    order   => $order,
+  if $ensure == 'present' {
+    concat::fragment { "profile-exec-after/${title}":
+      target  => $profile_post_script,
+      content => $content,
+      source  => $source,
+      order   => $order,
+    }
   }
 }
