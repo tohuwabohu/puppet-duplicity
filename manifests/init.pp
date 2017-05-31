@@ -140,6 +140,7 @@ class duplicity (
   $duply_log_dir             = $duplicity::params::duply_log_dir,
   $duply_log_group           = $duplicity::params::duply_log_group,
   $duply_cache_dir           = undef,
+  $duply_temp_dir            = undef,
   $duply_config_dir_mode     = $duplicity::params::duply_config_dir_mode,
   $duply_purge_config_dir    = $duplicity::params::duply_purge_config_dir,
   $duply_purge_key_dir       = $duplicity::params::duply_purge_key_dir,
