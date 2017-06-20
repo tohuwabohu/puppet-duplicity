@@ -64,7 +64,8 @@ class duplicity::params {
     'Debian': {
       $duply_version = $::lsbmajdistrelease ? {
         '7' => '1.5.5.5',
-        '8' => '1.9.1'
+        '8' => '1.9.1',
+        '9' => '1.11.3'
       }
     }
     'Ubuntu': {
