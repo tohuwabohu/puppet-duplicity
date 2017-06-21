@@ -1,14 +1,14 @@
-#duplicity
+# duplicity
 
 [![Puppet Forge](https://img.shields.io/puppetforge/v/tohuwabohu/duplicity.svg)](https://forge.puppetlabs.com/tohuwabohu/duplicity)
 [![Build Status](https://travis-ci.org/tohuwabohu/puppet-duplicity.svg?branch=master)](https://travis-ci.org/tohuwabohu/puppet-duplicity)
 
-##Overview
+## Overview
 
 Configure [duply](http://duply.net/) on top of [duplicity](http://duplicity.nongnu.org/) to provide a profile-based,
 easy to use backup and restore system.
 
-##Usage
+## Usage
 
 Install duplicity and duply with all default values.
 
@@ -121,7 +121,7 @@ duplicity::profile { 'system':
 }
 ```
 
-##Limitations
+## Limitations
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
@@ -131,7 +131,7 @@ The module has been tested on the following operating systems. Testing and patch
 * Ubuntu 16.04 (Xenial Xerus)
 * RHEL/Centos 6
 
-##Contributing
+## Contributing
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
@@ -139,7 +139,7 @@ The module has been tested on the following operating systems. Testing and patch
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
-###Development
+### Development
 
 This project uses rspec-puppet and beaker to ensure the module works as expected and to prevent regressions.
 
