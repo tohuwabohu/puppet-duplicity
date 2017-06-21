@@ -1,3 +1,7 @@
+## 2017-06-21 - Release 4.6.0
+
+Add support for Debian 9 ([#44](https://github.com/tohuwabohu/puppet-duplicity/pull/44)).
+
 ## 2017-04-22 - Release 4.5.3
 
 Fix `concat::fragment` deprecation warnings when using puppetlabs-concat 2.x.
