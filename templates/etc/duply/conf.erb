@@ -123,8 +123,12 @@ MAX_FULL_BACKUPS=<%= @max_full_backups %>
 # Used for the "purge-incr" command.
 # See duplicity man page, action "remove-all-inc-of-but-n-full".
 #MAX_FULLS_WITH_INCRS=1
+<% if @max_fulls_with_incrs and !@max_fulls_with_incrs.to_s.empty? -%>
+MAX_FULLS_WITH_INCRS=<%= @max_fulls_with_incrs %>
+<% end -%>
 
-# activates duplicity --full-if-older-than option (since duplicity v0.4.4.RC3) 
+
+  # activates duplicity --full-if-older-than option (since duplicity v0.4.4.RC3) 
 # forces a full backup if last full backup reaches a specified age, for the 
 # format of MAX_FULLBKP_AGE see duplicity man page, chapter TIME_FORMATS
 # Uncomment the following two lines to enable this setting.
