@@ -86,6 +86,14 @@
 # [*niceness*]
 #   Nice value, -20 (most favorable scheduling) to 19 (least favorable) - disabled by default
 #
+# [*max_fulls_with_incrs*]
+#   Number of full backups for which incrementals should be kept
+#
+# [*max_full_backups*]
+#   Number of full backups to keep
+#
+# [*max_age*]
+#   Maximum amount of time for which backups should be kept, e.g. 12M
 # === Authors
 #
 # Martin Meinhold <Martin.Meinhold@gmx.de>
@@ -107,6 +115,7 @@ define duplicity::profile(
   $source                 = '/',
   $full_if_older_than     = '',
   $max_full_backups       = '',
+  $max_fulls_with_incrs   = '',
   $max_age                = '',
   $volsize                = 50,
   $include_filelist       = [],
@@ -146,6 +155,10 @@ define duplicity::profile(
 
   if "str${max_full_backups}" !~ /^str[0-9]*$/ {
     fail("Duplicity::Profile[${title}]: max_full_backups must be an integer, got '${max_full_backups}'")
+  }
+
+  if "str${max_fulls_with_incrs}" !~ /^str[0-9]*$/ {
+    fail("Duplicity::Profile[${title}]: max_fulls_with_incrs must be an integer, got '${max_fulls_with_incrs}'")
   }
 
   if !is_integer($volsize) {
