@@ -1,3 +1,7 @@
+## 2017-07-06 - Release 4.7.0
+
+Add parameter for `MAX_FULLS_WITH_INCRS` ([#45](https://github.com/tohuwabohu/puppet-duplicity/pull/45)).
+
 ## 2017-06-21 - Release 4.6.0
 
 Add support for Debian 9 ([#44](https://github.com/tohuwabohu/puppet-duplicity/pull/44)).
