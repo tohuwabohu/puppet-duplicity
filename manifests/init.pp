@@ -26,6 +26,9 @@
 #   (defaults to the project's sourceforge page). Otherwise the native `package` resource will be used with `provider`
 #   set to the given value.
 #
+# [*duply_extra_packages*]
+#   Additional packages to be installed which may be needed for storage backends on different platforms.
+#
 # [*duply_archive_version*]
 #   Set the version of duply to be installed (if `duply_package_provider` is set to `archive`).
 #
@@ -125,6 +128,7 @@ class duplicity (
   $duply_package_ensure      = $duplicity::params::duply_package_ensure,
   $duply_package_name        = $duplicity::params::duply_package_name,
   $duply_package_provider    = $duplicity::params::duply_package_provider,
+  $duply_extra_packages      = $duplicity::params::duply_extra_packages,
   $duply_archive_version     = $duplicity::params::duply_archive_version,
   $duply_archive_md5sum      = $duplicity::params::duply_archive_md5sum,
   $duply_archive_url         = undef,
@@ -190,6 +194,7 @@ class duplicity (
     validate_absolute_path($duply_cache_dir)
   }
   validate_string($duply_log_group)
+  validate_array($duply_extra_packages)
 
   class { 'duplicity::install': }
   -> class { 'duplicity::setup': }

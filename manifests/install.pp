@@ -69,4 +69,7 @@ class duplicity::install inherits duplicity {
       ensure => absent,
     }
   }
+  
+  # Install any additional packages that may be needed by the different backends
+  ensure_packages($duply_extra_packages, {'ensure' => 'present'})
 }
