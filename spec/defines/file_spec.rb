@@ -4,7 +4,14 @@ describe 'duplicity::file' do
   let(:title) { '/path/to/file' }
   let(:include_fragment) { '/etc/duply/system/include/b4a91649090a2784056565363583d067' }
   let(:exclude_fragment) { '/etc/duply/system/exclude/b4a91649090a2784056565363583d067' }
-  let(:restore_exec) { "restore /path/to/file" }
+  let(:restore_exec) { 'restore /path/to/file' }
+  let(:pre_condition) { <<-EOS
+      # declare profiles referenced later
+      duplicity::profile { 'system': }
+
+      class { 'duplicity': }
+    EOS
+  }
 
   describe 'by default' do
     let(:params) { {} }
