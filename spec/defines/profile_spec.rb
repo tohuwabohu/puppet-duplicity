@@ -1,7 +1,15 @@
 require 'spec_helper'
 
 describe 'duplicity::profile' do
-  let(:pre_condition) { 'class { "duplicity": }' }
+  let(:pre_condition) { <<-EOS
+      # declare some keys referenced later
+      duplicity::private_key { 'key1': content => 'key1' }
+      duplicity::public_key { 'key1': content => 'key1' }
+      duplicity::public_key { 'key2': content => 'key2' }
+
+      class { 'duplicity': }
+    EOS
+  }
 
   let(:title) { 'default' }
   let(:default_config_file) { '/etc/duply/default/conf' }
