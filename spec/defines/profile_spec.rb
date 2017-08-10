@@ -302,6 +302,36 @@ describe 'duplicity::profile' do
     }
   end
 
+  describe 'with exclude_content => "+ /etc/duply\n- /etc\n"' do
+    let(:params) { { :exclude_content => "+ /etc/duply\n- /etc\n" } }
+
+    it { should contain_concat__fragment("#{default_filelist}/content").with_content("+ /etc/duply\n- /etc\n") }
+    it { should_not contain_concat__fragment("#{default_filelist}/include") }
+    it { should_not contain_concat__fragment("#{default_filelist}/exclude") }
+  end
+
+  describe 'with exclude_content and exclude_filelist' do
+    let(:params) { {
+        :exclude_content  => "+ /etc/duply\n- /etc\n",
+        :exclude_filelist => ['/a/b']
+    } }
+
+    specify {
+      expect { should contain_concat__fragment("#{default_filelist}/content") }.to raise_error(Puppet::Error, /exclude_filelist/)
+    }
+  end
+
+  describe 'with exclude_content and include_filelist' do
+    let(:params) { {
+        :exclude_content  => "+ /etc/duply\n- /etc\n",
+        :include_filelist => ['/a/b']
+    } }
+
+    specify {
+      expect { should contain_concat__fragment("#{default_filelist}/content") }.to raise_error(Puppet::Error, /include_filelist/)
+    }
+  end
+
   describe 'with exclude_by_default => false' do
     let(:params) { {:exclude_by_default => false} }
 
