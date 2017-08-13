@@ -1,3 +1,19 @@
+## 2017-08-13 - Release 4.8.0
+
+This release contains a number of minor improvements.
+
+* Helper class to be able to create profiles through Foreman ([#46](https://github.com/tohuwabohu/puppet-duplicity/pull/46))
+* Remove the check for S3 keys as it doesn't work well with AWS instance profiles ([#48](https://github.com/tohuwabohu/puppet-duplicity/issues/48), [#50](https://github.com/tohuwabohu/puppet-duplicity/pull/50))
+* Add profile parameter to specifiy include/exclude in verbatim ([#51](https://github.com/tohuwabohu/puppet-duplicity/pull/51))
+
+**Note:** The removal of the S3 key check could be considered a major change but on close inspection it turned out this
+check didn't work as expected. First of all it required the explicit usage of the `duply_version` parameter with a 
+profile and secondly the implementation had a bug in the version check which means it is unlikely this has been used 
+successfully by anyone on purpose.
+
+Further more the acceptance test infrastructure was updated to the latest version of [beaker](https://github.com/puppetlabs/beaker/)
+and Debian 9 has replaced Debian 7.
+
 ## 2017-07-06 - Release 4.7.0
 
 Add parameter for `MAX_FULLS_WITH_INCRS` ([#45](https://github.com/tohuwabohu/puppet-duplicity/pull/45)).
