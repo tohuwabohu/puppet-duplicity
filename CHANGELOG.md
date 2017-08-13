@@ -7,9 +7,9 @@ This release contains a number of minor improvements.
 * Add profile parameter to specifiy include/exclude in verbatim ([#51](https://github.com/tohuwabohu/puppet-duplicity/pull/51))
 
 **Note:** The removal of the S3 key check could be considered a major change but on close inspection it turned out this
-check didn't work as expected. First of all it required the explicit usage of the `duply_version` parameter with a 
-profile and secondly the implementation had a bug in the version check which means it is unlikely this has been used 
-successfully by anyone on purpose.
+check didn't work as expected. First of all it required the explicit usage of the profiles's `duply_version` parameter 
+and secondly the implementation had a bug in the version check which means it is unlikely this has been used 
+successfully by anyone.
 
 Further more the acceptance test infrastructure was updated to the latest version of [beaker](https://github.com/puppetlabs/beaker/)
 and Debian 9 has replaced Debian 7.
