@@ -63,11 +63,13 @@ describe 'duplicity::file can restore from backup' do
               ensure => backup,
             }
       ", :catch_failures => true)
-      shell('duply system backup')
+      shell('/usr/local/sbin/duply system backup')
       shell('rm -rf /tmp/restore-me')
     }
 
     specify 'should provision with no errors' do
+      # If this blows up with 'CollectionsError: No backup chains found' then chances are high the duply executable
+      # used to create the test backup is newer than the archive version
       manifest = <<-EOS
             class { 'duplicity':
               duply_package_provider => 'archive',

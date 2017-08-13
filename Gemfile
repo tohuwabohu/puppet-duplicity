@@ -13,10 +13,10 @@ group :development, :test do
 end
 
 group :system_tests do
-  gem 'beaker', '~> 2.47'
-  gem 'beaker-puppet_install_helper', '~> 0.5'
-  gem 'beaker-rspec', '~> 5.6'
-  gem 'serverspec', '~> 2.31'
+  gem 'beaker', '~> 3.21'
+  gem 'beaker-rspec', '~> 6.1'
+  gem 'beaker-puppet_install_helper', '~> 0.7.1'
+  gem 'beaker-module_install_helper', '~> 0.1'
 end
 
 if (puppetversion = ENV['PUPPET_VERSION'])
