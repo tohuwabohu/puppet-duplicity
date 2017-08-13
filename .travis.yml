@@ -15,13 +15,13 @@ matrix:
   - rvm: 2.4
     env: PUPPET_VERSION="~> 5"
   # Beaker tests
-  - env: BEAKER_set=debian-7-64
+  - env: BEAKER_set=debian-8-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
-  - env: BEAKER_set=default  # Debian 8
+  - env: BEAKER_set=default  # Debian 9
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
