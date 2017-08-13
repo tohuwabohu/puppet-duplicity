@@ -46,6 +46,9 @@
 # [*exclude_filelist*]
 #   List of files to be excluded from the backup. Paths can be relative like '**/cache'.
 #
+# [*exclude_content*]
+#   Raw content to set as the exclude file list. See 'man 1 duplicity', section 'FILE SELECTION'.
+#
 # [*exclude_by_default*]
 #   Exclude any file relative to the source directory that is not included; sets the '- **' parameter.
 #
@@ -120,6 +123,7 @@ define duplicity::profile(
   $volsize                = 50,
   $include_filelist       = [],
   $exclude_filelist       = [],
+  $exclude_content        = undef,
   $exclude_by_default     = true,
   $cron_enabled           = $duplicity::cron_enabled,
   $cron_hour              = undef,
@@ -171,6 +175,18 @@ define duplicity::profile(
 
   if !is_array($exclude_filelist) {
     fail("Duplicity::Profile[${title}]: exclude_filelist must be an array")
+  }
+
+  if !empty($exclude_content) {
+    validate_string($exclude_content)
+
+    if !empty($exclude_filelist) {
+      fail("Duplicity::Profile[${title}]: exclude_content cannot be used together with exclude_filelist")
+    }
+
+    if !empty($include_filelist) {
+      fail("Duplicity::Profile[${title}]: exclude_content cannot be used together with include_filelist")
+    }
   }
 
   if !is_bool($gpg_encryption) {
@@ -273,6 +289,14 @@ define duplicity::profile(
       target  => $profile_filelist_file,
       content => $profile_include_filelist,
       order   => '50',
+    }
+  }
+
+  if !empty($exclude_content) {
+    concat::fragment { "${profile_filelist_file}/content":
+      target  => $profile_filelist_file,
+      content => $exclude_content,
+      order   => '70',
     }
   }
 
