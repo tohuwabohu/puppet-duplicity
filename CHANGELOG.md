@@ -1,3 +1,8 @@
+## 2017-08-19 - Release 4.9.0
+
+Add an extra `duply_extra_packages` parameter used to install additional packages required by various storage backends
+([#49](https://github.com/tohuwabohu/puppet-duplicity/pull/49)).
+
 ## 2017-08-13 - Release 4.8.0
 
 This release contains a number of minor improvements.
