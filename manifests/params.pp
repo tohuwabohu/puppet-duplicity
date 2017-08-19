@@ -25,6 +25,7 @@ class duplicity::params {
     'Debian' => 'apt',
     default  => 'archive'
   }
+  $duply_extra_packages = []
   $duply_archive_version = '1.7.3'
   $duply_archive_md5sum = '139e36c3ee35d8bca15b6aa9c7f8939b'
   $duply_archive_package_dir = $::operatingsystem ? {
