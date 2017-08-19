@@ -15,7 +15,7 @@ end
 group :system_tests do
   gem 'beaker', '~> 3.21'
   gem 'beaker-rspec', '~> 6.1'
-  gem 'beaker-puppet_install_helper', '~> 0.7.1'
+  gem 'beaker-puppet_install_helper', '~> 0.7'
   gem 'beaker-module_install_helper', '~> 0.1'
 end
 
