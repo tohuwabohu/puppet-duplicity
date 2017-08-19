@@ -13,6 +13,6 @@ RSpec.configure do |c|
   c.formatter = :documentation
 
   c.before :suite do
-    logger.info("Using Puppet version #{(on default, 'puppet --version').output.chomp}")
+    logger.info("Using Puppet version #{(on default, 'puppet --version').stdout.chomp}")
   end
 end
