@@ -6,6 +6,6 @@ HOSTS:
     docker_preserve_image: true
 
 CONFIG:
-  type: aio
+  type: foss
   log_level: info
   trace_limit: 100
