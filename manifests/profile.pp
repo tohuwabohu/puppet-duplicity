@@ -132,6 +132,7 @@ define duplicity::profile(
   $duply_environment      = $duplicity::duply_environment,
   $duplicity_extra_params = $duplicity::duplicity_extra_params,
   $duply_cache_dir        = $duplicity::duply_cache_dir,
+  $duply_temp_dir         = $duplicity::duply_temp_dir,
   $duply_custom_batch     = undef,
   $exec_before_content    = undef,
   $exec_before_source     = undef,
