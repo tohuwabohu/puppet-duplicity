@@ -1,3 +1,7 @@
+## 2017-12-17 - Release 4.10.0
+
+Add parameter for `TEMP_DIR` ([#43](https://github.com/tohuwabohu/puppet-duplicity/pull/43)).
+
 ## 2017-08-19 - Release 4.9.0
 
 Add an extra `duply_extra_packages` parameter used to install additional packages required by various storage backends
