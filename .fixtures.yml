@@ -1,17 +1,18 @@
 fixtures:
-  repositories:
+  forge_modules:
     archive:
-      repo: "https://github.com/camptocamp/puppet-archive.git"
-      ref: "0.9.0"
-    concat:
-      repo: "https://github.com/puppetlabs/puppetlabs-concat.git"
+      repo: "puppet/archive"
       ref: "2.2.0"
+    concat:
+      repo: "puppetlabs/concat"
+      ref: "4.1.1"
     logrotate:
-      repo: "https://github.com/yo61/puppet-logrotate.git"
-      ref: "v1.4.0"
+      repo: "puppet-logrotate"
+      ref: "3.1.0"
     stdlib:
-      repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
-      ref: "4.15.0"
+      repo: "puppetlabs/stdlib"
+      ref: "4.24.0"
+
   symlinks:
     duplicity: "#{source_dir}"
 
