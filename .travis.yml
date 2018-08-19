@@ -8,32 +8,39 @@ script: bundle exec rake test SPEC_OPTS='--format documentation'
 matrix:
   fast_finish: true
   include:
-  - rvm: 2.1
+  - name: "Puppet 3"
+    rvm: 2.1
     env: PUPPET_VERSION="~> 3"
-  - rvm: 2.3
+  - name: "Puppet 4"
+    rvm: 2.3
     env: PUPPET_VERSION="~> 4"
-  - rvm: 2.4
+  - name: "Puppet 5"
+    rvm: 2.4
     env: PUPPET_VERSION="~> 5"
   # Beaker tests
-  - env: BEAKER_set=debian-8-64
+  - name: "Debian 8"
+    env: BEAKER_set=debian-8-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
-  - env: BEAKER_set=default  # Debian 9
+  - name: "Debian 9"
+    env: BEAKER_set=default  # Debian 9
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
-  - env: BEAKER_set=ubuntu-1404-64
+  - name: "Ubuntu 14.04"
+    env: BEAKER_set=ubuntu-1404-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
-  - env: BEAKER_set=ubuntu-1604-64
+  - name: "Ubuntu 16.04"
+    env: BEAKER_set=ubuntu-1604-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
