@@ -32,15 +32,16 @@ class duplicity::install inherits duplicity {
       default  => link,
     }
 
-    archive { $real_duply_archive_name:
-      ensure           => $real_duply_package_ensure,
-      url              => $real_duply_archive_url,
-      proxy_server     => $duplicity::duply_archive_proxy,
-      follow_redirects => true,
-      extension        => 'tgz',
-      target           => $duplicity::duply_archive_install_dir,
-      src_target       => $duplicity::duply_archive_package_dir,
-      digest_string    => $duplicity::duply_archive_md5sum,
+    archive { "${duplicity::duply_archive_package_dir}/${real_duply_archive_name}.tgz":
+      ensure        => $real_duply_package_ensure,
+      source        => $real_duply_archive_url,
+      proxy_server  => $duplicity::duply_archive_proxy,
+      extract       => true,
+      extract_path  => $duplicity::duply_archive_install_dir,
+      #follow_redirects => true,
+      #extension        => 'tgz',
+      checksum      => $duplicity::duply_archive_md5sum,
+      checksum_type => 'md5'
     }
 
     file { $duplicity::duply_archive_executable:
@@ -60,8 +61,8 @@ class duplicity::install inherits duplicity {
     }
     # Note (arnaudmorin): we cannot ensure pyton-paramiko $duplicity::duply_package_ensure as
     # it can break if the package is already ensure present somewhere else in another module.
-    ensure_packages ( ['python-paramiko'], {
-      ensure   => present,
+    ensure_packages(['python-paramiko'], {
+      ensure => present,
     })
 
     # If duply was previously installed from archive, it should not pollute the PATH any more ...
@@ -71,5 +72,5 @@ class duplicity::install inherits duplicity {
   }
 
   # Install any additional packages that may be needed by the different backends
-  ensure_packages($duplicity::duply_extra_packages, {'ensure' => 'present'})
+  ensure_packages($duplicity::duply_extra_packages, { 'ensure' => 'present' })
 }
