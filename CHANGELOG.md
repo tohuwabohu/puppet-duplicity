@@ -1,6 +1,6 @@
 ## 2018-09-19 - Release 4.10.1
 
-Improve compatibility with Puppet 5 by supporting concat up to 6.x.
+Improve compatibility with Puppet 5 by supporting concat up to 5.x.
 
 ## 2017-12-17 - Release 4.10.0
 
