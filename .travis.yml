@@ -8,9 +8,6 @@ script: bundle exec rake test SPEC_OPTS='--format documentation'
 matrix:
   fast_finish: true
   include:
-  - name: "Puppet 3 Unit Tests"
-    rvm: 2.1
-    env: PUPPET_VERSION="~> 3"
   - name: "Puppet 4 Unit Tests"
     rvm: 2.3
     env: PUPPET_VERSION="~> 4"

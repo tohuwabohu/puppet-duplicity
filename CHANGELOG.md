@@ -1,3 +1,7 @@
+## 2018-09-19 - Release 4.10.1
+
+Improve compatibility with Puppet 5 by supporting concat up to 6.x.
+
 ## 2017-12-17 - Release 4.10.0
 
 Add parameter for `TEMP_DIR` ([#43](https://github.com/tohuwabohu/puppet-duplicity/pull/43)).
