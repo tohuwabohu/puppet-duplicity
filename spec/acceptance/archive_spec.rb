@@ -15,7 +15,7 @@ describe 'with duply_package_provider => archive' do
         duply_package_provider      => 'archive',
         duply_archive_version       => '2.1',
         duply_archive_checksum      => 'a8d2bfa907aacbef1c66bf1079fa24e541ad63f5d0694029e4596b030f3cb244',
-        duply_archive_checksum_type => 'sha256'
+        duply_archive_checksum_type => 'sha256',
       }
     EOS
   }
