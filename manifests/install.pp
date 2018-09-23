@@ -33,15 +33,15 @@ class duplicity::install inherits duplicity {
     $duply_install_dir = "${duplicity::duply_archive_install_dir}/duply_${duplicity::duply_archive_version}"
 
     archive { "/tmp/${duply_archive_filename}":
-      ensure           => $real_duply_package_ensure,
-      source           => $real_duply_archive_url,
-      checksum         => $duplicity::duply_archive_checksum,
-      checksum_type    => $duplicity::duply_archive_checksum_type,
-      extract          => true,
-      extract_path     => $duplicity::duply_archive_install_dir,
-      creates          => $duply_install_dir,
-      cleanup          => true,
-      proxy_server     => $duplicity::duply_archive_proxy,
+      ensure        => $real_duply_package_ensure,
+      source        => $real_duply_archive_url,
+      checksum      => $duplicity::duply_archive_checksum,
+      checksum_type => $duplicity::duply_archive_checksum_type,
+      extract       => true,
+      extract_path  => $duplicity::duply_archive_install_dir,
+      creates       => $duply_install_dir,
+      cleanup       => true,
+      proxy_server  => $duplicity::duply_archive_proxy,
     }
 
     file { $duplicity::duply_archive_executable:
