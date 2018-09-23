@@ -1,3 +1,10 @@
+## XXX - Release 5.0.0
+
+Major improvements
+* Replacement of [yo61/logrotate](https://forge.puppet.com/yo61/logrotate) with 
+  [puppet/logrotate](https://forge.puppet.com/puppet/logrotate); this requires at least version 4.22 of 
+  [puppetlabs/stdlib](ttps://forge.puppet.com/puppetlabs/stdlib) but other than that is a plain drop-in replacement.
+
 ## 2018-09-19 - Release 4.10.1
 
 Improve compatibility with Puppet 5 by supporting concat up to 5.x.
