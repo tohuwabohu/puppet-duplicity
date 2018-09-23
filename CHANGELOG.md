@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Parameter `duply_archive_package_dir` is no longer required as the downloaded duply archives are now deleted after
   extraction
+- Deprecated parameter `duply_executable`
 
 ## 2018-09-19 - Release 4.10.1
 

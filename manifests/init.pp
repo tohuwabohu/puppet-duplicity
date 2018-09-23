@@ -51,10 +51,6 @@
 # [*duply_archive_executable*]
 #   Set the symbolic path pointing to the configured duply executable when installing the archive from sourceforge.
 #
-# [*duply_executable*] *deprecated*
-#   The duply executable is sourced from the PATH environment variable. Please use `exec_path` and
-#   `duply_archive_executable` to customize those settings instead.
-#
 # [*duply_version*]
 #   Set the version of the installed duply package in case you are not using the default package of your distribution or
 #   your version is not automatically detected. If you are using `archive` as `duply_package_provider`, please
@@ -155,9 +151,6 @@ class duplicity (
   $backup_target_password      = $duplicity::params::backup_target_password,
   $cron_enabled                = $duplicity::params::cron_enabled,
   $exec_path                   = $duplicity::params::exec_path,
-
-  # deprecated
-  $duply_executable = undef,
 ) inherits duplicity::params {
   if empty($duplicity_package_ensure) {
     fail('Class[Duplicity]: duplicity_package_ensure must not be empty')
