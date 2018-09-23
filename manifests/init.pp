@@ -45,9 +45,6 @@
 # [*duply_archive_proxy*]
 #   Set the proxy to use for archive download, in format `http://host:port` (if `duply_package_provider` is set to `archive`).
 #
-# [*duply_archive_package_dir*]
-#   Set the directory where the downloaded package is stored (if `duply_package_provider` is set to `archive`).
-#
 # [*duply_archive_install_dir*]
 #   Set the directory where the application is installed (if `duply_package_provider` is set to `archive`).
 #
@@ -137,7 +134,6 @@ class duplicity (
   $duply_archive_checksum_type = $duplicity::params::duply_archive_checksum_type,
   $duply_archive_url           = undef,
   $duply_archive_proxy         = undef,
-  $duply_archive_package_dir   = $duplicity::params::duply_archive_package_dir,
   $duply_archive_install_dir   = $duplicity::params::duply_archive_install_dir,
   $duply_version               = undef,
   $duply_archive_executable    = $duplicity::params::duply_archive_executable,
@@ -191,7 +187,6 @@ class duplicity (
     default   => $duply_version,
   }
 
-  validate_absolute_path($duply_archive_package_dir)
   validate_absolute_path($duply_archive_install_dir)
   validate_absolute_path($duply_archive_executable)
   validate_absolute_path($duply_log_dir)

@@ -18,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added 
 - Parameter `duply_archive_checksum_type` which can be used to specify a different checksum type when using the archive
   provider. 
+  
+### Removed
+- Parameter `duply_archive_package_dir` is no longer required as the downloaded duply archives are not deleted after
+  extraction
 
 ## 2018-09-19 - Release 4.10.1
 
