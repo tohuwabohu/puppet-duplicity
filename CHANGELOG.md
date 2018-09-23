@@ -13,11 +13,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Replacement of [camptocamp/archive](https://forge.puppet.com/camptocamp/archive) with 
   [puppet/archive](https://forge.puppet.com/puppet/archive). A minor change in behaviour is that the package is no 
   longer cached on the server but instead deleted after the extraction was successful.
-- Renamed `duply_archive_md5sum` to `duply_archive_checksum`
+- Renamed `duply_archive_md5sum` to `duply_archive_checksum`; note: the default checksum type is now `sha1` 
+- Update the default of `duply_archive_version` from 1.7.3 to 1.9.1; this is a conservative update: if it is safe to 
+  upgrade the default to a more recent version please raise a pull request.
 
 ### Added 
 - Parameter `duply_archive_checksum_type` which can be used to specify a different checksum type when using the archive
-  provider. 
+  provider. The default is `sha1`. 
   
 ### Removed
 - Parameter `duply_archive_package_dir` is no longer required as the downloaded duply archives are now deleted after
