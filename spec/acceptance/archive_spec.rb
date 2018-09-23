@@ -14,7 +14,7 @@ describe 'with duply_package_provider => archive' do
       class { 'duplicity':
         duply_package_provider => 'archive',
         duply_archive_version  => '1.9.1',
-        duply_archive_md5sum   => 'd584940b9c740c81a2a081bc154084b9',
+        duply_archive_checksum => 'd584940b9c740c81a2a081bc154084b9',
       }
     EOS
   }

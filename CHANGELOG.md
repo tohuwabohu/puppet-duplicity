@@ -1,9 +1,23 @@
-## XXX - Release 5.0.0
+# Changelog
+All notable changes to this project will be documented in this file.
 
-Major improvements
-* Replacement of [yo61/logrotate](https://forge.puppet.com/yo61/logrotate) with 
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+### Changed
+
+- Replacement of [yo61/logrotate](https://forge.puppet.com/yo61/logrotate) with 
   [puppet/logrotate](https://forge.puppet.com/puppet/logrotate); this requires at least version 4.22 of 
   [puppetlabs/stdlib](ttps://forge.puppet.com/puppetlabs/stdlib) but other than that is a plain drop-in replacement.
+- Replacement of [camptocamp/archive](https://forge.puppet.com/camptocamp/archive) with 
+  [puppet/archive](https://forge.puppet.com/puppet/archive). A minor change in behaviour is that the package is no 
+  longer cached on the server but instead deleted after the extraction was successful.
+- Renamed `duply_archive_md5sum` to `duply_archive_checksum`
+
+### Added 
+- Parameter `duply_archive_checksum_type` which can be used to specify a different checksum type when using the archive
+  provider. 
 
 ## 2018-09-19 - Release 4.10.1
 

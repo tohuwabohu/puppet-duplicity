@@ -32,8 +32,11 @@
 # [*duply_archive_version*]
 #   Set the version of duply to be installed (if `duply_package_provider` is set to `archive`).
 #
-# [*duply_archive_md5sum*]
-#   Set the MD5 checksum of the archive (if `duply_package_provider` is set to `archive`).
+# [*duply_archive_checksum*]
+#   Set the checksum digest of the archive (if `duply_package_provider` is set to `archive`).
+#
+# [*duply_archive_checksum_type*]
+#   Set the checksum type of the archive, eg 'md5' or 'sha1' (if `duply_package_provider` is set to `archive`).
 #
 # [*duply_archive_url*]
 #   Set the full url where to download the archive from (if `duply_package_provider` is set to `archive`). Make sure the
@@ -122,39 +125,40 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class duplicity (
-  $duplicity_package_ensure  = $duplicity::params::duplicity_package_ensure,
-  $duplicity_package_name    = $duplicity::params::duplicity_package_name,
-  $duplicity_extra_params    = undef,
-  $duply_package_ensure      = $duplicity::params::duply_package_ensure,
-  $duply_package_name        = $duplicity::params::duply_package_name,
-  $duply_package_provider    = $duplicity::params::duply_package_provider,
-  $duply_extra_packages      = $duplicity::params::duply_extra_packages,
-  $duply_archive_version     = $duplicity::params::duply_archive_version,
-  $duply_archive_md5sum      = $duplicity::params::duply_archive_md5sum,
-  $duply_archive_url         = undef,
-  $duply_archive_proxy       = undef,
-  $duply_archive_package_dir = $duplicity::params::duply_archive_package_dir,
-  $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
-  $duply_version             = undef,
-  $duply_archive_executable  = $duplicity::params::duply_archive_executable,
-  $duply_log_dir             = $duplicity::params::duply_log_dir,
-  $duply_log_group           = $duplicity::params::duply_log_group,
-  $duply_cache_dir           = undef,
-  $duply_temp_dir            = undef,
-  $duply_config_dir_mode     = $duplicity::params::duply_config_dir_mode,
-  $duply_purge_config_dir    = $duplicity::params::duply_purge_config_dir,
-  $duply_purge_key_dir       = $duplicity::params::duply_purge_key_dir,
-  $duply_environment         = undef,
-  $duply_use_logrotate_module= $duplicity::params::duply_use_logrotate_module,
-  $gpg_encryption_keys       = $duplicity::params::gpg_encryption_keys,
-  $gpg_signing_key           = $duplicity::params::gpg_signing_key,
-  $gpg_passphrase            = $duplicity::params::gpg_passphrase,
-  $gpg_options               = $duplicity::params::gpg_options,
-  $backup_target_url         = $duplicity::params::backup_target_url,
-  $backup_target_username    = $duplicity::params::backup_target_username,
-  $backup_target_password    = $duplicity::params::backup_target_password,
-  $cron_enabled              = $duplicity::params::cron_enabled,
-  $exec_path                 = $duplicity::params::exec_path,
+  $duplicity_package_ensure    = $duplicity::params::duplicity_package_ensure,
+  $duplicity_package_name      = $duplicity::params::duplicity_package_name,
+  $duplicity_extra_params      = undef,
+  $duply_package_ensure        = $duplicity::params::duply_package_ensure,
+  $duply_package_name          = $duplicity::params::duply_package_name,
+  $duply_package_provider      = $duplicity::params::duply_package_provider,
+  $duply_extra_packages        = $duplicity::params::duply_extra_packages,
+  $duply_archive_version       = $duplicity::params::duply_archive_version,
+  $duply_archive_checksum      = $duplicity::params::duply_archive_checksum,
+  $duply_archive_checksum_type = $duplicity::params::duply_archive_checksum_type,
+  $duply_archive_url           = undef,
+  $duply_archive_proxy         = undef,
+  $duply_archive_package_dir   = $duplicity::params::duply_archive_package_dir,
+  $duply_archive_install_dir   = $duplicity::params::duply_archive_install_dir,
+  $duply_version               = undef,
+  $duply_archive_executable    = $duplicity::params::duply_archive_executable,
+  $duply_log_dir               = $duplicity::params::duply_log_dir,
+  $duply_log_group             = $duplicity::params::duply_log_group,
+  $duply_cache_dir             = undef,
+  $duply_temp_dir              = undef,
+  $duply_config_dir_mode       = $duplicity::params::duply_config_dir_mode,
+  $duply_purge_config_dir      = $duplicity::params::duply_purge_config_dir,
+  $duply_purge_key_dir         = $duplicity::params::duply_purge_key_dir,
+  $duply_environment           = undef,
+  $duply_use_logrotate_module  = $duplicity::params::duply_use_logrotate_module,
+  $gpg_encryption_keys         = $duplicity::params::gpg_encryption_keys,
+  $gpg_signing_key             = $duplicity::params::gpg_signing_key,
+  $gpg_passphrase              = $duplicity::params::gpg_passphrase,
+  $gpg_options                 = $duplicity::params::gpg_options,
+  $backup_target_url           = $duplicity::params::backup_target_url,
+  $backup_target_username      = $duplicity::params::backup_target_username,
+  $backup_target_password      = $duplicity::params::backup_target_password,
+  $cron_enabled                = $duplicity::params::cron_enabled,
+  $exec_path                   = $duplicity::params::exec_path,
 
   # deprecated
   $duply_executable = undef,

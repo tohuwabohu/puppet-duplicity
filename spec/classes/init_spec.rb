@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe 'duplicity' do
   let(:title) { 'duplicity' }
-  let(:archive) { 'duply_1.7.3' }
+  let(:duply_version) { '1.7.3' }
+  let(:archive) { "/tmp/duply_#{duply_version}.tgz" }
 
   describe 'by default with archive package provider' do
     let(:params) { {:duply_package_provider => 'archive'} }
@@ -14,11 +15,12 @@ describe 'duplicity' do
     }
     specify { should contain_archive(archive).with_ensure('present') }
     specify { should contain_archive(archive).with(
-        'target'     => '/opt',
-        'src_target' => '/var/cache/puppet/archives'
+        'extract'      => true,
+        'extract_path' => '/opt',
+        'creates'      => "/opt/duply_#{duply_version}",
+        'cleanup'      => true,
       )
     }
-    specify { should contain_archive(archive).with_follow_redirects(true) }
     it { should contain_file('/usr/local/sbin/duply') }
     it {
       should contain_file('/etc/duply').with(
@@ -113,7 +115,7 @@ describe 'duplicity' do
   describe 'with duply_archive_version => 1.2.3' do
     let(:params) { {:duply_archive_version => '1.2.3', :duply_package_provider => 'archive'} }
 
-    it { should contain_archive('duply_1.2.3') }
+    it { should contain_archive('/tmp/duply_1.2.3.tgz') }
   end
 
   describe 'with empty duply_package_ensure' do
@@ -156,7 +158,7 @@ describe 'duplicity' do
     it {
       should contain_file('/path/to/duply').with(
         'ensure' => 'link',
-        'target' => "/opt/#{archive}/duply"
+        'target' => "/opt/duply_#{duply_version}/duply"
       )
     }
   end
