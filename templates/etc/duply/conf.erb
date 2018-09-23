@@ -1,6 +1,6 @@
 <%-
   real_gpg_passphrase = (@gpg_passphrase and !@gpg_passphrase.empty?) ? @gpg_passphrase.gsub("'", %q('\\\'')) : ''
-  real_gpg_signing_key = (@real_gpg_signing_key and !@real_gpg_signing_key.empty?) ? @real_gpg_signing_key : 'disabled'
+  real_gpg_signing_key = (@real_gpg_signing_keys and !@real_gpg_signing_keys.empty?) ? @real_gpg_signing_keys.first : 'disabled'
 -%>
 # This file is managed by Puppet
 

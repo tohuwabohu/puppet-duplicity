@@ -19,7 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added 
 - Parameter `duply_archive_checksum_type` which can be used to specify a different checksum type when using the archive
-  provider. The default is `sha1`. 
+  provider. The default is `sha1`.
+- Support for [Puppet 6](https://puppet.com/blog/introducing-puppet-6) 
   
 ### Removed
 - Parameter `duply_archive_package_dir` is no longer required as the downloaded duply archives are now deleted after
