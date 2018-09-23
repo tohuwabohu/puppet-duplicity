@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Replacement of [yo61/logrotate](https://forge.puppet.com/yo61/logrotate) with 
   [puppet/logrotate](https://forge.puppet.com/puppet/logrotate); this requires at least version 4.22 of 
-  [puppetlabs/stdlib](ttps://forge.puppet.com/puppetlabs/stdlib) but other than that is a plain drop-in replacement.
+  [puppetlabs/stdlib](https://forge.puppet.com/puppetlabs/stdlib) but other than that is a plain drop-in replacement.
 - Replacement of [camptocamp/archive](https://forge.puppet.com/camptocamp/archive) with 
   [puppet/archive](https://forge.puppet.com/puppet/archive). A minor change in behaviour is that the package is no 
   longer cached on the server but instead deleted after the extraction was successful.
