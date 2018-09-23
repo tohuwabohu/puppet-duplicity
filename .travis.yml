@@ -14,6 +14,9 @@ matrix:
   - name: "Puppet 5 Unit Tests"
     rvm: 2.4
     env: PUPPET_VERSION="~> 5"
+  - name: "Puppet 6 Unit Tests"
+    rvm: 2.5
+    env: PUPPET_VERSION="~> 6"
   # Beaker tests
   - name: "Debian 8 Acceptance Tests"
     env: BEAKER_set=debian-8-64

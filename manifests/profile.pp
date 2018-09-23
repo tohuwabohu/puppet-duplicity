@@ -203,9 +203,9 @@ define duplicity::profile(
     true    => [],
     default => any2array($gpg_encryption_keys)
   }
-  $real_gpg_signing_key = empty($gpg_signing_key) ? {
-    true    => undef,
-    default => $gpg_signing_key
+  $real_gpg_signing_keys = empty($gpg_signing_key) ? {
+    true    => [],
+    default => any2array($gpg_signing_key)
   }
   $real_gpg_options = empty($gpg_options) ? {
     true    => [],
@@ -245,7 +245,7 @@ define duplicity::profile(
     default => absent,
   }
   $complete_encryption_keys = prefix($real_gpg_encryption_keys, "${title}/")
-  $complete_signing_keys = prefix(delete_undef_values([$real_gpg_signing_key]), "${title}/")
+  $complete_signing_keys = prefix($real_gpg_signing_keys, "${title}/")
 
   file { $profile_config_dir:
     ensure => $profile_config_dir_ensure,
@@ -383,6 +383,7 @@ define duplicity::profile(
   else {
     $cron_command = $duply_command
   }
+
 
   cron { "backup-${title}":
     ensure      => $cron_ensure,
