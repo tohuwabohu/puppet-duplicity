@@ -26,11 +26,9 @@ class duplicity::params {
     default  => 'archive'
   }
   $duply_extra_packages = []
-  $duply_archive_version = '1.7.3'
-  $duply_archive_md5sum = '139e36c3ee35d8bca15b6aa9c7f8939b'
-  $duply_archive_package_dir = $::operatingsystem ? {
-    default => '/var/cache/puppet/archives',
-  }
+  $duply_archive_version = '1.9.1'
+  $duply_archive_checksum = 'b4a53f6ebc207185ae5c0b5f98bf46cf961def1a'
+  $duply_archive_checksum_type = 'sha1'
   $duply_archive_install_dir = $::osfamily ? {
     default => '/opt',
   }

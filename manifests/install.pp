@@ -21,31 +21,32 @@ class duplicity::install inherits duplicity {
       'absent' => absent,
       default  => present
     }
-    $real_duply_archive_name = "duply_${duplicity::duply_archive_version}"
-    $real_duply_archive_url = empty($duplicity::duply_archive_url) ? {
-      true    => "http://downloads.sourceforge.net/ftplicity/${real_duply_archive_name}.tgz",
-      default => $duplicity::duply_archive_url,
-    }
-    $real_duply_executable_target = "${duplicity::duply_archive_install_dir}/${real_duply_archive_name}/duply"
     $real_duply_executable_ensure = $duplicity::duply_package_ensure ? {
       'absent' => absent,
       default  => link,
     }
+    $real_duply_archive_url = empty($duplicity::duply_archive_url) ? {
+      true    => "http://downloads.sourceforge.net/ftplicity/duply_${duplicity::duply_archive_version}.tgz",
+      default => $duplicity::duply_archive_url,
+    }
+    $duply_archive_filename = basename($real_duply_archive_url)
+    $duply_install_dir = "${duplicity::duply_archive_install_dir}/duply_${duplicity::duply_archive_version}"
 
-    archive { $real_duply_archive_name:
-      ensure           => $real_duply_package_ensure,
-      url              => $real_duply_archive_url,
-      proxy_server     => $duplicity::duply_archive_proxy,
-      follow_redirects => true,
-      extension        => 'tgz',
-      target           => $duplicity::duply_archive_install_dir,
-      src_target       => $duplicity::duply_archive_package_dir,
-      digest_string    => $duplicity::duply_archive_md5sum,
+    archive { "/tmp/${duply_archive_filename}":
+      ensure        => $real_duply_package_ensure,
+      source        => $real_duply_archive_url,
+      checksum      => $duplicity::duply_archive_checksum,
+      checksum_type => $duplicity::duply_archive_checksum_type,
+      extract       => true,
+      extract_path  => $duplicity::duply_archive_install_dir,
+      creates       => $duply_install_dir,
+      cleanup       => true,
+      proxy_server  => $duplicity::duply_archive_proxy,
     }
 
     file { $duplicity::duply_archive_executable:
       ensure => $real_duply_executable_ensure,
-      target => $real_duply_executable_target,
+      target => "${duply_install_dir}/duply",
       owner  => 'root',
       group  => 'root',
       mode   => '0755',
