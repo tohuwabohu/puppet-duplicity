@@ -22,9 +22,10 @@ Install a more recent version of duply from [the sourceforge project page](http:
 
 ```
 class { 'duplicity':
-  duply_package_provider => 'archive',
-  duply_archive_version  => '1.9.1',
-  duply_archive_md5sum   => 'd584940b9c740c81a2a081bc154084b9',
+  duply_package_provider      => 'archive',
+  duply_archive_version       => '1.9.1',
+  duply_archive_checksum      => 'b4a53f6ebc207185ae5c0b5f98bf46cf961def1a',
+  duply_archive_checksum_type => 'sha1',
 }
 ```
 
