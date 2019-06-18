@@ -19,28 +19,28 @@ matrix:
     env: PUPPET_VERSION="~> 6"
   # Beaker tests
   - name: "Debian 8 Acceptance Tests"
-    env: BEAKER_set=debian-8-64
+    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=debian-8-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
   - name: "Debian 9 Acceptance Tests"
-    env: BEAKER_set=default  # Debian 9
+    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=default  # Debian 9
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
   - name: "Ubuntu 14.04 Acceptance Tests"
-    env: BEAKER_set=ubuntu-1404-64
+    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1404-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
   - name: "Ubuntu 16.04 Acceptance Tests"
-    env: BEAKER_set=ubuntu-1604-64
+    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1604-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
