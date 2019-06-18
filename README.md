@@ -128,8 +128,8 @@ duplicity::profile { 'system':
 
 The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
 
-* Debian 8.0 (Jessie)
 * Debian 9.0 (Stretch)
+* Debian 10.0 (Buster)
 * Ubuntu 14.04 (Trusty Tahr)
 * Ubuntu 16.04 (Xenial Xerus)
 * RHEL/Centos 6

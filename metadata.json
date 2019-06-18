@@ -1,6 +1,6 @@
 {
   "name": "tohuwabohu-duplicity",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "author": "Martin Meinhold",
   "license": "Apache-2.0",
   "summary": "Install and manage duplicity",
@@ -16,9 +16,9 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "7",
         "8",
-        "9"
+        "9",
+        "10"
       ]
     },
     {
