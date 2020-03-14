@@ -21,8 +21,8 @@ class duplicity::params {
     default  => 'archive'
   }
   $duply_extra_packages = []
-  $duply_archive_version = '1.9.1'
-  $duply_archive_checksum = 'b4a53f6ebc207185ae5c0b5f98bf46cf961def1a'
+  $duply_archive_version = '2.2.2'
+  $duply_archive_checksum = '3cf4a2803173726b136b6fe030334bb42045b4d9'
   $duply_archive_checksum_type = 'sha1'
   $duply_archive_install_dir = '/opt'
   $duply_archive_executable = '/usr/local/sbin/duply'
@@ -59,7 +59,8 @@ class duplicity::params {
         '15.04' => '1.9.1',
         '15.10' => '1.9.2',
         '16.04' => '1.11',
-        default => '1.11',
+        '18.04' => '2.0.3',
+        default => '2.0.3',
       }
     }
     'CentOS': {
