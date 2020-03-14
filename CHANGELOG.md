@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Update Puppet modules to their latest major version, in particular concat and stdlib are now on 6.x. As a result,
   Puppet 4.x has officially been dropped
+- Update test matrix: Debian 8 and Ubuntu 12 is out, Debian 10 and Ubuntu 18.04 in  
+- CI has been updated to run with Puppet 6 by default
  
 ## [5.1.1] - 2020-03-14
 ### Changed

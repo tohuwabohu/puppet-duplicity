@@ -8,9 +8,6 @@ script: bundle exec rake test SPEC_OPTS='--format documentation'
 matrix:
   fast_finish: true
   include:
-  - name: "Puppet 4 Unit Tests"
-    rvm: 2.3
-    env: PUPPET_VERSION="~> 4"
   - name: "Puppet 5 Unit Tests"
     rvm: 2.4
     env: PUPPET_VERSION="~> 5"
@@ -18,29 +15,29 @@ matrix:
     rvm: 2.5
     env: PUPPET_VERSION="~> 6"
   # Beaker tests
-  - name: "Debian 8 Acceptance Tests"
-    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=debian-8-64
-    bundler_args: --without development
-    script: bundle exec rake beaker
-    dist: trusty
-    services: docker
-    sudo: required
   - name: "Debian 9 Acceptance Tests"
-    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=default  # Debian 9
+    env: BEAKER_set=debian-9-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
-  - name: "Ubuntu 14.04 Acceptance Tests"
-    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1404-64
+  - name: "Debian 10 Acceptance Tests"
+    env: BEAKER_set=default  # Debian 10
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty
     services: docker
     sudo: required
   - name: "Ubuntu 16.04 Acceptance Tests"
-    env: BEAKER_PUPPET_COLLECTION=puppet5 BEAKER_set=ubuntu-1604-64
+    env: BEAKER_set=ubuntu-1604-64
+    bundler_args: --without development
+    script: bundle exec rake beaker
+    dist: trusty
+    services: docker
+    sudo: required
+  - name: "Ubuntu 18.04 Acceptance Tests"
+    env: BEAKER_set=ubuntu-1804-64
     bundler_args: --without development
     script: bundle exec rake beaker
     dist: trusty

@@ -1,13 +1,13 @@
 HOSTS:
-  debian-9-64:
-    platform: debian-9-amd64
+  debian-10-64:
+    platform: debian-10-amd64
     hypervisor: docker
-    image: debian:9
+    image: debian:10
     docker_preserve_image: true
     docker_image_commands:
       - 'apt-get update && apt-get -y --no-install-recommends install wget'
 
 CONFIG:
-  type: foss
+  type: aio
   log_level: info
   trace_limit: 100
