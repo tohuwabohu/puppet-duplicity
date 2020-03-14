@@ -130,9 +130,8 @@ The module has been tested on the following operating systems. Testing and patch
 
 * Debian 9.0 (Stretch)
 * Debian 10.0 (Buster)
-* Ubuntu 14.04 (Trusty Tahr)
 * Ubuntu 16.04 (Xenial Xerus)
-* RHEL/Centos 6
+* Ubuntu 18.04 (Bionic Beaver)
 
 ## Contributing
 
