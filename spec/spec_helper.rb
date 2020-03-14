@@ -12,16 +12,12 @@ RSpec.configure do |c|
     :kernel                    => 'deadbeef',
     :path                      => '/usr/bin',
 
-    :operatingsystem           => 'Debian',
-    :osfamily                  => 'Debian',
     :os                        => {
         :family => 'Debian',
         :name   => 'Debian',
         :release => {
-            :major => '8'
+            :major => '10'
         }
     },
-    :lsbmajdistrelease         => '8',
-    :operatingsystemmajrelease => '8',
   }
 end

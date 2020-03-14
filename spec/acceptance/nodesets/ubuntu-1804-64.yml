@@ -1,11 +1,11 @@
 HOSTS:
-  ubuntu-1404-x64:
-    platform: ubuntu-1404-x86_64
+  ubuntu-1804-x64:
+    platform: ubuntu-1804-x86_64
     hypervisor: docker
-    image: ubuntu:14.04
+    image: ubuntu:18.04
     docker_preserve_image: true
 
 CONFIG:
-  type: foss
+  type: aio
   log_level: info
   trace_limit: 100

@@ -58,20 +58,6 @@ describe 'duplicity' do
     it { should contain_logrotate__rule('duply') }
   end
 
-  describe 'by default on Debian' do
-    let(:facts) { {:osfamily => 'debian'} }
-
-    it { should contain_package('duply').with_ensure('installed') }
-    it { should contain_file('/usr/local/sbin/duply').with_ensure('absent') }
-  end
-
-  describe 'by default on RedHat' do
-    let(:facts) { {:osfamily => 'RedHat'} }
-
-    it { should contain_package('duply').with_ensure('installed') }
-    it { should contain_file('/usr/local/sbin/duply').with_ensure('absent') }
-  end
-
   describe 'with duplicity_package_ensure => 1.2.3' do
     let(:params) { {:duplicity_package_ensure => '1.2.3'} }
 
