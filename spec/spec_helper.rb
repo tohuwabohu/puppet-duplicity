@@ -14,6 +14,13 @@ RSpec.configure do |c|
 
     :operatingsystem           => 'Debian',
     :osfamily                  => 'Debian',
+    :os                        => {
+        :family => 'Debian',
+        :name   => 'Debian',
+        :release => {
+            :major => '8'
+        }
+    },
     :lsbmajdistrelease         => '8',
     :operatingsystemmajrelease => '8',
   }
