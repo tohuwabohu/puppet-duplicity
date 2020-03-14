@@ -62,7 +62,7 @@
 #   The minute expression of the cron job.
 #
 # [*duply_version*]
-#   Currently installed duply version.
+#   Deprecated, will be removed in the next major release.
 #
 # [*duply_environment*]
 #   An array of extra environment variables to pass to duplicity.
@@ -211,7 +211,6 @@ define duplicity::profile(
     true    => [],
     default => any2array($gpg_options)
   }
-  $real_duply_version = pick($duply_version, $duplicity::real_duply_version)
   $real_duplicity_params = empty($duplicity_extra_params) ? {
     true    => [],
     default => any2array($duplicity_extra_params)
@@ -367,12 +366,7 @@ define duplicity::profile(
     $duply_batch = $duply_custom_batch
   }
   else {
-    if versioncmp($real_duply_version, '1.7.1') < 0 {
-      $duply_batch  = 'cleanup_backup_purge-full'
-    }
-    else {
-      $duply_batch  = 'cleanup_backup_purgeFull'
-    }
+    $duply_batch  = 'cleanup_backup_purgeFull'
   }
 
   $duply_command  = "duply ${title} ${duply_batch} --force >> ${duplicity::duply_log_dir}/${title}.log"

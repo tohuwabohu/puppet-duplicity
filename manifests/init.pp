@@ -52,9 +52,7 @@
 #   Set the symbolic path pointing to the configured duply executable when installing the archive from sourceforge.
 #
 # [*duply_version*]
-#   Set the version of the installed duply package in case you are not using the default package of your distribution or
-#   your version is not automatically detected. If you are using `archive` as `duply_package_provider`, please
-#   specify the version via `duply_archive_version`.
+#   Deprecated, will be removed in the next major release.
 #
 # [*duply_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
@@ -170,14 +168,6 @@ class duplicity (
 
   if $duply_archive_version !~ /^[a-zA-Z0-9\._-]+$/ {
     fail("Class[Duplicity]: duply_archive_version must be alphanumeric, got '${duply_archive_version}'")
-  }
-
-  $real_duply_version = empty($duply_version) ? {
-    true => $duply_package_provider ? {
-      'archive' => $duply_archive_version,
-      default   => $duplicity::params::duply_version,
-    },
-    default   => $duply_version,
   }
 
   validate_absolute_path($duply_archive_install_dir)

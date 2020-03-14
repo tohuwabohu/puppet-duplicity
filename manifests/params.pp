@@ -44,36 +44,6 @@ class duplicity::params {
     default  => 'adm',
   }
 
-  case $facts['os']['name'] {
-    'Debian': {
-      $duply_version = $facts['os']['release']['major'] ? {
-        '8'     => '1.9.1',
-        '9'     => '1.11.3',
-        '10'    => '2.0.3',
-        default => '1.11.3'
-      }
-    }
-    'Ubuntu': {
-      $duply_version = $facts['os']['release']['major'] ? {
-        '14.10' => '1.8.0',
-        '15.04' => '1.9.1',
-        '15.10' => '1.9.2',
-        '16.04' => '1.11',
-        '18.04' => '2.0.3',
-        default => '2.0.3',
-      }
-    }
-    'CentOS': {
-      $duply_version = $facts['os']['release']['major'] ? {
-        '6' => '1.6.0',
-        '7' => '1.11',
-      }
-    }
-    default: {
-      $duply_version = $duply_archive_version
-    }
-  }
-
   $gpg_encryption_keys = []
   $gpg_signing_key = ''
   $gpg_passphrase = ''
