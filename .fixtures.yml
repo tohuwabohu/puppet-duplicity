@@ -2,19 +2,19 @@ fixtures:
   repositories:
     archive:
       repo: "git://github.com/voxpupuli/puppet-archive"
-      ref: "v3.2.1"
+      ref: "v4.4.0"
     concat:
       repo: "git://github.com/puppetlabs/puppetlabs-concat"
-      ref: "5.3.0"
+      ref: "v6.2.0"
     cron:
       repo: "git://github.com/puppetlabs/puppetlabs-cron_core"
-      ref: "1.0.0"
+      ref: "1.0.3"
     logrotate:
       repo: "git://github.com/voxpupuli/puppet-logrotate"
-      ref: "v3.4.0"
+      ref: "v4.0.0"
     stdlib:
       repo: "git://github.com/puppetlabs/puppetlabs-stdlib"
-      ref: "5.2.0"
+      ref: "v6.2.0"
   symlinks:
     duplicity: "#{source_dir}"
 

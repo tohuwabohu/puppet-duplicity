@@ -1,6 +1,6 @@
 {
   "name": "tohuwabohu-duplicity",
-  "version": "5.1.2",
+  "version": "6.0.0",
   "author": "Martin Meinhold",
   "license": "Apache-2.0",
   "summary": "Install and manage duplicity",
@@ -45,25 +45,25 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 4.0.0 < 7.0.0"
+      "version_requirement": ">= 5.0.0 < 7.0.0"
     }
   ],
   "dependencies": [
     {
       "name": "puppet/archive",
-      "version_requirement": "3.x"
+      "version_requirement": ">= 3.0.0 < 5.0.0"
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.1.0 < 6.0.0"
+      "version_requirement": ">= 1.1.0 < 7.0.0"
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.22.0 < 6.0.0"
+      "version_requirement": ">= 4.22.0 < 7.0.0"
     },
     {
       "name": "puppet/logrotate",
-      "version_requirement": "3.x"
+      "version_requirement": ">= 3.0.0 < 5.0.0"
     }
   ]
 }
