@@ -43,7 +43,7 @@ class duplicity::params {
     'redhat' => 'root',
     default  => 'adm',
   }
-  
+
   $gpg_encryption_keys = []
   $gpg_signing_key = ''
   $gpg_passphrase = ''
