@@ -15,7 +15,7 @@
 # Copyright 2017 Jochem van Dieten
 #
 class duplicity::profiles(
-  $profiles = {},
+  Hash $profiles = {},
 ) {
   include ::duplicity
   create_resources('duplicity::profile', $profiles)

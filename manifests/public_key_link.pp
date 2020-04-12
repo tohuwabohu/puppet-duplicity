@@ -10,7 +10,9 @@
 #
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
-define duplicity::public_key_link($ensure = present) {
+define duplicity::public_key_link(
+  String $ensure = present
+) {
   require duplicity::params
 
   $values = split($title, '/')

@@ -28,11 +28,11 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::profile_exec_after(
-  $ensure  = present,
-  $profile = 'backup',
-  $content = undef,
-  $source  = undef,
-  $order   = '10',
+  String $ensure = present,
+  String $profile = 'backup',
+  Optional[String] $content = undef,
+  Optional[String] $source = undef,
+  String $order = '10',
 ) {
   require duplicity::params
 

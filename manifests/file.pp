@@ -31,11 +31,11 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::file(
-  $ensure  = present,
-  $path    = $title,
-  $exclude = [],
-  $profile = 'system',
-  $timeout = 300,
+  String $ensure = present,
+  Stdlib::Absolutepath $path = $title,
+  Array $exclude = [],
+  String $profile = 'system',
+  Integer $timeout = 300,
 ) {
   require duplicity
 
@@ -50,8 +50,6 @@ define duplicity::file(
   if !is_array($exclude) {
     fail("Duplicity::File[${title}]: exclude must be an array")
   }
-
-  validate_absolute_path($path)
 
   $profile_dir = "${duplicity::params::duply_config_dir}/${profile}"
   $profile_filelist = "${profile_dir}/${duplicity::params::duply_profile_filelist_name}"

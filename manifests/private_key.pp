@@ -22,9 +22,9 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::private_key(
-  $ensure  = present,
-  $keyid   = $title,
-  $content = undef,
+  String $ensure = present,
+  String $keyid = $title,
+  Optional[String] $content = undef,
 ) {
   require duplicity::params
 
