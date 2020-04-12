@@ -1,15 +1,15 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
 group :development, :test do
-  gem 'rake', '~> 12.0'
+  gem 'rake', '~> 13.0'
   gem 'rspec', '~> 3.5'
   gem 'rspec-puppet', '~> 2.4'
   gem 'pdk', '~> 1.17'
   gem 'puppetlabs_spec_helper', '~> 2.3'
-  gem 'puppet-blacksmith', '< 4.0.0'                  # downgraded due to https://github.com/voxpupuli/puppet-blacksmith/issues/57
+  gem 'puppet-blacksmith', '~> 5.1'
   gem 'puppet-lint', '~> 2.0'
   gem 'metadata-json-lint', '~> 2.0'
-  gem 'puppet-lint-unquoted_string-check', '~> 0.2'
+  gem 'puppet-lint-unquoted_string-check', '~> 2.0'
   gem 'puppet-syntax', '~> 2.1'
 end
 

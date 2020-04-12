@@ -15,6 +15,12 @@ PuppetLint.configuration.fail_on_warnings = true
 PuppetLint.configuration.ignore_paths = exclude_paths
 PuppetSyntax.exclude_paths = exclude_paths
 
+# work around for https://github.com/voxpupuli/puppet-blacksmith/issues/57
+Rake::Task["module:release"].clear
+namespace :module do
+  task :release => [:clean, :build, :tag, :push, :bump_commit]
+end
+
 task :test => [
   :syntax,
   :lint,
