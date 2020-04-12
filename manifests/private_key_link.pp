@@ -11,7 +11,7 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::private_key_link(
-  String $ensure = present
+  Enum['present', 'absent'] $ensure = 'present'
 ) {
   require duplicity::params
 
@@ -30,7 +30,7 @@ define duplicity::private_key_link(
   }
 
   file { "${duplicity::params::duply_config_dir}/${profile}/gpgkey.${keyid}.sec.asc":
-    ensure  => link,
+    ensure  => 'link',
     target  => "${duplicity::params::duply_private_key_dir}/${keyid}.asc",
     require => Duplicity::Private_Key[$keyid],
   }

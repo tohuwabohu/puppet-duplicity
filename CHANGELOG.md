@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Replace deprecated `validate_` puppetlabs/stdlib functions with Puppet data types
+- Replace deprecated `is_` and `validate_` puppetlabs/stdlib functions with Puppet data types
 
 ## [6.0.0] - 2020-03-14
 

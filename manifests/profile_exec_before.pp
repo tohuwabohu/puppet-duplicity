@@ -28,17 +28,13 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::profile_exec_before(
-  String $ensure = present,
+  Enum['present', 'absent'] $ensure = 'present',
   String $profile = 'backup',
   Optional[String] $content = undef,
   Optional[String] $source = undef,
   String $order = '10',
 ) {
   require duplicity::params
-
-  if $ensure !~ /^present|absent$/ {
-    fail("Duplicity::Profile_Exec_Before[${title}]: ensure must be either present or absent, got '${ensure}'")
-  }
 
   if $profile !~ /^[a-zA-Z0-9\._-]+$/ {
     fail("Duplicity::Profile_Exec_Before[${title}]: profile must be alphanumeric including dot, dash and underscore; got '${profile}'")

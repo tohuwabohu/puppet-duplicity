@@ -16,14 +16,14 @@ class duplicity::install inherits duplicity {
     name   => $duplicity::duplicity_package_name,
   }
 
-  if $duplicity::duply_package_provider == archive {
+  if $duplicity::duply_package_provider == 'archive' {
     $real_duply_package_ensure = $duplicity::duply_package_ensure ? {
-      'absent' => absent,
-      default  => present
+      'absent' => 'absent',
+      default  => 'present',
     }
     $real_duply_executable_ensure = $duplicity::duply_package_ensure ? {
-      'absent' => absent,
-      default  => link,
+      'absent' => 'absent',
+      default  => 'link',
     }
     $real_duply_archive_url = empty($duplicity::duply_archive_url) ? {
       true    => "http://downloads.sourceforge.net/ftplicity/duply_${duplicity::duply_archive_version}.tgz",
@@ -67,7 +67,7 @@ class duplicity::install inherits duplicity {
 
     # If duply was previously installed from archive, it should not pollute the PATH any more ...
     file { $duplicity::duply_archive_executable:
-      ensure => absent,
+      ensure => 'absent',
     }
   }
 
