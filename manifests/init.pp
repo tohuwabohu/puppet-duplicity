@@ -116,39 +116,39 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 class duplicity (
-  $duplicity_package_ensure    = $duplicity::params::duplicity_package_ensure,
-  $duplicity_package_name      = $duplicity::params::duplicity_package_name,
-  $duplicity_extra_params      = undef,
-  $duply_package_ensure        = $duplicity::params::duply_package_ensure,
-  $duply_package_name          = $duplicity::params::duply_package_name,
-  $duply_package_provider      = $duplicity::params::duply_package_provider,
-  $duply_extra_packages        = $duplicity::params::duply_extra_packages,
-  $duply_archive_version       = $duplicity::params::duply_archive_version,
-  $duply_archive_checksum      = $duplicity::params::duply_archive_checksum,
-  $duply_archive_checksum_type = $duplicity::params::duply_archive_checksum_type,
-  $duply_archive_url           = undef,
-  $duply_archive_proxy         = undef,
-  $duply_archive_install_dir   = $duplicity::params::duply_archive_install_dir,
-  $duply_version               = undef,
-  $duply_archive_executable    = $duplicity::params::duply_archive_executable,
-  $duply_log_dir               = $duplicity::params::duply_log_dir,
-  $duply_log_group             = $duplicity::params::duply_log_group,
-  $duply_cache_dir             = undef,
-  $duply_temp_dir              = undef,
-  $duply_config_dir_mode       = $duplicity::params::duply_config_dir_mode,
-  $duply_purge_config_dir      = $duplicity::params::duply_purge_config_dir,
-  $duply_purge_key_dir         = $duplicity::params::duply_purge_key_dir,
-  $duply_environment           = undef,
-  $duply_use_logrotate_module  = $duplicity::params::duply_use_logrotate_module,
-  $gpg_encryption_keys         = $duplicity::params::gpg_encryption_keys,
-  $gpg_signing_key             = $duplicity::params::gpg_signing_key,
-  $gpg_passphrase              = $duplicity::params::gpg_passphrase,
-  $gpg_options                 = $duplicity::params::gpg_options,
-  $backup_target_url           = $duplicity::params::backup_target_url,
-  $backup_target_username      = $duplicity::params::backup_target_username,
-  $backup_target_password      = $duplicity::params::backup_target_password,
-  $cron_enabled                = $duplicity::params::cron_enabled,
-  $exec_path                   = $duplicity::params::exec_path,
+  String $duplicity_package_ensure = $duplicity::params::duplicity_package_ensure,
+  String $duplicity_package_name = $duplicity::params::duplicity_package_name,
+  Array[String] $duplicity_extra_params = [],
+  String $duply_package_ensure = $duplicity::params::duply_package_ensure,
+  String $duply_package_name = $duplicity::params::duply_package_name,
+  String $duply_package_provider = $duplicity::params::duply_package_provider,
+  Array[String] $duply_extra_packages = $duplicity::params::duply_extra_packages,
+  String $duply_archive_version = $duplicity::params::duply_archive_version,
+  String $duply_archive_checksum = $duplicity::params::duply_archive_checksum,
+  String $duply_archive_checksum_type = $duplicity::params::duply_archive_checksum_type,
+  Optional[String] $duply_archive_url = undef,
+  Optional[String] $duply_archive_proxy = undef,
+  Stdlib::Absolutepath $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
+  Optional[String] $duply_version = undef,
+  Stdlib::Absolutepath $duply_archive_executable = $duplicity::params::duply_archive_executable,
+  Stdlib::Absolutepath $duply_log_dir = $duplicity::params::duply_log_dir,
+  String $duply_log_group = $duplicity::params::duply_log_group,
+  Optional[Stdlib::Absolutepath] $duply_cache_dir = undef,
+  Optional[Stdlib::Absolutepath] $duply_temp_dir = undef,
+  String $duply_config_dir_mode = $duplicity::params::duply_config_dir_mode,
+  Boolean $duply_purge_config_dir = $duplicity::params::duply_purge_config_dir,
+  Boolean $duply_purge_key_dir = $duplicity::params::duply_purge_key_dir,
+  Array[String] $duply_environment = [],
+  Boolean $duply_use_logrotate_module = $duplicity::params::duply_use_logrotate_module,
+  Variant[String, Array[String]] $gpg_encryption_keys = $duplicity::params::gpg_encryption_keys,
+  String $gpg_signing_key = $duplicity::params::gpg_signing_key,
+  String $gpg_passphrase = $duplicity::params::gpg_passphrase,
+  Variant[String, Array[String]] $gpg_options = $duplicity::params::gpg_options,
+  String $backup_target_url = $duplicity::params::backup_target_url,
+  String $backup_target_username = $duplicity::params::backup_target_username,
+  String $backup_target_password = $duplicity::params::backup_target_password,
+  Boolean $cron_enabled = $duplicity::params::cron_enabled,
+  String $exec_path = $duplicity::params::exec_path,
 ) inherits duplicity::params {
   if empty($duplicity_package_ensure) {
     fail('Class[Duplicity]: duplicity_package_ensure must not be empty')
@@ -169,15 +169,6 @@ class duplicity (
   if $duply_archive_version !~ /^[a-zA-Z0-9\._-]+$/ {
     fail("Class[Duplicity]: duply_archive_version must be alphanumeric, got '${duply_archive_version}'")
   }
-
-  validate_absolute_path($duply_archive_install_dir)
-  validate_absolute_path($duply_archive_executable)
-  validate_absolute_path($duply_log_dir)
-  if ($duply_cache_dir) {
-    validate_absolute_path($duply_cache_dir)
-  }
-  validate_string($duply_log_group)
-  validate_array($duply_extra_packages)
 
   class { 'duplicity::install': }
   -> class { 'duplicity::setup': }

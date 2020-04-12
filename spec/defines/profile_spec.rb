@@ -95,7 +95,7 @@ describe 'duplicity::profile' do
     let(:params) { {:ensure => 'foobar'} }
 
     it do
-      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /ensure/)
+      expect { should contain_file(default_config_file) }.to raise_error(Puppet::Error, /expects a match for Enum/)
     end
   end
 

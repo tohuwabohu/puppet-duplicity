@@ -42,7 +42,7 @@ describe 'duplicity::file' do
     let(:params) { {:ensure => 'foobar'} }
 
     specify do
-      expect { should contain_concat__fragment(include_fragment) }.to raise_error(Puppet::Error, /ensure/)
+      expect { should contain_concat__fragment(include_fragment) }.to raise_error(Puppet::Error, /expects a match for Enum/)
     end
   end
 

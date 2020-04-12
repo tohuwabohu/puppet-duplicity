@@ -31,39 +31,29 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::file(
-  $ensure  = present,
-  $path    = $title,
-  $exclude = [],
-  $profile = 'system',
-  $timeout = 300,
+  Enum['present', 'backup', 'absent'] $ensure = 'present',
+  Stdlib::Absolutepath $path = $title,
+  Array[String] $exclude = [],
+  String $profile = 'system',
+  Integer $timeout = 300,
 ) {
   require duplicity
 
-  if $ensure !~ /^present|backup|absent$/ {
-    fail("Duplicity::File[${title}]: ensure must be either present, backup or absent, got '${ensure}'")
-  }
-
-  if $ensure =~ /^present$/ and $profile !~ /^[a-zA-Z0-9\._-]+$/ {
+  if $ensure == 'present' and $profile !~ /^[a-zA-Z0-9\._-]+$/ {
     fail("Duplicity::File[${title}]: profile must be alphanumeric including dot, dash and underscore; got '${profile}'")
   }
-
-  if !is_array($exclude) {
-    fail("Duplicity::File[${title}]: exclude must be an array")
-  }
-
-  validate_absolute_path($path)
 
   $profile_dir = "${duplicity::params::duply_config_dir}/${profile}"
   $profile_filelist = "${profile_dir}/${duplicity::params::duply_profile_filelist_name}"
   $profile_filelist_ensure = $ensure ? {
-    'absent' => absent,
-    default  => present,
+    'absent' => 'absent',
+    default  => 'present',
   }
   $exclude_filelist = join(prefix($exclude, '- '), "\n")
   $path_md5 = md5($path)
   $path_without_slash = regsubst($path, '^/(.*)$', '\1')
 
-  if $profile_filelist_ensure == present {
+  if $profile_filelist_ensure == 'present' {
     if !empty($exclude) {
       concat::fragment { "${profile_dir}/exclude/${path_md5}":
         target  => $profile_filelist,
@@ -79,7 +69,7 @@ define duplicity::file(
     }
   }
 
-  if $ensure == present {
+  if $ensure == 'present' {
     exec { "restore ${path}":
       command => "duply ${profile} fetch \"${path_without_slash}\" \"${path}\"",
       path    => $duplicity::exec_path,

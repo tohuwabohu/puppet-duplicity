@@ -10,7 +10,9 @@
 #
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
-define duplicity::public_key_link($ensure = present) {
+define duplicity::public_key_link(
+  Enum['present', 'absent'] $ensure = 'present'
+) {
   require duplicity::params
 
   $values = split($title, '/')
@@ -28,7 +30,7 @@ define duplicity::public_key_link($ensure = present) {
   }
 
   file { "${duplicity::params::duply_config_dir}/${profile}/gpgkey.${keyid}.pub.asc":
-    ensure  => link,
+    ensure  => 'link',
     target  => "${duplicity::params::duply_public_key_dir}/${keyid}.asc",
     require => Duplicity::Public_Key[$keyid],
   }

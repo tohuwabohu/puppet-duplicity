@@ -28,7 +28,7 @@ describe 'duplicity::private_key' do
     let(:params) { {:ensure => 'foobar'} }
 
     specify {
-      expect { should contain_file(default_key_file) }.to raise_error(Puppet::Error, /ensure/)
+      expect { should contain_file(default_key_file) }.to raise_error(Puppet::Error, /expects a match for Enum/)
     }
   end
 

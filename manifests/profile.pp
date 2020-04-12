@@ -106,81 +106,65 @@
 # Copyright 2014 Martin Meinhold, unless otherwise noted.
 #
 define duplicity::profile(
-  $ensure                 = present,
-  $gpg_encryption         = true,
-  $gpg_encryption_keys    = $duplicity::gpg_encryption_keys,
-  $gpg_signing_key        = $duplicity::gpg_signing_key,
-  $gpg_passphrase         = $duplicity::gpg_passphrase,
-  $gpg_options            = $duplicity::gpg_options,
-  $target                 = "${duplicity::backup_target_url}/${title}",
-  $target_username        = $duplicity::backup_target_username,
-  $target_password        = $duplicity::backup_target_password,
-  $source                 = '/',
-  $full_if_older_than     = '',
-  $max_full_backups       = '',
-  $max_fulls_with_incrs   = '',
-  $max_age                = '',
-  $volsize                = 50,
-  $include_filelist       = [],
-  $exclude_filelist       = [],
-  $exclude_content        = undef,
-  $exclude_by_default     = true,
-  $cron_enabled           = $duplicity::cron_enabled,
-  $cron_hour              = undef,
-  $cron_minute            = undef,
-  $duply_version          = undef,
-  $duply_environment      = $duplicity::duply_environment,
-  $duplicity_extra_params = $duplicity::duplicity_extra_params,
-  $duply_cache_dir        = $duplicity::duply_cache_dir,
-  $duply_temp_dir         = $duplicity::duply_temp_dir,
-  $duply_custom_batch     = undef,
-  $exec_before_content    = undef,
-  $exec_before_source     = undef,
-  $exec_after_content     = undef,
-  $exec_after_source      = undef,
-  $niceness               = undef,
+  Enum['present', 'absent'] $ensure = present,
+  Boolean $gpg_encryption = true,
+  Variant[String, Array[String]] $gpg_encryption_keys = $duplicity::gpg_encryption_keys,
+  String $gpg_signing_key = $duplicity::gpg_signing_key,
+  String $gpg_passphrase = $duplicity::gpg_passphrase,
+  Variant[String, Array[String]] $gpg_options = $duplicity::gpg_options,
+  String $target = "${duplicity::backup_target_url}/${title}",
+  String $target_username = $duplicity::backup_target_username,
+  String $target_password = $duplicity::backup_target_password,
+  String $source = '/',
+  Variant[Integer, String] $full_if_older_than = '',
+  Variant[Integer, String] $max_full_backups = '',
+  Variant[Integer, String] $max_fulls_with_incrs = '',
+  String $max_age = '',
+  Integer $volsize = 50,
+  Array[String] $include_filelist = [],
+  Array[String ] $exclude_filelist = [],
+  Optional[String] $exclude_content = undef,
+  Boolean $exclude_by_default = true,
+  Boolean $cron_enabled = $duplicity::cron_enabled,
+  Optional[Variant[Integer, String]] $cron_hour = undef,
+  Optional[Variant[Integer, String]] $cron_minute = undef,
+  Optional[String] $duply_version = undef,
+  Array[String] $duply_environment = $duplicity::duply_environment,
+  Array[String] $duplicity_extra_params = $duplicity::duplicity_extra_params,
+  Optional[Stdlib::Absolutepath] $duply_cache_dir = $duplicity::duply_cache_dir,
+  Optional[Stdlib::Absolutepath] $duply_temp_dir = $duplicity::duply_temp_dir,
+  Optional[String] $duply_custom_batch = undef,
+  Optional[String] $exec_before_content = undef,
+  Optional[String] $exec_before_source = undef,
+  Optional[String] $exec_after_content = undef,
+  Optional[String] $exec_after_source = undef,
+  Optional[Integer] $niceness = undef,
 ) {
   require duplicity
-
-  if $ensure !~ /^present|absent$/ {
-    fail("Duplicity::Profile[${title}]: ensure must be either present or absent, got '${ensure}'")
-  }
 
   if !empty($gpg_signing_key) and $gpg_signing_key !~ /^[a-zA-Z0-9]+$/ {
     fail("Duplicity::Profile[${title}]: signing_key must be alphanumeric, got '${gpg_signing_key}'")
   }
 
-  if $ensure =~ /^present$/ and empty($source) {
-    fail("Duplicity::Profile[${title}]: source must not be empty")
+  if $ensure == 'present' {
+    if empty($source) {
+        fail("Duplicity::Profile[${title}]: source must not be empty")
+    }
+
+    if empty($target) {
+      fail("Duplicity::Profile[${title}]: target must not be empty")
+    }
   }
 
-  if $ensure =~ /^present$/ and empty($target) {
-    fail("Duplicity::Profile[${title}]: target must not be empty")
-  }
-
-  if "str${max_full_backups}" !~ /^str[0-9]*$/ {
+  if !empty($max_full_backups) and "str${max_full_backups}" !~ /str[0-9]+/ {
     fail("Duplicity::Profile[${title}]: max_full_backups must be an integer, got '${max_full_backups}'")
   }
 
-  if "str${max_fulls_with_incrs}" !~ /^str[0-9]*$/ {
+  if !empty($max_fulls_with_incrs) and "str${max_fulls_with_incrs}" !~ /str[0-9]+/ {
     fail("Duplicity::Profile[${title}]: max_fulls_with_incrs must be an integer, got '${max_fulls_with_incrs}'")
   }
 
-  if !is_integer($volsize) {
-    fail("Duplicity::Profile[${title}]: volsize must be an integer, got '${volsize}'")
-  }
-
-  if !is_array($include_filelist) {
-    fail("Duplicity::Profile[${title}]: include_filelist must be an array")
-  }
-
-  if !is_array($exclude_filelist) {
-    fail("Duplicity::Profile[${title}]: exclude_filelist must be an array")
-  }
-
   if !empty($exclude_content) {
-    validate_string($exclude_content)
-
     if !empty($exclude_filelist) {
       fail("Duplicity::Profile[${title}]: exclude_content cannot be used together with exclude_filelist")
     }
@@ -188,10 +172,6 @@ define duplicity::profile(
     if !empty($include_filelist) {
       fail("Duplicity::Profile[${title}]: exclude_content cannot be used together with include_filelist")
     }
-  }
-
-  if !is_bool($gpg_encryption) {
-    fail("Duplicity::Profile[${title}]: gpg_encryption must be true or false")
   }
 
   $real_duply_environment = empty($duply_environment) ? {
@@ -218,8 +198,8 @@ define duplicity::profile(
 
   $profile_config_dir = "${duplicity::params::duply_config_dir}/${title}"
   $profile_config_dir_ensure = $ensure ? {
-    'absent' => absent,
-    default  => directory,
+    'absent' => 'absent',
+    default  => 'directory',
   }
   $profile_config_file = "${profile_config_dir}/conf"
   $profile_filelist_file = "${profile_config_dir}/${duplicity::params::duply_profile_filelist_name}"
@@ -228,20 +208,20 @@ define duplicity::profile(
   $profile_pre_script = "${profile_config_dir}/${duplicity::params::duply_profile_pre_script_name}"
   $profile_post_script = "${profile_config_dir}/${duplicity::params::duply_profile_post_script_name}"
   $profile_file_ensure = $ensure ? {
-    'absent' => absent,
-    default  => file,
+    'absent' => 'absent',
+    default  => 'file',
   }
   $profile_concat_ensure = $ensure ? {
-    'absent' => absent,
-    default  => present,
+    'absent' => 'absent',
+    default  => 'present',
   }
   $cron_ensure = str2bool($cron_enabled) ? {
-    false   => absent,
-    default => present,
+    false   => 'absent',
+    default => 'present',
   }
   $exclude_by_default_ensure = $exclude_by_default ? {
-    true    => present,
-    default => absent,
+    true    => 'present',
+    default => 'absent',
   }
   $complete_encryption_keys = prefix($real_gpg_encryption_keys, "${title}/")
   $complete_signing_keys = prefix($real_gpg_signing_keys, "${title}/")
@@ -355,11 +335,11 @@ define duplicity::profile(
   }
 
   duplicity::public_key_link { $complete_encryption_keys:
-    ensure  => present,
+    ensure  => 'present',
   }
 
   duplicity::private_key_link { $complete_signing_keys:
-    ensure  => present,
+    ensure  => 'present',
   }
 
   if $duply_custom_batch {
