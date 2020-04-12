@@ -156,11 +156,11 @@ define duplicity::profile(
     }
   }
 
-  if !empty($max_full_backups) and "$max_full_backups" !~ /[0-9]+/ {
+  if !empty($max_full_backups) and "str${max_full_backups}" !~ /str[0-9]+/ {
     fail("Duplicity::Profile[${title}]: max_full_backups must be an integer, got '${max_full_backups}'")
   }
 
-  if !empty($max_fulls_with_incrs) and "$max_fulls_with_incrs" !~ /[0-9]+/ {
+  if !empty($max_fulls_with_incrs) and "str${max_fulls_with_incrs}" !~ /str[0-9]+/ {
     fail("Duplicity::Profile[${title}]: max_fulls_with_incrs must be an integer, got '${max_fulls_with_incrs}'")
   }
 
