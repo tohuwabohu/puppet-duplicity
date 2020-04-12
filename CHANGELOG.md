@@ -4,11 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unrelease
+## [6.1.0] - 2020-04-12
 
 ### Changed
 
 - Replace deprecated `is_` and `validate_` puppetlabs/stdlib functions with Puppet data types
+
+### Deprecated
+
+- `profile::max_full_backups` and `profile::max_fulls_with_incrs` currently accept values of type `String` and `Integer`
+  as long as they look like a number. Support for `String` will be removed in the next major release.
 
 ## [6.0.0] - 2020-03-14
 
