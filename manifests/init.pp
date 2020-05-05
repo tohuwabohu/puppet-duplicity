@@ -122,6 +122,7 @@ class duplicity (
   String $duply_package_ensure = $duplicity::params::duply_package_ensure,
   String $duply_package_name = $duplicity::params::duply_package_name,
   String $duply_package_provider = $duplicity::params::duply_package_provider,
+  String $duply_paramiko_package_name = $duplicity::params::duply_paramiko_package_name,
   Array[String] $duply_extra_packages = $duplicity::params::duply_extra_packages,
   String $duply_archive_version = $duplicity::params::duply_archive_version,
   String $duply_archive_checksum = $duplicity::params::duply_archive_checksum,

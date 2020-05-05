@@ -20,6 +20,26 @@ class duplicity::params {
     'Debian' => 'apt',
     default  => 'archive'
   }
+
+  if $facts['os']['name'] == 'Ubuntu' {
+    $duply_paramiko_package_name = versioncmp($facts['os']['release']['major'], '20.04') >= 0 ? {
+      true    => 'python3-paramiko',
+      default => 'python-paramiko',
+    }
+  } elsif $facts['os']['name'] == 'Fedora' {
+    $duply_paramiko_package_name = versioncmp($facts['os']['release']['major'], '31') >= 0 ? {
+      true    => 'python3-paramiko',
+      default => 'python2-paramiko',
+    }
+  } elsif $facts['os']['family'] == 'RedHat' {
+    $duply_paramiko_package_name = versioncmp($facts['os']['release']['major'], '8') >= 0 ? {
+      true    => 'python3-paramiko',
+      default => 'python2-paramiko',
+    }
+  } else {
+    $duply_paramiko_package_name = 'python-paramiko'
+  }
+
   $duply_extra_packages = []
   $duply_archive_version = '2.2.2'
   $duply_archive_checksum = '3cf4a2803173726b136b6fe030334bb42045b4d9'
@@ -54,4 +74,5 @@ class duplicity::params {
 
   $cron_enabled = false
   $exec_path = '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+
 }
