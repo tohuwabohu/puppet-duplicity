@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.1.0] - 2020-04-12
+## [6.2.0](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.2.0) (2020-08-04)
+
+### Added
+
+- Allow arrays as valid input for `$cron_hour` ([#61](https://github.com/tohuwabohu/puppet-duplicity/pull/61))
+
+## [6.1.0](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.1.0) (2020-04-12)
 
 ### Changed
 
@@ -15,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `profile::max_full_backups` and `profile::max_fulls_with_incrs` currently accept values of type `String` and `Integer`
   as long as they look like a number. Support for `String` will be removed in the next major release.
 
-## [6.0.0] - 2020-03-14
+## [6.0.0](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.0.0) (2020-03-14)
 
 ### Added
 
