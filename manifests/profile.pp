@@ -126,7 +126,7 @@ define duplicity::profile(
   Optional[String] $exclude_content = undef,
   Boolean $exclude_by_default = true,
   Boolean $cron_enabled = $duplicity::cron_enabled,
-  Optional[Variant[Integer, String]] $cron_hour = undef,
+  Optional[Variant[Integer, String, Array]] $cron_hour = undef,
   Optional[Variant[Integer, String]] $cron_minute = undef,
   Optional[String] $duply_version = undef,
   Array[String] $duply_environment = $duplicity::duply_environment,
