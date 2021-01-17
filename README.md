@@ -15,9 +15,7 @@ easy to use backup and restore system.
 Install duplicity and duply with all default values.
 
 ```
-class { 'duplicity':
-  ensure => present,
-}
+class { 'duplicity': }
 ```
 
 Install a more recent version of duply from [the sourceforge project page](http://sourceforge.net/projects/ftplicity/)
