@@ -7,8 +7,14 @@ bundler_args: --without development system_tests
 before_install:
   - rm Gemfile.lock || true
 
+before_script:
+  - echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+
 script:
   - bundle exec rake test SPEC_OPTS='--format documentation'
+
+after_script:
+  - docker logout
 
 matrix:
   fast_finish: true
