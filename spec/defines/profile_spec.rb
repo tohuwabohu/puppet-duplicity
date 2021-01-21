@@ -7,7 +7,8 @@ describe 'duplicity::profile' do
       duplicity::public_key { 'key1': content => 'key1' }
       duplicity::public_key { 'key2': content => 'key2' }
 
-      class { 'duplicity': }
+       class { 'duplicity': }
+
     EOS
   }
 
@@ -395,4 +396,42 @@ describe 'duplicity::profile' do
       )
     end
   end
+
+  describe 'with duply_log_output equals logger and cron_enabled' do
+    let(:pre_condition) { <<-EOS
+          class { 'duplicity':
+            duply_log_output => 'logger',
+          }
+    EOS
+
+    }
+
+    let(:params) { {:cron_enabled => true, :duply_version => '1.9.1'} }
+    specify do
+      should contain_cron("backup-default").with(
+        'ensure'  => 'present',
+        'command' => 'duply default cleanup_backup_purgeFull --force | logger -t "duply"'
+      )
+    end
+  end
+
+  describe 'with cron_enabled and duply_log_output => logger and custom tag ' do
+    let(:pre_condition) { <<-EOS
+          class { 'duplicity':
+            duply_log_output => 'logger',
+            duply_log_logger_tag => 'mybackup',
+          }
+    EOS
+
+    }
+
+    let(:params) { {:cron_enabled => true, :duply_version => '1.9.1'} }
+    specify do
+      should contain_cron("backup-default").with(
+        'ensure'  => 'present',
+        'command' => 'duply default cleanup_backup_purgeFull --force | logger -t "mybackup"'
+      )
+    end
+  end
+
 end

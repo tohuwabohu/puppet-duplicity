@@ -49,35 +49,38 @@ class duplicity::setup inherits duplicity {
     mode   => '0600',
   }
 
-  file { $duplicity::duply_log_dir:
-    ensure => 'directory',
-    owner  => 'root',
-    group  => $duplicity::duply_log_group,
-    mode   => '0640',
-  }
+  if $duplicity::duply_log_output == "file" {
 
-  if $duplicity::duply_use_logrotate_module == true {
-    logrotate::rule { 'duply':
-      ensure       => 'present',
-      path         => "${duplicity::duply_log_dir}/*.log",
-      rotate       => 5,
-      size         => '100k',
-      compress     => true,
-      missingok    => true,
-      create       => true,
-      create_owner => 'root',
-      create_group => $duplicity::duply_log_group,
-      create_mode  => '0640',
-      require      => File[$duplicity::duply_log_dir],
+    file { $duplicity::duply_log_dir:
+      ensure => 'directory',
+      owner  => 'root',
+      group  => $duplicity::duply_log_group,
+      mode   => '0640',
     }
-  }
-  else {
-    file { '/etc/logrotate.d/duply':
-      ensure  => file,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0640',
-      content => template('duplicity/etc/logrotate.d/duply.erb'),
+
+    if $duplicity::duply_use_logrotate_module == true {
+      logrotate::rule { 'duply':
+        ensure       => 'present',
+        path         => "${duplicity::duply_log_dir}/*.log",
+        rotate       => 5,
+        size         => '100k',
+        compress     => true,
+        missingok    => true,
+        create       => true,
+        create_owner => 'root',
+        create_group => $duplicity::duply_log_group,
+        create_mode  => '0640',
+        require      => File[$duplicity::duply_log_dir],
+      }
+    }
+    else {
+      file { '/etc/logrotate.d/duply':
+        ensure  => file,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0640',
+        content => template('duplicity/etc/logrotate.d/duply.erb'),
+      }
     }
   }
 

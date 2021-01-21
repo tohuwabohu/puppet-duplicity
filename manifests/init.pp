@@ -51,8 +51,15 @@
 # [*duply_archive_executable*]
 #   Set the symbolic path pointing to the configured duply executable when installing the archive from sourceforge.
 #
-# [*duply_version*]
-#   Deprecated, will be removed in the next major release.
+# [*duply_log_output*]
+#   Defines duply logs output type. Valid values are : "file" and "logger".
+#   "logger" use logger command which forward logs to system logs (syslog, journald...)
+#   Default: "file"
+#
+# [*duply_log_logger_tag*]
+#   Mark  every  line  to be logged with the specified tag.
+#   Default: "duply"
+#   NOTE: Available only if duply_log_output equals "logger"
 #
 # [*duply_log_dir*]
 #   Set the path to the log directory. Every profile will get its own log file.
@@ -131,6 +138,8 @@ class duplicity (
   Stdlib::Absolutepath $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
   Optional[String] $duply_version = undef,
   Stdlib::Absolutepath $duply_archive_executable = $duplicity::params::duply_archive_executable,
+  String $duply_log_output = $duplicity::params::duply_log_output,
+  String $duply_log_logger_tag = $duplicity::params::duply_log_logger_tag,
   Stdlib::Absolutepath $duply_log_dir = $duplicity::params::duply_log_dir,
   String $duply_log_group = $duplicity::params::duply_log_group,
   Optional[Stdlib::Absolutepath] $duply_cache_dir = undef,

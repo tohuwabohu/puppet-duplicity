@@ -349,7 +349,11 @@ define duplicity::profile(
     $duply_batch  = 'cleanup_backup_purgeFull'
   }
 
-  $duply_command  = "duply ${title} ${duply_batch} --force >> ${duplicity::duply_log_dir}/${title}.log"
+  if "${duplicity::duply_log_output}" == "logger" {
+    $duply_command = "duply ${title} ${duply_batch} --force | logger -t \"${duplicity::duply_log_logger_tag}\""
+  } else {
+    $duply_command = "duply ${title} ${duply_batch} --force >> ${duplicity::duply_log_dir}/${title}.log"
+  }
 
   if $niceness {
     $cron_command = "nice -n ${niceness} ${duply_command}"
