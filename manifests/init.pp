@@ -51,6 +51,9 @@
 # [*duply_archive_executable*]
 #   Set the symbolic path pointing to the configured duply executable when installing the archive from sourceforge.
 #
+# [*duply_version*]
+#   Deprecated, will be removed in the next major release.
+#
 # [*duply_log_output*]
 #   Defines duply logs output type. Valid values are : "file" and "logger".
 #   "logger" use logger command which forward logs to system logs (syslog, journald...)
