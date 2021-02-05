@@ -7,7 +7,7 @@ describe 'duplicity::profile' do
       duplicity::public_key { 'key1': content => 'key1' }
       duplicity::public_key { 'key2': content => 'key2' }
 
-       class { 'duplicity': }
+      class { 'duplicity': }
 
     EOS
   }
