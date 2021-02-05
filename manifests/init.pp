@@ -138,7 +138,7 @@ class duplicity (
   Stdlib::Absolutepath $duply_archive_install_dir = $duplicity::params::duply_archive_install_dir,
   Optional[String] $duply_version = undef,
   Stdlib::Absolutepath $duply_archive_executable = $duplicity::params::duply_archive_executable,
-  String $duply_log_output = $duplicity::params::duply_log_output,
+  Enum['file', 'logger'] $duply_log_output = $duplicity::params::duply_log_output,
   String $duply_log_logger_tag = $duplicity::params::duply_log_logger_tag,
   Stdlib::Absolutepath $duply_log_dir = $duplicity::params::duply_log_dir,
   String $duply_log_group = $duplicity::params::duply_log_group,
