@@ -49,7 +49,7 @@ class duplicity::setup inherits duplicity {
     mode   => '0600',
   }
 
-  if $duplicity::duply_log_output == "file" {
+  if $duplicity::duply_log_output == 'file' {
 
     file { $duplicity::duply_log_dir:
       ensure => 'directory',

@@ -37,8 +37,8 @@ class duplicity::params {
   $duply_public_key_dir = "${duply_key_dir}/public"
   $duply_private_key_dir = "${duply_key_dir}/private"
   $duply_purge_key_dir = true
-  $duply_log_output = "file"
-  $duply_log_logger_tag = "duply"
+  $duply_log_output = 'file'
+  $duply_log_logger_tag = 'duply'
   $duply_use_logrotate_module = true
   $duply_log_dir = '/var/log/duply'
   $duply_log_group = $facts['os']['family'] ? {
