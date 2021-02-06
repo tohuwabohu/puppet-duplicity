@@ -4,8 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
                
-## unreleased
-                           
+## [6.3.0](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.3.0) (2021-02-06)
+                                                                                  
+### Added
+
+- Allow forwarding duply logs to logger command ([#68](https://github.com/tohuwabohu/puppet-duplicity/pull/68))
+
 ### Changed
                 
 - Fix broken example in README.md ([#67](https://github.com/tohuwabohu/puppet-duplicity/issues/67))
