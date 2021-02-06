@@ -148,5 +148,13 @@ describe 'duplicity' do
       )
     }
   end
+
+  describe 'with duply_log_output => logger' do
+    let(:params) { {:duply_log_output => "logger",:duply_use_logrotate_module => true} }
+
+    it { should_not contain_file('/var/log/duply') }
+    it { should_not contain_logrotate__rule('duply') }
+  end
+
 end
 
