@@ -3,7 +3,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-               
+                  
+## [unreleased]
+  
+### Added
+
+- Support for Puppet 7
+            
+### Changed
+
+- Replace Ubuntu 16.04 with Ubuntu 20.04 in acceptance test matrix
+
 ## [6.3.0](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.3.0) (2021-02-06)
                                                                                   
 ### Added

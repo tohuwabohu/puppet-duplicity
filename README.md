@@ -128,8 +128,8 @@ The module has been tested on the following operating systems. Testing and patch
 
 * Debian 9.0 (Stretch)
 * Debian 10.0 (Buster)
-* Ubuntu 16.04 (Xenial Xerus)
 * Ubuntu 18.04 (Bionic Beaver)
+* Ubuntu 20.04 (Focal Fossa)
 
 ## Contributing
 
