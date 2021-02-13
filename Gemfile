@@ -6,7 +6,7 @@ group :development, :test do
   gem 'rspec-puppet', '~> 2.4'
   gem 'pdk', '~> 1.17'
   gem 'puppetlabs_spec_helper', '~> 3.0'
-  gem 'puppet-blacksmith', '~> 5.1'
+  gem 'puppet-blacksmith', '~> 6.1'
   gem 'puppet-lint', '~> 2.0'
   gem 'metadata-json-lint', '~> 2.0'
   gem 'puppet-lint-unquoted_string-check', '~> 2.0'
