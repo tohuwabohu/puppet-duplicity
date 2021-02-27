@@ -1,7 +1,7 @@
 # duplicity
 
 [![License](https://img.shields.io/github/license/tohuwabohu/puppet-duplicity.svg)](https://github.com/tohuwabohu/puppet-duplicity/blob/master/LICENSE.txt)
-![Build Status](https://github.com/tohuwabohu/puppet-duplicity/workflows/build-and-test/badge.svg)
+[![build-and-test](https://github.com/tohuwabohu/puppet-duplicity/actions/workflows/main.yml/badge.svg)](https://github.com/tohuwabohu/puppet-duplicity/actions/workflows/main.yml)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/tohuwabohu/duplicity.svg)](https://forge.puppetlabs.com/tohuwabohu/duplicity)
 [![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/tohuwabohu/duplicity.svg)](https://forge.puppetlabs.com/tohuwabohu/duplicity)
 
