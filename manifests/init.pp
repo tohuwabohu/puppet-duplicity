@@ -152,6 +152,7 @@ class duplicity (
   Boolean $duply_purge_key_dir = $duplicity::params::duply_purge_key_dir,
   Array[String] $duply_environment = [],
   Boolean $duply_use_logrotate_module = $duplicity::params::duply_use_logrotate_module,
+  String $paramiko_package_name = $duplicity::params::paramiko_package_name,
   Variant[String, Array[String]] $gpg_encryption_keys = $duplicity::params::gpg_encryption_keys,
   String $gpg_signing_key = $duplicity::params::gpg_signing_key,
   String $gpg_passphrase = $duplicity::params::gpg_passphrase,

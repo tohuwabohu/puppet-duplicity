@@ -5,6 +5,10 @@ describe 'duplicity' do
   let(:duply_version) { '2.2.2' }
   let(:archive) { "/tmp/duply_#{duply_version}.tgz" }
 
+  describe 'by default' do
+    it { is_expected.to contain_package('duply').that_requires('Package[python-paramiko]') }
+  end
+
   describe 'by default with archive package provider' do
     let(:params) { {:duply_package_provider => 'archive'} }
 
@@ -156,5 +160,18 @@ describe 'duplicity' do
     it { should_not contain_logrotate__rule('duply') }
   end
 
+  describe 'on Debian 11' do
+    let(:facts) do
+      { 'os' => {
+          'family'  => 'Debian',
+          'release' => {
+            'major' => '11',
+          }
+        }
+      }
+    end
+
+    it { is_expected.to contain_package('duply').that_requires('Package[python3-paramiko]') }
+  end
 end
 

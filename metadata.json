@@ -1,6 +1,6 @@
 {
   "name": "tohuwabohu-duplicity",
-  "version": "6.4.1",
+  "version": "6.5.0",
   "author": "tohuwabohu",
   "license": "Apache-2.0",
   "summary": "Install and manage duplicity",

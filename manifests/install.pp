@@ -53,21 +53,15 @@ class duplicity::install inherits duplicity {
     }
   }
   else {
-    if os_version_gte('Debian', '11') or (($os['distro']['id'] == 'debian') and ($os['distro']['codename'] == 'bullseye')){
-        $paramiko = "python3-paramiko"
-    }
-    else {
-        $paramiko = "python-paramiko"
-    }
     package { 'duply':
       ensure   => $duplicity::duply_package_ensure,
       name     => $duplicity::duply_package_name,
       provider => $duplicity::duply_package_provider,
-      require  => Package[$paramiko],
+      require  => Package[$duplicity::paramiko_package_name],
     }
     # Note (arnaudmorin): we cannot ensure pyton-paramiko $duplicity::duply_package_ensure as
     # it can break if the package is already ensure present somewhere else in another module.
-    ensure_packages ( [$paramiko], {
+    ensure_packages ( [$duplicity::paramiko_package_name], {
       ensure   => present,
     })
 
