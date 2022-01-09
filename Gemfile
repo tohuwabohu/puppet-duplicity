@@ -5,7 +5,7 @@ group :development, :test do
   gem 'rspec', '~> 3.5'
   gem 'rspec-puppet', '~> 2.4'
   gem 'pdk', '~> 2.0'
-  gem 'puppetlabs_spec_helper', '~> 3.0'
+  gem 'puppetlabs_spec_helper', '~> 4.0'
   gem 'puppet-blacksmith', '~> 6.1'
   gem 'puppet-lint', '~> 2.0'
   gem 'metadata-json-lint', '~> 3.0'
@@ -20,6 +20,7 @@ group :system_tests do
   gem 'beaker-docker', '~> 1.0.0'
   gem 'beaker-puppet_install_helper', '~> 0.9'
   gem 'beaker-module_install_helper', '~> 1.0'
+  gem 'voxpupuli-acceptance', '~> 1.0'
 end
 
 if (puppetversion = ENV['PUPPET_VERSION'])
