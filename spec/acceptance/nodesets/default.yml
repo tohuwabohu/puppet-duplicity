@@ -1,11 +1,11 @@
 HOSTS:
-  debian-10-64:
-    platform: debian-10-amd64
+  debian-11-64:
+    platform: debian-11-amd64
     hypervisor: docker
-    image: debian:10
+    image: debian:11
     docker_preserve_image: true
     docker_image_commands:
-      - 'apt-get update && apt-get -y --no-install-recommends install wget'
+      - 'apt-get update && apt-get -y --no-install-recommends install cron wget'
 
 CONFIG:
   type: aio

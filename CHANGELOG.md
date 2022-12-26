@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [6.6.0](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.6.0) (2022-12-26)
 
+### Added
+
+- Support for Debian 11 and Ubuntu 22.04  
+
 ### Improved
 
 - Updated dependencies to latest version

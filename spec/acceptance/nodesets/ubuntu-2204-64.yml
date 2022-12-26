@@ -1,0 +1,11 @@
+HOSTS:
+  ubuntu-2204-x64:
+    platform: ubuntu-2204-x86_64
+    hypervisor: docker
+    image: ubuntu:22.04
+    docker_preserve_image: true
+
+CONFIG:
+  type: aio
+  log_level: info
+  trace_limit: 100
