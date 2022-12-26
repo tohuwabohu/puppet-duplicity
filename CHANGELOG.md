@@ -10,9 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Support for Debian 11 and Ubuntu 22.04  
 
-### Improved
+### Updated
 
-- Update dependencies to latest version
+- Duply 2.2.2 (2020-02-24) -> 2.4.1 (2022-09-09)
+- Puppet module dependencies
 
 ## [6.5.0](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.5.0) (2021-03-13)
 
