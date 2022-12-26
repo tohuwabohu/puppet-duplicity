@@ -21,8 +21,8 @@ class duplicity::params {
     default  => 'archive'
   }
   $duply_extra_packages = []
-  $duply_archive_version = '2.2.2'
-  $duply_archive_checksum = '3cf4a2803173726b136b6fe030334bb42045b4d9'
+  $duply_archive_version = '2.4.1'
+  $duply_archive_checksum = '98790dafb92f8441045ce430f4ad9ed80bd895f6'
   $duply_archive_checksum_type = 'sha1'
   $duply_archive_install_dir = '/opt'
   $duply_archive_executable = '/usr/local/sbin/duply'
