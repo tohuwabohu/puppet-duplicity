@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Improved
 
-- Updated dependencies to latest version
+- Update dependencies to latest version
 
 ## [6.5.0](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.5.0) (2021-03-13)
 
