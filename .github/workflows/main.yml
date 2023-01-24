@@ -12,9 +12,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - ruby-version: 2.4
-            puppet-version: 5
-          - ruby-version: 2.5
+          - ruby-version: 2.7
             puppet-version: 6
           - ruby-version: 2.7
             puppet-version: 7
