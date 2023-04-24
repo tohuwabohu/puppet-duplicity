@@ -9,7 +9,7 @@ group :development, :test do
   gem 'puppet-blacksmith', '~> 6.1'
   gem 'puppet-lint', '~> 3.0'
   gem 'metadata-json-lint', '~> 3.0'
-  gem 'puppet-lint-unquoted_string-check', '~> 2.0'
+  gem 'puppet-lint-unquoted_string-check', '~> 3.0'
   gem 'puppet-syntax', '~> 3.1'
 end
 
