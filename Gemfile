@@ -19,7 +19,7 @@ group :system_tests do
   gem 'beaker-puppet', '~> 1.18'
   gem 'beaker-docker', '~> 2.1.0'
   gem 'beaker-puppet_install_helper', '~> 0.9'
-  gem 'beaker-module_install_helper', '~> 1.0'
+  gem 'beaker-module_install_helper', '~> 2.0'
   gem 'voxpupuli-acceptance', '~> 1.0'
 end
 
