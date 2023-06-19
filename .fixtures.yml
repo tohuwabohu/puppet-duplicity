@@ -5,7 +5,7 @@ fixtures:
       ref: "v7.0.0"
     concat:
       repo: "https://github.com/puppetlabs/puppetlabs-concat"
-      ref: "v7.3.0"
+      ref: "v9.0.0"
     cron:
       repo: "https://github.com/puppetlabs/puppetlabs-cron_core"
       ref: "v1.1.0"
@@ -14,7 +14,7 @@ fixtures:
       ref: "v6.1.0"
     stdlib:
       repo: "https://github.com/puppetlabs/puppetlabs-stdlib"
-      ref: "v8.5.0"
+      ref: "v9.1.0"
   symlinks:
     duplicity: "#{source_dir}"
 
