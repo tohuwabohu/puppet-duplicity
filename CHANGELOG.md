@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Updated
 
 - Removed Puppet 5 from test matrix
-- Puppet module dependencies (puppet-archive) 
+- Puppet module dependencies; althrough this module works fine with the 9.x versions of concat and stdlibs, the 
+  puppet-logrotate module only supports stdlib up to 8.x  
 
 ## [6.6.1](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.6.1) (2022-12-28)
 
