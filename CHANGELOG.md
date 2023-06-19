@@ -3,13 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-                          
-## [Unreleased]
+
+## [6.6.2](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.6.2) (2023-06-19)
 
 ### Updated
 
 - Removed Puppet 5 from test matrix
-- Puppet module dependencies; althrough this module works fine with the 9.x versions of concat and stdlibs, the 
+- Puppet module dependencies; this module works fine with the 9.x versions of concat and stdlibs, yet the 
   puppet-logrotate module only supports stdlib up to 8.x  
 
 ## [6.6.1](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.6.1) (2022-12-28)
