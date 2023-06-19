@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Updated
 
-- Removed Puppet 5 from test matrix 
+- Removed Puppet 5 from test matrix
+- Puppet module dependencies (puppet-archive) 
 
 ## [6.6.1](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.6.1) (2022-12-28)
 
