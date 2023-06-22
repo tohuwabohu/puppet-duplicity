@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'duplicity' do
   let(:title) { 'duplicity' }
-  let(:duply_version) { '2.4.1' }
+  let(:duply_version) { '2.4.3' }
   let(:archive) { "/tmp/duply_#{duply_version}.tgz" }
 
   describe 'by default' do
