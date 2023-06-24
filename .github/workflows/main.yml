@@ -36,14 +36,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - beaker-set: debian-9-64
-            label: "Debian 9"
           - beaker-set: debian-10-64
             label: "Debian 10"
           - beaker-set: default
             label: "Debian 11"
-          - beaker-set: ubuntu-1804-64
-            label: "Ubuntu 18.04"
           - beaker-set: ubuntu-2004-64
             label: "Ubuntu 20.04"
           - beaker-set: ubuntu-2204-64
