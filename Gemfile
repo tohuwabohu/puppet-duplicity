@@ -8,7 +8,7 @@ group :development, :test do
   gem 'puppetlabs_spec_helper', '~> 6.0'
   gem 'puppet-blacksmith', '~> 6.1'
   gem 'puppet-lint', '~> 4.0'
-  gem 'metadata-json-lint', '~> 3.0'
+  gem 'metadata-json-lint', '~> 4.0'
   gem 'puppet-lint-unquoted_string-check', '~> 3.0'
   gem 'puppet-syntax', '~> 3.1'
 end
