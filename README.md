@@ -71,11 +71,27 @@ duplicity::profile { 'system':
 Backup a file and restore it from a previous backup if it is not existing. Setting `ensure` to `backup` will only
 backup the file but not restore it.
 
-Note: a directory will only be restored if the directory is not existing - an empty directory is not replaced.
-
 ```
 duplicity::file { '/path/to/file':
   ensure => present,
+}
+```
+
+A directory will only be restored if the directory is not existing - an empty directory is not replaced. To prevent 
+Puppet from accidentally creating an empty directory, explicitly add a dependency between the `duplicity::file` and the
+`file` as shown in the following example. This will ensure the restore process will get a chance to run before the 
+directory is created.
+
+```
+duplicity::file { $mailman3_data_dir:
+  timeout => 1800,
+}
+
+-> file { $mailman3_data_dir:
+  ensure => directory,
+  owner  => 'list',
+  group  => 'list',
+  mode   => '0644',
 }
 ```
 
