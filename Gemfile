@@ -3,9 +3,9 @@ source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 group :development, :test do
   gem 'rake', '~> 13.0'
   gem 'rspec', '~> 3.5'
-  gem 'rspec-puppet', '~> 3.0'
+  gem 'rspec-puppet', '~> 3.0'              # 4.0 blocked by Puppet 6
   gem 'pdk', '~> 3.0'
-  gem 'puppetlabs_spec_helper', '~> 7.0'
+  gem 'puppetlabs_spec_helper', '~> 6.0.2'  # 6.0.3 blocked by Puppet 6
   gem 'puppet-blacksmith', '~> 6.1'
   gem 'puppet-lint', '~> 4.0'
   gem 'metadata-json-lint', '~> 4.0'
