@@ -13,9 +13,9 @@ jobs:
       matrix:
         include:
           - ruby-version: 3.1
-            puppet-version: 6
-          - ruby-version: 3.1
             puppet-version: 7
+          - ruby-version: 3.2
+            puppet-version: 8
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
