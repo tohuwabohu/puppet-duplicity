@@ -1,6 +1,6 @@
 {
   "name": "tohuwabohu-duplicity",
-  "version": "6.6.6",
+  "version": "6.7.0",
   "author": "tohuwabohu",
   "license": "Apache-2.0",
   "summary": "Install and manage duplicity",
@@ -31,7 +31,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 5.0.0 < 8.0.0"
+      "version_requirement": ">= 5.0.0 < 9.0.0"
     }
   ],
   "dependencies": [
