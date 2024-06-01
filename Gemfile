@@ -17,7 +17,7 @@ group :system_tests do
   gem 'beaker', '~> 4.0'
   gem 'beaker-rspec', '~> 8.0'
   gem 'beaker-puppet', '~> 2.0'
-  gem 'beaker-docker', '~> 2.2.0'
+  gem 'beaker-docker', '~> 2.3.0'
   gem 'beaker-puppet_install_helper', '~> 0.9'
   gem 'beaker-module_install_helper', '~> 2.0'
   gem 'voxpupuli-acceptance', '~> 1.0'
