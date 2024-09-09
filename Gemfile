@@ -3,14 +3,14 @@ source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 group :development, :test do
   gem 'rake', '~> 13.0'
   gem 'rspec', '~> 3.5'
-  gem 'rspec-puppet', '~> 5.0'              # 4.0 blocked by Puppet 6
+  gem 'rspec-puppet', '~> 5.0'
   gem 'pdk', '~> 3.0'
-  gem 'puppetlabs_spec_helper', '~> 6.0.2'  # 6.0.3 blocked by Puppet 6
+  gem 'puppetlabs_spec_helper', '~> 7.0'
   gem 'puppet-blacksmith', '~> 6.1'
   gem 'puppet-lint', '~> 4.0'
   gem 'metadata-json-lint', '~> 4.0'
   gem 'puppet-lint-unquoted_string-check', '~> 3.0'
-  gem 'puppet-syntax', '~> 3.1'
+  gem 'puppet-syntax', '~> 4.1'
 end
 
 group :system_tests do
