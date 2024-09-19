@@ -5,7 +5,7 @@ group :development, :test do
   gem 'rspec', '~> 3.5'
   gem 'rspec-puppet', '~> 5.0'
   gem 'pdk', '~> 3.0'
-  gem 'puppetlabs_spec_helper', '~> 7.0'
+  gem 'puppetlabs_spec_helper', '~> 8.0'
   gem 'puppet-blacksmith', '~> 6.1'
   gem 'puppet-lint', '~> 4.0'
   gem 'metadata-json-lint', '~> 4.0'
