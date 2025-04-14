@@ -337,11 +337,11 @@ define duplicity::profile(
   }
 
   duplicity::public_key_link { $complete_encryption_keys:
-    ensure  => 'present',
+    ensure => 'present',
   }
 
   duplicity::private_key_link { $complete_signing_keys:
-    ensure  => 'present',
+    ensure => 'present',
   }
 
   if $duply_custom_batch {
