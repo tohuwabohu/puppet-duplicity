@@ -4,8 +4,8 @@ fixtures:
       repo: "https://github.com/voxpupuli/puppet-archive"
       ref: "v7.1.0"
     concat:
-      repo: "https://github.com/puppetlabs/puppetlabs-concat"
-      ref: "v9.0.2"
+      repo: "https://github.com/puppetlabs/puppetlabs-concat.git"
+      ref: "v9.1.0"
     cron:
       repo: "https://github.com/puppetlabs/puppetlabs-cron_core"
       ref: "v1.2.1"
@@ -13,8 +13,8 @@ fixtures:
       repo: "https://github.com/voxpupuli/puppet-logrotate"
       ref: "v7.0.1"
     stdlib:
-      repo: "https://github.com/puppetlabs/puppetlabs-stdlib"
-      ref: "v9.4.1"
+      repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+      ref: "v9.7.0"
   symlinks:
     duplicity: "#{source_dir}"
 
