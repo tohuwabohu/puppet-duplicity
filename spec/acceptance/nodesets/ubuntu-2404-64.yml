@@ -1,0 +1,11 @@
+HOSTS:
+  ubuntu-2404-x64:
+    platform: ubuntu-2404-x86_64
+    hypervisor: docker
+    image: ubuntu:24.04
+    docker_preserve_image: true
+
+CONFIG:
+  type: aio
+  log_level: info
+  trace_limit: 100

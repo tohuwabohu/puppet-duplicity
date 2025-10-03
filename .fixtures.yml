@@ -2,16 +2,16 @@ fixtures:
   repositories:
     archive:
       repo: "https://github.com/voxpupuli/puppet-archive"
-      ref: "v7.1.0"
+      ref: "v8.1.0"
     concat:
       repo: "https://github.com/puppetlabs/puppetlabs-concat.git"
       ref: "v9.1.0"
     cron:
       repo: "https://github.com/puppetlabs/puppetlabs-cron_core"
-      ref: "v1.2.1"
+      ref: "v1.3.0"
     logrotate:
       repo: "https://github.com/voxpupuli/puppet-logrotate"
-      ref: "v7.0.1"
+      ref: "v8.0.0"
     stdlib:
       repo: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
       ref: "v9.7.0"

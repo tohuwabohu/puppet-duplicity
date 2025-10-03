@@ -1,6 +1,6 @@
 {
   "name": "tohuwabohu-duplicity",
-  "version": "6.7.1",
+  "version": "6.8.0",
   "author": "tohuwabohu",
   "license": "Apache-2.0",
   "summary": "Install and manage duplicity",
@@ -17,14 +17,16 @@
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "10",
-        "11"
+        "11",
+        "12"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "20.04",
-        "22.04"
+        "22.04",
+        "24.04"
       ]
     }
   ],
@@ -37,7 +39,7 @@
   "dependencies": [
     {
       "name": "puppet/archive",
-      "version_requirement": ">= 3.0.0 < 8.0.0"
+      "version_requirement": ">= 3.0.0 < 9.0.0"
     },
     {
       "name": "puppetlabs/concat",
@@ -49,7 +51,7 @@
     },
     {
       "name": "puppet/logrotate",
-      "version_requirement": ">= 3.0.0 < 8.0.0"
+      "version_requirement": ">= 3.0.0 < 9.0.0"
     }
   ]
 }

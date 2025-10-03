@@ -1,8 +1,8 @@
 HOSTS:
-  debian-12-64:
-    platform: debian-12-amd64
+  debian-11-64:
+    platform: debian-11-amd64
     hypervisor: docker
-    image: debian:12
+    image: debian:11
     docker_preserve_image: true
     docker_image_commands:
       - 'apt-get update && apt-get -y --no-install-recommends install cron wget'
