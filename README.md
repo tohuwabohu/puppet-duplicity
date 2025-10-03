@@ -140,12 +140,8 @@ duplicity::profile { 'system':
 
 ## Limitations
 
-The module has been tested on the following operating systems. Testing and patches for other platforms are welcome.
-
-* Debian 9.0 (Stretch)
-* Debian 10.0 (Buster)
-* Ubuntu 18.04 (Bionic Beaver)
-* Ubuntu 20.04 (Focal Fossa)
+The module is primarily tested on the most recent Debian and Ubuntu distributions. See [.github/workflows/main.yml](.github/workflows/main.yml)
+for the currently tested versions.
 
 ## Contributing
 
