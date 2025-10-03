@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Updated
 
 - Support puppet/archive 8.x and puppet/logrotate 8.x
+- OS compatibility: add Debian 12 and Ubuntu 24.04
 
 ## [6.7.0](https://github.com/tohuwabohu/puppet-duplicity/tree/v6.7.0) (2024-04-20)
 

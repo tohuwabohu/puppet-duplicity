@@ -45,7 +45,7 @@ class duplicity::params {
     'redhat' => 'root',
     default  => 'adm',
   }
-  if ($facts['os']['family'] in ['Debian']) and ($facts['os']['release']['major'] in ['11']) {
+  if ($facts['os']['family'] in ['Debian']) and ($facts['os']['release']['major'] in ['11', '12']) {
     $paramiko_package_name = 'python3-paramiko'
   } else {
     $paramiko_package_name = 'python-paramiko'
