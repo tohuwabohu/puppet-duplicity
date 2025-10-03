@@ -4,6 +4,8 @@ HOSTS:
     hypervisor: docker
     image: ubuntu:22.04
     docker_preserve_image: true
+    docker_image_commands:
+      - 'apt-get update && apt-get -y --no-install-recommends install cron wget'
 
 CONFIG:
   type: aio

@@ -45,10 +45,11 @@ class duplicity::params {
     'redhat' => 'root',
     default  => 'adm',
   }
-  if ($facts['os']['family'] in ['Debian']) and ($facts['os']['release']['major'] in ['11', '12']) {
-    $paramiko_package_name = 'python3-paramiko'
-  } else {
+  if ($facts['os']['family'] == 'Debian' and $facts['os']['release']['major'] == '10')
+    or ($facts['os']['family'] == 'Ubuntu' and $facts['os']['release']['major'] == '20') {
     $paramiko_package_name = 'python-paramiko'
+  } else {
+    $paramiko_package_name = 'python3-paramiko'
   }
 
   $gpg_encryption_keys = []
