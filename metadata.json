@@ -1,6 +1,6 @@
 {
   "name": "tohuwabohu-duplicity",
-  "version": "6.8.2",
+  "version": "7.0.0",
   "author": "tohuwabohu",
   "license": "Apache-2.0",
   "summary": "Install and manage duplicity",
@@ -47,7 +47,7 @@
     },
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.22.0 < 10.0.0"
+      "version_requirement": ">= 9.0.0 < 10.0.0"
     },
     {
       "name": "puppet/logrotate",

@@ -61,7 +61,7 @@ class duplicity::install inherits duplicity {
     }
     # Note (arnaudmorin): we cannot ensure pyton-paramiko $duplicity::duply_package_ensure as
     # it can break if the package is already ensure present somewhere else in another module.
-    ensure_packages ( [$duplicity::paramiko_package_name], {
+    stdlib::ensure_packages ( [$duplicity::paramiko_package_name], {
       ensure   => present,
     })
 
@@ -72,5 +72,7 @@ class duplicity::install inherits duplicity {
   }
 
   # Install any additional packages that may be needed by the different backends
-  ensure_packages($duplicity::duply_extra_packages, {'ensure' => 'present'})
+  if (!empty($duplicity::duply_extra_packages)) {
+    stdlib::ensure_packages($duplicity::duply_extra_packages, {'ensure' => 'present'})
+  }
 }
